@@ -1,6 +1,11 @@
 .map-section {
     background-color: grey;
-    color: white;
     height: var(--content-height);
     justify-content: center;
+}
+
+.mapStyles {
+    height: var(--content-height);
+    max-width: 100%;
+    position: relative;
 }

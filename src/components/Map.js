@@ -1,11 +1,12 @@
 import React from 'react';
 
 import './Map.css';
+import Geolocation from '../APIs/Geolocation';
 
 function Map() {
     return (
         <div className='map-section'>
-            <p>Map comes here</p>
+            <Geolocation />
         </div>
     );
 }

@@ -1,7 +1,8 @@
 .store-section {
     height: var(--content-height);
     overflow: scroll;
-
+    background-color: #ffffff;
+    z-index: 1;
 }
 
 .list-container {
