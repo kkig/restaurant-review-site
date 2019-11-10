@@ -1,0 +1,9 @@
+.store-section {
+    height: var(--content-height);
+    overflow: scroll;
+
+}
+
+.list-container {
+    grid-column: 2 / 3;
+}

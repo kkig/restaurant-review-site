@@ -1,13 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --basic-text-color: #333333;
+  --basic-button-color: #333333;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  min-height: 100vh;
+  font-size: 16px;
+  letter-spacing: .025em;
+  color: var(--basic-text-color);
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 2.5rem;
+} 
+
+button {
+  font-size: .75rem;
+  padding: .75em 1.5em;
+  letter-spacing: .15rem;
+  border: 2px solid var(--basic-button-color);
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+button:hover {
+  color: #333333;
+  background-color: transparent;
+}
+
+img {
+  vertical-align: middle;
 }
