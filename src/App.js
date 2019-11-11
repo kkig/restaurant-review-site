@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 
 import Navbar from './components/Navbar';
-import Map from './components/Map';
+import RestaurantMap from './components/RestaurantMap';
 import StoreLists from './components/StoreLists';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Map />
+      <RestaurantMap />
       <StoreLists />
     </div>
   );

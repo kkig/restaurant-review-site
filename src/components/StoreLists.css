@@ -1,6 +1,6 @@
 .store-section {
     height: var(--content-height);
-    overflow: scroll;
+    overflow: auto;
     background-color: #ffffff;
     z-index: 1;
 }
