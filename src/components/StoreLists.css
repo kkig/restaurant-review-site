@@ -3,6 +3,7 @@
     overflow: auto;
     background-color: #ffffff;
     z-index: 1;
+    border-left: 1px solid lightgray;
 }
 
 .list-container {
