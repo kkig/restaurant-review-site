@@ -1,0 +1,82 @@
+[
+    {
+       "restaurantName":"Pizzeria Scarabocchio",
+       "address":"Florianigasse 3, 1080 Wien",
+       "lat":48.2122786,
+       "long":16.3546772,
+       "ratings":[
+          {
+             "stars":4,
+             "comment":"Great! But not many gluten free options."
+          },
+          {
+             "stars":5,
+             "comment":"My favorite restaurant!"
+          }
+       ]
+    },
+    {
+       "restaurantName":"Happy Vietnam Restaurant",
+       "address":"Neubaugasse 45, 1070 Wien",
+       "lat":48.2105627,
+       "long":16.3524456,
+       "ratings":[
+          {
+             "stars":5,
+             "comment":"Best Pho in Vienna!"
+          },
+          {
+             "stars":3,
+             "comment":"Meh, it was fine."
+          }
+       ]
+    },
+    {
+      "restaurantName":"ROLLERCOASTERRESTAURANT® Vienna",
+      "address":"Riesenradplatz 6, 1020 Wien",
+      "lat":48.217313,
+      "long":16.396574,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"Great experience! But food is ok."
+         },
+         {
+            "stars":2,
+            "comment":"Too pricy for the taste."
+         }
+      ]
+   },
+   {
+      "restaurantName":"Pho84",
+      "address":"Neubaugasse 84, 1070 Wien",
+      "lat":48.2078986,
+      "long":16.3513889,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"Great taste!"
+         },
+         {
+            "stars":5,
+            "comment":"The best pho I ever had in my life."
+         }
+      ]
+   },
+   {
+      "restaurantName":"Café Hofburg",
+      "address":"Innerer burghof 1, 1010 Wien",
+      "lat":48.2076227,
+      "long":16.3656316,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"Classic viennese restaurant."
+         },
+         {
+            "stars":3,
+            "comment":"Kind service. Food is little pricy."
+         }
+      ]
+   }
+ ]

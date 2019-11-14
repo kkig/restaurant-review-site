@@ -1,6 +1,7 @@
 {
   "name": "gastro-view",
   "version": "1.19.1",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.6.0",
