@@ -13,10 +13,21 @@
 }
 
 .map-section {
-  grid-column: 1/ 5;
+  grid-column: 1 / -1;
 }
 
 .store-section {
-  grid-column: 5 / -1;
-  grid-row: 2 / -1;
+  grid-column: 1 / -1;
+}
+
+@media only screen and (min-width: 600px) {
+  .map-section {
+    grid-column: 1/ 5;
+  }
+
+  .store-section {
+    grid-column: 5 / -1;
+    grid-row: 2 / -1;
+  }
+
 }

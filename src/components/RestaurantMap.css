@@ -1,6 +1,6 @@
 .map-section {
     background-color: grey;
-    height: var(--content-height);
+    height: calc(var(--content-height) * .8);
     justify-content: center;
 }
 
@@ -8,4 +8,10 @@
     height: var(--content-height);
     max-width: 100%;
     position: relative;
+}
+
+@media only screen and (min-width: 600px) {
+    .map-section {
+        height: var(--content-height);
+    }
 }
