@@ -1,11 +1,21 @@
+hr {
+    border: dashed 1px gainsboro;
+}
+
 .store-section {
     height: var(--content-height);
     overflow: auto;
     background-color: #ffffff;
     z-index: 1;
     border-left: 1px solid lightgray;
+
+    padding: 10px 1rem;
+
 }
 
-.list-container {
-    grid-column: 2 / 3;
+.list-container > ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: .75rem;
 }

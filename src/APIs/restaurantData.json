@@ -1,0 +1,92 @@
+[
+    {
+       "id": 1,
+       "restaurantName":"Franz Felber & Co. GmbH",
+       "restaurantType": "Bakery",
+       "address":"Triester Str. 10, 1100 Wien",
+       "lat":48.1765406,
+       "long":16.3548787,
+       "ratings":[
+          {
+             "stars":3,
+             "comment":"Service was not good."
+          },
+          {
+             "stars":4.5,
+             "comment":"Friendly staff."
+          }
+       ]
+    },
+    {
+       "id": 2,
+       "restaurantName":"Cafe STRESS",
+       "restaurantType": "Cafe",
+       "address":"Angeligasse 107, 1100 Wien",
+       "lat":48.1742154,
+       "long":16.3549538,
+       "ratings":[
+          {
+             "stars":3,
+             "comment":"It's ok."
+          },
+          {
+             "stars":2,
+             "comment":"Very smokey cafe."
+          }
+       ]
+    },
+    {
+      "id": 3,
+      "restaurantName":"McDonald's",
+      "restaurantType": "Fast food restaurant",
+      "address":"Margaretengürtel 45, 1050 Wien",
+      "lat":48.1748629,
+      "long":16.3537522,
+      "ratings":[
+         {
+            "stars":3.5,
+            "comment":"Large MacDonald. Many seats!"
+         },
+         {
+            "stars":3.5,
+            "comment":"Standard MacDonalds."
+         }
+      ]
+   },
+   {
+      "id": 4,
+      "restaurantName":"Anadolu Et",
+      "restaurantType": "Turkish restaurant",
+      "address":"Quellenstraße 120, 1100 Wien",
+      "lat":48.1763111,
+      "long":16.3615777,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"My favorite Turkish restaurant in Vienna."
+         },
+         {
+            "stars":4.5,
+            "comment":"Delicious food."
+         }
+      ]
+   },
+   {
+      "id": 5,
+      "restaurantName":"Mango Restaurant",
+      "restaurantType": "Chinese restaurant",
+      "address":"Kundratstraße 4-6/Top 1, 1100 Wien",
+      "lat":48.1749201,
+      "long":16.3529368,
+      "ratings":[
+         {
+            "stars":3.5,
+            "comment":"Nice and not crowded."
+         },
+         {
+            "stars":3,
+            "comment":"Good for the price."
+         }
+      ]
+   }
+ ]

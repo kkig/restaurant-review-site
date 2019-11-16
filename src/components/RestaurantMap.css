@@ -1,5 +1,5 @@
 .map-section {
-    background-color: antiquewhite;
+    background-color: #f7f7f7;
     height: calc(var(--content-height) * .8);
     justify-content: center;
 }
