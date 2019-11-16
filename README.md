@@ -1,6 +1,6 @@
 # Project Title
 
-Restaurant review site. Application will display users corrent location, display list of restaurants close to the location.
+Restaurant review site. Application will display the users current location, display list of restaurants close to the location.
 
 ### Installing
 

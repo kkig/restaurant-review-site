@@ -3,15 +3,10 @@ import {
     withScriptjs,
     withGoogleMap,
     GoogleMap, 
-    Marker 
+    Circle 
 } from 'react-google-maps';
 
 import mapStyle from '../APIs/mapStyle.js';
-
-const initLocation = {
-    lat: 48.2084114, 
-    lng: 16.3734707
-};
 
 const MapWithMarker = withScriptjs(
     withGoogleMap(props => (
@@ -19,18 +14,22 @@ const MapWithMarker = withScriptjs(
             className={'map-section'}
             style={{ width: '100%', height: '100%' }}
             defaultZoom={15}
-            defaultCenter={initLocation}
-            center={props.center}
+            defaultCenter={props.center}
             defaultOptions={{
                 styles: mapStyle,
                 disableDefaultUI: true,
-                draggable: true,
-                scrollwheel: true,
-                scaleControl: true
             }}
-        >
-            <Marker
-                position={props.center} 
+        >   
+            <Circle
+                center={props.center}
+                radius={30}
+                options={{
+                    strokeColor: "royalblue",
+                    strokeOpacity: 0.25,
+                    strokeWeight: 7,
+                    fillColor: "royalblue",
+                    fillOpacity: 1
+                }}
             />
         </GoogleMap>
     ))

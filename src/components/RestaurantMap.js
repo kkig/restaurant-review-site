@@ -8,10 +8,7 @@ import './RestaurantMap.css';
 
 class RestaurantMap extends Component {
     state = {
-        userLocation: {
-            lat: '', 
-            lng: ''
-        },
+
         loading: true
     }
 
@@ -36,15 +33,16 @@ class RestaurantMap extends Component {
     render() {
         //const { google } = this.props;
         return (
-            this.state.isLoading ? <CircularProgress /> :
             <div className='map-section'>
+                {this.state.userLocation ? 
                 <MapWithMarker 
                     googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`}
                     center={this.state.userLocation}
                     loadingElement={<div style={{ height: '100%' }} />}
                     containerElement={<div style={{ height: '100%', width: '100%' }} />}
                     mapElement={<div style={{ height: '100%', width: '100%' }} />}
-                />
+                /> :
+                <CircularProgress size={ '5rem' } style={{ justifyContent: 'center' }} />}
             </div>
         );
     }
