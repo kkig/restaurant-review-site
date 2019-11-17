@@ -14,6 +14,7 @@ function StoreLists(props) {
             name={restaurant.restaurantName}
             type={restaurant.restaurantType}
             address={restaurant.address}
+            value={restaurant.ratings}
           />          
         ))}
       </div>        
