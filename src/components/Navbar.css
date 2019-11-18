@@ -1,4 +1,7 @@
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: tomato;
     color: white;
     font-size: .75rem;
@@ -10,4 +13,8 @@ header {
 
 header > h2 {
     margin: .25em 0;
+}
+
+#add-new-btn {
+    justify-content: flex-end;
 }

@@ -3,14 +3,38 @@ hr {
 }
 
 .store-section {
+    --star-color: #ffb400;
+    --container-padding: 10px 1rem;
+
     height: var(--content-height);
     overflow: auto;
     background-color: #ffffff;
     z-index: 1;
     border-left: 1px solid lightgray;
 
-    padding: 10px 1rem;
+}
 
+.filter-label {
+    padding-right: 1.5rem;
+    text-transform: uppercase;
+    font-size: .75rem;
+}
+
+.review-filter {
+    padding: var(--container-padding);
+    display: flex;
+    align-items: center;
+    background-color: lavender;
+    margin-bottom: 10px;
+}
+
+.lists-container {
+    padding: var(--container-padding);
+}
+
+.MuiSlider-markLabel {
+    color: var(--basic-text-color);
+    margin-top: .25rem;
 }
 
 .restaunrant-info > h3 {
@@ -29,7 +53,7 @@ hr {
 }
 
 .review-score {
-    color: #ffb400;
+    color: var(--star-color);
     padding-right: .25rem;
 }
 
