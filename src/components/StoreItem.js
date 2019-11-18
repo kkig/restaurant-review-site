@@ -12,7 +12,7 @@ function StoreItem(props) {
                 <ul>
                     <li className='restaurant-type'>{props.type}</li>
                     <li>{props.address}</li>
-    <li><span className='review-score'>{avgReview}</span><ReadOnlyRating value={avgReview}/></li>
+                    <li><span className='review-score'>{avgReview}</span><ReadOnlyRating value={avgReview}/></li>
                 </ul>
             </div>
             <hr />
