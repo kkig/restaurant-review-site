@@ -6,7 +6,7 @@ function Navbar() {
     return (
         <header className='navbar'>
             <h2>Restaurant Review</h2>
-            <small class="navbar-note">Please click map to add new restaurant.</small>
+            <small className="navbar-note">Please click map to add new restaurant.</small>
         </header>
     );
 }
