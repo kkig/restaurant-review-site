@@ -6,7 +6,7 @@ function StoreItem(props) {
     const avgReview = ratingArray.reduce((a, b) => a + b, 0) / ratingArray.length;
 
     return(
-        <div className='list-container'>
+        <div className='list-container' onClick={props.handleClick}>
             <div className='restaunrant-info'>
                 <h3>{props.name}</h3>
                 <ul>

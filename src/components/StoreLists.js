@@ -1,15 +1,18 @@
 import React from 'react';
 
 import './StoreLists.css';
-import ReviewFilter from './ReviewFilter';
+//import ReviewFilter from '../UIComponents/ReviewFilter';
+import FilterButton from '../UIComponents/FilterButton';
 import StoreItem from './StoreItem';
 
 import restaurantData from '../APIs/restaurantData.json';
 
 function StoreLists(props) {
+  const handleClick = () => console.log('clicked');
+
     return (
       <div className='store-section'>
-        <ReviewFilter />
+        <FilterButton />
         <div className='lists-container'>
           {restaurantData.map(restaurant => (
             <StoreItem 
@@ -18,6 +21,7 @@ function StoreLists(props) {
               type={restaurant.restaurantType}
               address={restaurant.address}
               value={restaurant.ratings}
+              handleClick={handleClick}
             />          
           ))}
         </div>
