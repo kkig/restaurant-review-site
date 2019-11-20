@@ -36,10 +36,6 @@ const PrettoSlider = withStyles({
 
 const marks = [
     {
-      value: 0,
-      label: '0',
-    },
-    {
       value: 1,
       label: '1',
     },
@@ -87,7 +83,7 @@ export default function RangeSlider() {
             getAriaValueText={valuetext}
             valueLabelDisplay="off"
             marks
-            min={0}
+            min={1}
             max={5}
         />
         {console.log(value)}

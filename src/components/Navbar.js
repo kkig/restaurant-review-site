@@ -1,13 +1,12 @@
 import React from 'react';
 
 import './Navbar.css';
-import AddNewButton from './AddNewButton';
 
 function Navbar() {
     return (
         <header className='navbar'>
             <h2>Restaurant Review</h2>
-            <AddNewButton />
+            <small class="navbar-note">Please click map to add new restaurant.</small>
         </header>
     );
 }
