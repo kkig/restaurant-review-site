@@ -9,7 +9,7 @@
        "ratings":[
           {
              "commentId": 1,
-             "stars":3,
+             "stars":3.0,
              "comment":"Service was not good."
           },
           {
@@ -29,12 +29,12 @@
        "ratings":[
           {
              "commentId":1,
-             "stars":3,
+             "stars":3.0,
              "comment":"It's ok."
           },
           {
             "commentId":2,
-             "stars":2,
+             "stars":2.0,
              "comment":"Very smokey cafe."
           }
        ]
@@ -69,7 +69,7 @@
       "ratings":[
          {
             "commentId":1,
-            "stars":4,
+            "stars":4.0,
             "comment":"My favorite Turkish restaurant in Vienna."
          },
          {
@@ -94,7 +94,7 @@
          },
          {
             "commentId":2,
-            "stars":3,
+            "stars":3.0,
             "comment":"Good for the price."
          }
       ]

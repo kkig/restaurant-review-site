@@ -5,7 +5,7 @@ hr {
 
 .store-section {
     --star-color: #ffb400;
-    --container-padding: 10px 1rem;
+    --container-padding: 15px 1rem;
 
     height: var(--content-height);
     overflow: auto;
@@ -35,7 +35,7 @@ hr {
     display: flex;
 }
 
-.list-item:hover {
+.store-container:hover {
     background-color: aliceblue;
     opacity: .7;
     cursor: pointer;
@@ -57,8 +57,23 @@ hr {
     margin-top: 0;
 }
 
+.restaurant-image {
+    padding-right: 1em;
+    margin: auto 0;
+}
+
 .restaurant-type {
     color: grey;
+}
+
+.reviews-list {
+    list-style-type: none;
+    margin: 0;
+    padding: var(--container-padding);
+}
+
+.reviews-list > h4 {
+    margin-bottom: 0;
 }
 
 .review-score {
@@ -66,9 +81,12 @@ hr {
     padding-right: .25rem;
 }
 
+.MuiRating-readOnly {
+    z-index: -1;
+}
+
 .MuiRating-root {
     vertical-align: text-bottom;
-    z-index: -1;
 }
 
 
@@ -79,3 +97,20 @@ hr {
     border-bottom: .25px solid lightgrey;
 }
 
+
+/* Review Input */
+.review-section {
+    padding: .75rem 0;
+}
+
+.rating-input {
+    padding-left: .5rem;
+}
+
+.review-input-area {
+    width: 100%;
+}
+
+.MuiButton-containedPrimary:hover {
+    color: #ffffff;
+}

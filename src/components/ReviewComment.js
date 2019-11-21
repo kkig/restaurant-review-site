@@ -5,7 +5,7 @@ function ReviewComment(props) {
     const ratings = props.ratings;
 
     return (
-        <li style={{marginBottom: '.5em'}}>        
+        <li style={{marginTop: '.75em'}}>        
             <div style={{ color: 'var(--star-color)' }}>{ratings.stars}<ReadOnlyRating value={ratings.stars}/></div>
             <div>{ratings.comment}</div>
         </li>        
