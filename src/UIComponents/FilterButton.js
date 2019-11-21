@@ -9,7 +9,8 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-import './FilterButton.css';
+import FilterStoreList from '../components/FilterStoreList';
+import '../components/StoreLists.css';
 
 const options = ['All ratings', 'More than 2 stars', 'More than 3 stars', 'More than 4 stars'];
 const values = [0, 2, 3, 4]
@@ -22,8 +23,8 @@ export default function SplitButton() {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
-    console.log(options[index]);
-    console.log(values[index]);
+    //console.log(options[index]);
+    //console.log(values[index]);
 
   };
 
@@ -40,52 +41,55 @@ export default function SplitButton() {
   };
 
   return (
-    <div className="filter-btn">
-      <ButtonGroup variant="contained" color="default" ref={anchorRef} aria-label="split button">
-        <Button 
-          size="small"
-          onClick={handleToggle}
-        >
-          {options[selectedIndex]}
-        </Button>
-        <Button
-          color="default"
-          size="small"
-          aria-controls={open ? 'split-button-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
-          aria-label="select merge strategy"
-          aria-haspopup="menu"
-          onClick={handleToggle}
+    <div className="store-section">
+      <div className="filter-btn">
+        <ButtonGroup variant="contained" color="default" ref={anchorRef} aria-label="split button">
+          <Button 
+            size="small"
+            onClick={handleToggle}
           >
-          <ArrowDropDownIcon />
-        </Button>    
-      </ButtonGroup>
-      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{
-              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-            }}
-          >
-            <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
-                <MenuList id="split-button-menu">
-                  {options.map((option, index) => (
-                    <MenuItem
-                      key={option}
-                      selected={index === selectedIndex}
-                      onClick={event => handleMenuItemClick(event, index)}
-                    >
-                      {option}
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>          
+            {options[selectedIndex]}
+          </Button>
+          <Button
+            color="default"
+            size="small"
+            aria-controls={open ? 'split-button-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-label="select merge strategy"
+            aria-haspopup="menu"
+            onClick={handleToggle}
+            >
+            <ArrowDropDownIcon />
+          </Button>    
+        </ButtonGroup>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+              }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList id="split-button-menu">
+                    {options.map((option, index) => (
+                      <MenuItem
+                        key={option}
+                        selected={index === selectedIndex}
+                        onClick={event => handleMenuItemClick(event, index)}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>          
+      </div>
+      <FilterStoreList minValue={values[selectedIndex]} />
     </div>
   );
 }

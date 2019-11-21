@@ -36,7 +36,7 @@ hr {
 }
 
 .list-item:hover {
-    background-color: lavender;
+    background-color: aliceblue;
     opacity: .7;
     cursor: pointer;
 }
@@ -67,6 +67,15 @@ hr {
 }
 
 .MuiRating-root {
-    vertical-align: text-top;
+    vertical-align: text-bottom;
     z-index: -1;
 }
+
+
+.filter-btn {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    border-bottom: .25px solid lightgrey;
+}
+

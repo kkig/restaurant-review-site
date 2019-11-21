@@ -11,11 +11,6 @@ const commentStyle = {
 }
 
 function StoreItem(props) {
-    const reviewData = props.value;
-
-    const ratingArray = reviewData.map(review => review.stars);
-    const avgReview = ratingArray.reduce((a, b) => a + b, 0) / ratingArray.length;
-
     const [ isDetailView, setDetailView ] = useState(false);
   
     const handleClick = () => setDetailView(!isDetailView);
@@ -32,14 +27,14 @@ function StoreItem(props) {
                     <ul>
                         <li className='restaurant-type'>{props.type}</li>
                         <li>{props.address}</li>
-                        <li><span className='review-score'>{avgReview}</span><ReadOnlyRating value={avgReview}/></li>
+                        <li><span className='review-score'>{props.avgValue}</span><ReadOnlyRating value={props.avgValue}/></li>
                     </ul>
                 </div>
             </div>
             {isDetailView && 
                 <ul className="reviews-list" style={commentStyle}>
                     <h4 style={{ marginBottom: 0 }}>Review:</h4>        
-                    {reviewData.map(review => <ReviewComment key={review.commentId} ratings={review}/>)}
+                    {props.value.map(review => <ReviewComment key={review.commentId} ratings={review}/>)}
                 </ul>
             }
             <hr />

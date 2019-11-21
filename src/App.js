@@ -3,14 +3,15 @@ import './App.css';
 
 import Navbar from './components/Navbar';
 import RestaurantMap from './components/RestaurantMap';
-import StoreLists from './components/StoreLists';
+import StoreListSection from './UIComponents/FilterButton';
+//import StoreLists from './components/StoreLists';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <RestaurantMap />
-      <StoreLists />
+      <StoreListSection />
     </div>
   );
 }
