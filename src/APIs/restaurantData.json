@@ -8,10 +8,12 @@
        "long":16.3548787,
        "ratings":[
           {
+             "commentId": 1,
              "stars":3,
              "comment":"Service was not good."
           },
           {
+             "commentId": 2,
              "stars":4.5,
              "comment":"Friendly staff."
           }
@@ -26,10 +28,12 @@
        "long":16.3549538,
        "ratings":[
           {
+             "commentId":1,
              "stars":3,
              "comment":"It's ok."
           },
           {
+            "commentId":2,
              "stars":2,
              "comment":"Very smokey cafe."
           }
@@ -44,10 +48,12 @@
       "long":16.3537522,
       "ratings":[
          {
+            "commentId":1,
             "stars":3.5,
             "comment":"Large MacDonald. Many seats!"
          },
          {
+            "commentId":2,
             "stars":3.5,
             "comment":"Standard MacDonalds."
          }
@@ -62,10 +68,12 @@
       "long":16.3615777,
       "ratings":[
          {
+            "commentId":1,
             "stars":4,
             "comment":"My favorite Turkish restaurant in Vienna."
          },
          {
+            "commentId":2,
             "stars":4.5,
             "comment":"Delicious food."
          }
@@ -80,10 +88,12 @@
       "long":16.3529368,
       "ratings":[
          {
+            "commentId":1,
             "stars":3.5,
             "comment":"Nice and not crowded."
          },
          {
+            "commentId":2,
             "stars":3,
             "comment":"Good for the price."
          }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -13,6 +12,7 @@ import MenuList from '@material-ui/core/MenuList';
 import './FilterButton.css';
 
 const options = ['All ratings', 'More than 2 stars', 'More than 3 stars', 'More than 4 stars'];
+const values = [0, 2, 3, 4]
 
 export default function SplitButton() {
   const [open, setOpen] = React.useState(false);
@@ -22,7 +22,9 @@ export default function SplitButton() {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
-    //console.log(options[selectedIndex])
+    console.log(options[index]);
+    console.log(values[index]);
+
   };
 
   const handleToggle = () => {
@@ -33,55 +35,57 @@ export default function SplitButton() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
+    
     setOpen(false);
   };
 
   return (
-    <Grid container direction="column" alignItems="center" className="filter-btn">
-      <Grid item xs={12}>
-        <ButtonGroup variant="contained" color="default" ref={anchorRef} aria-label="split button">
-          <Button size="small" onChange={console.log(options[selectedIndex])}>{options[selectedIndex]}</Button>
-          <Button
-            color="default"
-            size="small"
-            aria-controls={open ? 'split-button-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-label="select merge strategy"
-            aria-haspopup="menu"
-            onClick={handleToggle}
-            //onChange={console.log(options[selectedIndex])}
+    <div className="filter-btn">
+      <ButtonGroup variant="contained" color="default" ref={anchorRef} aria-label="split button">
+        <Button 
+          size="small"
+          onClick={handleToggle}
+        >
+          {options[selectedIndex]}
+        </Button>
+        <Button
+          color="default"
+          size="small"
+          aria-controls={open ? 'split-button-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-label="select merge strategy"
+          aria-haspopup="menu"
+          onClick={handleToggle}
           >
-            <ArrowDropDownIcon />
-          </Button>
-        </ButtonGroup>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList id="split-button-menu">
-                    {options.map((option, index) => (
-                      <MenuItem
-                        key={option}
-                        selected={index === selectedIndex}
-                        onClick={event => handleMenuItemClick(event, index)}
-                      >
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </Grid>
-    </Grid>
+          <ArrowDropDownIcon />
+        </Button>    
+      </ButtonGroup>
+      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList id="split-button-menu">
+                  {options.map((option, index) => (
+                    <MenuItem
+                      key={option}
+                      selected={index === selectedIndex}
+                      onClick={event => handleMenuItemClick(event, index)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>          
+    </div>
   );
 }

@@ -8,7 +8,7 @@ import StoreItem from './StoreItem';
 import restaurantData from '../APIs/restaurantData.json';
 
 function StoreLists(props) {
-  const handleClick = () => console.log('clicked');
+  
 
     return (
       <div className='store-section'>
@@ -21,7 +21,6 @@ function StoreLists(props) {
               type={restaurant.restaurantType}
               address={restaurant.address}
               value={restaurant.ratings}
-              handleClick={handleClick}
             />          
           ))}
         </div>

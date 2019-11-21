@@ -1,5 +1,6 @@
 hr {
     border: dashed .5px gainsboro;
+    margin: 0;
 }
 
 .store-section {
@@ -28,8 +29,15 @@ hr {
     margin-bottom: 10px;
 }
 
-.lists-container {
+
+.restaunrant-info {
     padding: var(--container-padding);
+}
+
+.list-item:hover {
+    background-color: lavender;
+    opacity: .7;
+    cursor: pointer;
 }
 
 .MuiSlider-markLabel {
