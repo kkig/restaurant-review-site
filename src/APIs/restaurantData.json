@@ -4,8 +4,8 @@
        "restaurantName":"Franz Felber & Co. GmbH",
        "restaurantType": "Bakery",
        "address":"Triester Str. 10, 1100 Wien",
-       "lat":48.1765406,
-       "long":16.3548787,
+       "lat":48.178604,
+       "long":16.357038,
        "ratings":[
           {
              "commentId": 1,
@@ -24,8 +24,8 @@
        "restaurantName":"Cafe STRESS",
        "restaurantType": "Cafe",
        "address":"Angeligasse 107, 1100 Wien",
-       "lat":48.1742154,
-       "long":16.3549538,
+       "lat":48.173951,
+       "long":16.3554035,
        "ratings":[
           {
              "commentId":1,
@@ -44,8 +44,8 @@
       "restaurantName":"McDonald's",
       "restaurantType": "Fast food restaurant",
       "address":"Margaretengürtel 45, 1050 Wien",
-      "lat":48.1748629,
-      "long":16.3537522,
+      "lat":48.179561,
+      "long":16.351139,
       "ratings":[
          {
             "commentId":1,
@@ -64,8 +64,8 @@
       "restaurantName":"Anadolu Et",
       "restaurantType": "Turkish restaurant",
       "address":"Quellenstraße 120, 1100 Wien",
-      "lat":48.1763111,
-      "long":16.3615777,
+      "lat":48.176345,
+      "long":16.366177,
       "ratings":[
          {
             "commentId":1,
@@ -84,8 +84,8 @@
       "restaurantName":"Mango Restaurant",
       "restaurantType": "Chinese restaurant",
       "address":"Kundratstraße 4-6/Top 1, 1100 Wien",
-      "lat":48.1749201,
-      "long":16.3529368,
+      "lat":48.176466,
+      "long":16.354774,
       "ratings":[
          {
             "commentId":1,

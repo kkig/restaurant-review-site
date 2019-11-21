@@ -8,7 +8,6 @@ import StoreItem from './StoreItem';
 import restaurantData from '../APIs/restaurantData.json';
 
 function StoreLists(props) {
-  
 
     return (
       <div className='store-section'>
@@ -20,6 +19,8 @@ function StoreLists(props) {
               name={restaurant.restaurantName}
               type={restaurant.restaurantType}
               address={restaurant.address}
+              lat={restaurant.lat}
+              lng={restaurant.long}
               value={restaurant.ratings}
             />          
           ))}

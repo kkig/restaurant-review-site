@@ -30,8 +30,9 @@ hr {
 }
 
 
-.restaunrant-info {
+.store-container {
     padding: var(--container-padding);
+    display: flex;
 }
 
 .list-item:hover {
