@@ -14,7 +14,3 @@ header {
 header > h2 {
     margin: .25em 0;
 }
-
-.navbar-note {
-    justify-content: flex-end;
-}
