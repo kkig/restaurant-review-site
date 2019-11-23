@@ -12,8 +12,8 @@ import MenuList from '@material-ui/core/MenuList';
 import FilterStoreList from '../components/FilterStoreList';
 import '../components/StoreLists.css';
 
-const options = ['All ratings', 'More than 2 stars', 'More than 3 stars', 'More than 4 stars'];
-const values = [0, 2, 3, 4]
+const options = ['All ratings', 'More than 1 stars', 'More than 2 stars', 'More than 3 stars', 'More than 4 stars'];
+const values = [0, 1, 2, 3, 4]
 
 export default function SplitButton() {
   const [open, setOpen] = React.useState(false);

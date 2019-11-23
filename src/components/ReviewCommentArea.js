@@ -7,16 +7,28 @@ import Rating from '@material-ui/lab/Rating';
 import ReviewComment from './ReviewComment';
 import './StoreLists.css';
 
+const userReviewArray = [];
+
+class userReview {
+    constructor(commentId, stars, comment) {
+        this.commentId = commentId;
+        this.stars = stars;
+        this.comment = comment;
+    }
+}
+
 function ReviewCommentArea(props) {
     const [ isInputMode, setInputMode ] = useState(false);
     const [ textValue, setTextValue ] = useState('');
     const [ ratingValue, setRatingValue ] = useState(2.5);
-    let newReview = {};
 
     const createReview = (newRating, newValue) => {
-        newReview.stars = newRating;
-        newReview.comment = newValue;
-        console.log(newReview);
+        const newReview = new userReview(userReviewArray.length + 1, newRating, newValue);
+        userReviewArray.push(newReview);
+        
+        // Reset Form Values
+        setTextValue('');
+        setRatingValue(2.5);
     };
 
     return (
@@ -33,7 +45,7 @@ function ReviewCommentArea(props) {
                             <Rating
                             className="rating-input"
                             name="review-star-input"
-                            precision={0.25}
+                            precision={0.5}
                             size="small"
                             value={ratingValue}
                             onChange={(event, newValue) => {
@@ -52,6 +64,7 @@ function ReviewCommentArea(props) {
                     placeholder="Add comment here."
                     margin="normal"
                     variant="outlined"
+                    value={textValue}
                     onChange={e => setTextValue(e.target.value)}
                     />
 
@@ -65,7 +78,12 @@ function ReviewCommentArea(props) {
                 </form>
             }
 
-            {props.value.map(review => <ReviewComment key={review.commentId} ratings={review}/>)}
+            {props.value.map(review => <ReviewComment key={review.commentId} ratings={review} />)}
+
+            {
+                // User Input
+                userReviewArray.length > 0 && userReviewArray.map(userReview => <ReviewComment key={userReview.commentId} ratings={userReview} />)
+            }
 
         </ul>
     );
