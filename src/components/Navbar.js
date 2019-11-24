@@ -11,6 +11,7 @@ function Navbar() {
     const [ windowValue, setValue ] = useState(window.innerWidth);
     const [ btnText, setBtnText ] = useState(showBtnText);
     const [ isMapVisible, setMapVisible ] = useState(true);
+    //const [ isLoading, setIsLoading ] = useState(true);
 
     const hideMap = () => {
         document.querySelector('.map-section').style.display = 'none';
@@ -32,28 +33,36 @@ function Navbar() {
         document.querySelector('.store-section').style.display = 'initial';
         setBtnText(showBtnText);
         //windowValue <= 768 && showMap();
-        //setMapVisible(true);
+        setMapVisible(true);
     }
 
     const handleClick = () => {
         isMapVisible ? hideMap() : showMap();
     }
-
+    /*
     useEffect(() => {
-
         const handleResize = () => {
             setValue(window.innerWidth);
             resetView();
+            //setIsLoading(false);
+            windowValue <= 768 && showMap();
         }
         window.addEventListener('resize', handleResize);
-        windowValue < 768 && isMapVisible && showMap();
-    });
+        //return () => window.removeEventListener('resize', handleResize);
+        //windowValue < 768 && isMapVisible && showMap();
+    }, [windowValue]);
+    */
 
-    //window.onload(windowValue < 768 && showMap())
+    useEffect(() => {
+        window.addEventListener('resize', () => setValue(window.innerWidth));
+    }, []);
 
-    //resetView();
-    console.log(windowValue);
+    useEffect(() => {
+        resetView();
+        windowValue <= 768 && showMap();
+    }, [windowValue]);
 
+    
     return (
         <header className='navbar'>
             <h2>Gastro Review</h2>

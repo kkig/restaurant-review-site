@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     withGoogleMap,
     withScriptjs
@@ -15,14 +15,19 @@ import './RestaurantMap.css';
 const MapContainer = withScriptjs(withGoogleMap(MapWithMarker));
 
 function RestaurantMap() {
-    const {latitude, longitude, error} = usePosition();
+    const [ [userLat, userLng], setPosition ] = useState([]);
+    const {latitude, longitude} = usePosition();
+
+    useEffect(() => {
+        return setPosition([latitude, longitude]);
+    }, [latitude, longitude]);
 
     return (
-        <div className='map-section'>              
-            {{latitude}.latitude && {longitude}.longitude ? 
+        <div className='map-section' >              
+            {userLat && userLng ? 
             <MapContainer 
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`}
-                center={{ lat: {latitude}.latitude, lng: {longitude}.longitude, error: {error} }}
+                center={{ lat: userLat, lng: userLng }}
                 loadingElement={<div style={{ height: '100%' }} />}
                 containerElement={<div style={{ height: '100%', width: '100%' }} />}
                 mapElement={<div style={{ height: '100%', width: '100%' }} />}
