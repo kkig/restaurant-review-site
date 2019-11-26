@@ -10,7 +10,7 @@ export const usePosition = () => {
         longitude: coords.longitude,
         });
     };
-    
+
     const onError = (error) => {
         setError(error.message);
     };

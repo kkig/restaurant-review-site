@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
+import StoreList from './StoreList';
+
 const PrettoSlider = withStyles({
   root: {
     color: 'var(--star-color)',
@@ -65,7 +67,7 @@ function valueLabelFormat(value) {
     return marks.findIndex(mark => mark.value === value) + 1;
 }
 
-export default function RangeSlider() {
+export default function SplitButton() {
   const [value, setValue] = React.useState([0, 5]);
 
   const handleChange = (event, newValue) => {
@@ -73,7 +75,8 @@ export default function RangeSlider() {
   };
 
   return (
-    <div className="review-filter">
+    <div className="store-section">
+      <div className="filter-slider-section">
         <span className="filter-label">Filter by rating</span>
         <PrettoSlider
             value={value}
@@ -83,10 +86,12 @@ export default function RangeSlider() {
             getAriaValueText={valuetext}
             valueLabelDisplay="off"
             marks
-            min={1}
+            min={0}
             max={5}
         />
-        {console.log(value)}
+      </div>
+      
+      <StoreList minValue={value[0]} maxValue={value[1]} />
     </div>
   );
 }

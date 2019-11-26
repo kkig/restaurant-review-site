@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+
 import { 
     GoogleMap, 
     Circle,
     Marker,
     InfoWindow
 } from 'react-google-maps';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 
 import restaurantData from '../APIs/restaurantData.json';
 import mapStyle from '../APIs/mapStyle.json';
@@ -56,6 +58,7 @@ function MapWithMarker(props) {
                     <div>
                         <h2>{selectedPlace.restaurantName}</h2>
                         <p>{selectedPlace.address}</p>
+                        <RestaurantMenuIcon />
                     </div>    
                 </InfoWindow>
             )}

@@ -5,19 +5,29 @@ import StoreItem from './StoreItem';
 
 import restaurantData from '../APIs/restaurantData.json';
 
-function FilterStoreList(props) {
-    //console.log('minValue:' + props.minValue);
+function StoreList(props) {
 
     const getAverageValue = reviewArray => {
       const ratingArray = reviewArray.map(review => review.stars);
       return ratingArray.reduce((a, b) => a + b, 0) / ratingArray.length;  
     }    
     
-    const aboveMinValue = restaurant => getAverageValue(restaurant.ratings) > props.minValue;
+    const btwMinMax = restaurant => {
+      const avgRate = getAverageValue(restaurant.ratings);
+      if(props.maxValue > avgRate) {
+        if(props.minValue < avgRate) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return;
+      }
+    }    
 
     return (
         <div className='lists-container'>
-          {restaurantData.filter(aboveMinValue).map(restaurant => (
+          {restaurantData.filter(btwMinMax).map(restaurant => (
             
             <StoreItem 
               key={restaurant.id}
@@ -35,4 +45,4 @@ function FilterStoreList(props) {
     );
 }
 
-export default FilterStoreList;
+export default StoreList;

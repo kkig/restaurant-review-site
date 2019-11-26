@@ -5,7 +5,9 @@ hr {
 
 .store-section {
     --star-color: #ffb400;
-    --container-padding: 15px 1rem;
+    --container-padding-v: 1rem;
+    --container-padding-h: 15px;
+    --container-padding: var(--container-padding-h) var(--container-padding-v);
 
     height: var(--content-height);
     overflow: auto;
@@ -20,15 +22,6 @@ hr {
     text-transform: uppercase;
     font-size: .75rem;
 }
-
-.review-filter {
-    padding: var(--container-padding);
-    display: flex;
-    align-items: center;
-    background-color: lavender;
-    margin-bottom: 10px;
-}
-
 
 .store-container {
     padding: var(--container-padding);
@@ -90,11 +83,16 @@ hr {
 }
 
 
-.filter-btn {
+.filter-slider-section {
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    padding: 10px var(--container-padding-v);
     border-bottom: .25px solid lightgrey;
+    align-items: center;
+}
+
+.filter-slider-section > div {
+    display: flex;
 }
 
 

@@ -10,6 +10,7 @@ function ReviewComment(props) {
             <div>{ratings.comment}</div>
         </li>        
     );
+    
 }
 
 export default ReviewComment;

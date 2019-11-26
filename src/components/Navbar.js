@@ -11,7 +11,6 @@ function Navbar() {
     const [ windowValue, setValue ] = useState(window.innerWidth);
     const [ btnText, setBtnText ] = useState(showBtnText);
     const [ isMapVisible, setMapVisible ] = useState(true);
-    //const [ isLoading, setIsLoading ] = useState(true);
 
     const hideMap = () => {
         document.querySelector('.map-section').style.display = 'none';
@@ -26,35 +25,21 @@ function Navbar() {
         setBtnText(showBtnText);
         setMapVisible(true);
     }
-
     
     const resetView = () => {
         document.querySelector('.map-section').style.display = 'initial';
         document.querySelector('.store-section').style.display = 'initial';
         setBtnText(showBtnText);
-        //windowValue <= 768 && showMap();
         setMapVisible(true);
     }
 
     const handleClick = () => {
         isMapVisible ? hideMap() : showMap();
     }
-    /*
-    useEffect(() => {
-        const handleResize = () => {
-            setValue(window.innerWidth);
-            resetView();
-            //setIsLoading(false);
-            windowValue <= 768 && showMap();
-        }
-        window.addEventListener('resize', handleResize);
-        //return () => window.removeEventListener('resize', handleResize);
-        //windowValue < 768 && isMapVisible && showMap();
-    }, [windowValue]);
-    */
 
     useEffect(() => {
-        window.addEventListener('resize', () => setValue(window.innerWidth));
+        const intervalId = setInterval(window.addEventListener('resize', () => setValue(window.innerWidth)), 1000);
+        return () => clearInterval(intervalId);
     }, []);
 
     useEffect(() => {
