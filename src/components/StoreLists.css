@@ -57,6 +57,7 @@ hr {
 
 .restaurant-type {
     color: grey;
+    text-transform: capitalize;
 }
 
 .reviews-list {

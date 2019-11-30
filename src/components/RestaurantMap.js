@@ -16,7 +16,6 @@ const MapContainer = withScriptjs(withGoogleMap(MapWithMarker));
 
 function RestaurantMap() {
     const {latitude, longitude, error} = usePosition();
-    
 
     return (
         <div className='map-section' >    
