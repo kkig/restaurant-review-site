@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ReadOnlyRating from '../UIComponents/ReadOnlyRating';
 
 import ReviewCommentArea from './ReviewCommentArea';
+import GoogleReviews from './GoogleReviews';
 import YOUR_API_KEY from '../APIs/GoogleMapKey';
 
 import './StoreLists.css';
@@ -28,9 +29,12 @@ function StoreItem(props) {
                     </ul>
                 </div>
             </div>
-            {isDetailView && 
+            {isDetailView && props.value &&
+                // Json data review
                 <ReviewCommentArea value={props.value}/>
             }
+
+            {isDetailView && props.placeId && <GoogleReviews placeId={props.placeId}/>}
             <hr />
         </div>
     );

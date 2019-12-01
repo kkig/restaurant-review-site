@@ -6,9 +6,10 @@ import Rating from '@material-ui/lab/Rating';
 
 import ReviewComment from './ReviewComment';
 import './StoreLists.css';
+import userReview from './UserReviewClass';
 
 const userReviewArray = [];
-
+/*
 class userReview {
     constructor(commentId, stars, comment) {
         this.commentId = commentId;
@@ -16,6 +17,7 @@ class userReview {
         this.comment = comment;
     }
 }
+*/
 
 function ReviewCommentArea(props) {
     const [ isInputMode, setInputMode ] = useState(false);

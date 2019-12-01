@@ -17,6 +17,16 @@ hr {
 
 }
 
+.google-stores > h3 {
+    padding: 10px var(--container-padding-v) 5px var(--container-padding-v);
+    margin: 0;
+    background-color: lightsteelblue;
+}
+
+.google-places {
+    color: steelblue;
+}
+
 .filter-label {
     padding-right: 1.5rem;
     text-transform: uppercase;

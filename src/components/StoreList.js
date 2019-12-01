@@ -31,6 +31,10 @@ function StoreList(props) {
         return;
       }
     }
+
+    const dataBtwMinMax = restaurant => {
+      return evalMinMax(restaurant.rating);
+    }
     
     const btwMinMax = restaurant => {
       const avgRate = getAverageValue(restaurant.ratings);
@@ -54,18 +58,28 @@ function StoreList(props) {
           ))}
 
           {/*!isLoading && placesData.results.map(restaurant => console.log(restaurant.name))*/}
-          {!isLoading && placesData.results.filter(evalMinMax).map(restaurant => (
+          
+          {!isLoading && 
+            <div className="google-stores">
+              <h3>Restaurants from Google</h3>
+              {placesData.results.filter(dataBtwMinMax).map(restaurant => (
 
-            <StoreItem
-              key={restaurant.place_id}
-              name={restaurant.name} 
-              type={restaurant.types[0]}
-              address={restaurant.vicinity}
-              lat={restaurant.geometry.location.lat}
-              lng={restaurant.geometry.location.lng}
-              avgValue={restaurant.rating}
-            />
-          ))}
+              <div className='google-places' key={restaurant.id}>
+                <StoreItem
+                  
+                  name={restaurant.name} 
+                  type={restaurant.types[0]}  // Only display first one
+                  address={restaurant.vicinity}
+                  lat={restaurant.geometry.location.lat}
+                  lng={restaurant.geometry.location.lng}
+                  avgValue={restaurant.rating}
+                  placeId={restaurant.place_id}
+                  
+                />
+              </div>
+              ))}
+            </div>
+          }
           
         </div>
     );
