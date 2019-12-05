@@ -10,15 +10,21 @@ import ReviewComment from './ReviewComment';
 const GoogleReviews = props => {
     const [ selectedStore, setSelected ] = useState([]);
     const [ commentArray, setComments ] = useState([]);
+    const [ isDetailFetching, setDetailFetch ] = useState(true);
 
     useEffect(() => {
+        if(!isDetailFetching) {
+            return;
+        }
+
         const endpoint = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${props.placeId}&fields=name,rating,reviews&key=${GOOGLE_MAP_API_KEY}`;
         const proxy = `https://cors-anywhere.herokuapp.com/`;
         fetch(proxy + endpoint)
             .then(res => res.json())
-            .then(data => data.status === 'OK' ? setSelected(data.result) : alert('Error with Google API'));
-        
-    }, [props.placeId]);
+            .then(data => data.status === 'OK' ? setSelected(data.result) : alert('Error with Google API'))
+            .catch(error => console.log(error));
+        setDetailFetch(false);
+    }, [props.placeId, isDetailFetching]);
 
     useEffect(() => {
         const createCommentArray = () => {
@@ -30,14 +36,14 @@ const GoogleReviews = props => {
             setComments(newArray);
         }
         selectedStore.reviews && createCommentArray();
-        console.log(selectedStore)
     }, [selectedStore]);
 
     return (
         <ul className="reviews-list">
             
-            {!selectedStore.reviews ?
-                <CircularProgress />:
+            {
+                !selectedStore.reviews ?
+                <CircularProgress /> :
                 <div>            
                     <h4>Review:</h4>
                     {selectedStore.reviews && commentArray.map(review => (

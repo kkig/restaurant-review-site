@@ -14,6 +14,8 @@ import { usePlaces } from './usePlaces';
 function MapWithMarker(props) {
     const [ selectedPlace, setSelectedPlace ] = useState(null);
     const [ isLoading, setLoading ] = useState(true);
+    
+    const [ clickedPosition, setClicked ] = useState(null);
 
     const { placesData } = usePlaces();
 
@@ -21,6 +23,8 @@ function MapWithMarker(props) {
         placesData.status === 'OK' && setLoading(false);
     }, [placesData]);
 
+    clickedPosition && console.log(clickedPosition);
+    
     return (
         <GoogleMap
             defaultZoom={15}
@@ -29,6 +33,7 @@ function MapWithMarker(props) {
                 styles: mapStyle,
                 disableDefaultUI: true,
             }}
+            onClick={e => setClicked({...setClicked, lat: e.latLng.lat(), lng: e.latLng.lng()})}
         >   
             
             <Circle
@@ -65,7 +70,7 @@ function MapWithMarker(props) {
                     onClick={() => { setSelectedPlace({ ...selectedPlace, 
                         lat: restaurant.geometry.location.lat, 
                         long: restaurant.geometry.location.lng,
-                        restaurantName: restaurant.name,
+                        name: restaurant.name,
                         address: restaurant.vicinity }) }}
                 />
             ))}
@@ -79,7 +84,7 @@ function MapWithMarker(props) {
                     }}
                 >   
                     <div>
-                        <h2>{selectedPlace.restaurantName}</h2>
+                        <h2>{selectedPlace.name}</h2>
                         <p>{selectedPlace.address}</p>
                     </div>    
                 </InfoWindow>

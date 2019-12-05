@@ -41,14 +41,25 @@ function StoreList(props) {
       return evalMinMax(avgRate);
     }    
 
+    /*
+    class storeData {
+      constructor(id, name, type, address, lat, long) {
+        
+      }
+    }
+    */
+
+    placesData.results && console.log(placesData.results);
+    console.log(restaurantData);
+
     return (
         <div className='lists-container'>
           {restaurantData.filter(btwMinMax).map(restaurant => (
             
             <StoreItem 
               key={restaurant.id}
-              name={restaurant.restaurantName}
-              type={restaurant.restaurantType}
+              name={restaurant.name}
+              type={restaurant.type}
               address={restaurant.address}
               lat={restaurant.lat}
               lng={restaurant.long}
@@ -56,27 +67,22 @@ function StoreList(props) {
               avgValue={getAverageValue(restaurant.ratings)}
             />   
           ))}
-
-          {/*!isLoading && placesData.results.map(restaurant => console.log(restaurant.name))*/}
           
           {!isLoading && 
             <div className="google-stores">
               <h3>Restaurants from Google</h3>
               {placesData.results.filter(dataBtwMinMax).map(restaurant => (
 
-              <div className='google-places' key={restaurant.id}>
-                <StoreItem
-                  
-                  name={restaurant.name} 
-                  type={restaurant.types[0]}  // Only display first one
-                  address={restaurant.vicinity}
-                  lat={restaurant.geometry.location.lat}
-                  lng={restaurant.geometry.location.lng}
-                  avgValue={restaurant.rating}
-                  placeId={restaurant.place_id}
-                  
-                />
-              </div>
+              <StoreItem                                
+              key={restaurant.id}
+              name={restaurant.name} 
+              type={restaurant.types[0]}  // Only display first one
+              address={restaurant.vicinity}
+              lat={restaurant.geometry.location.lat}
+              lng={restaurant.geometry.location.lng}
+              avgValue={restaurant.rating}
+              placeId={restaurant.place_id}
+              />
               ))}
             </div>
           }
