@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 //import GOOGLE_MAP_API_KEY from './GoogleMapKey';
 
 export const usePosition = () => {
-    const [position, setPosition] = useState({});
+    const [ position, setPosition ] = useState({});
     const [error, setError] = useState(null);
     const [ isLocationReady, setLocationReady ] = useState(false);
     /*

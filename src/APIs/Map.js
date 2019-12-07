@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { 
     GoogleMap, 
@@ -7,25 +7,26 @@ import {
     InfoWindow
 } from 'react-google-maps';
 
-import restaurantData from '../APIs/restaurantData.json';
 import mapStyle from '../APIs/mapStyle.json';
-import { usePlaces } from './usePlaces';
+//import { usePlaces } from './usePlaces';
+
+import StoreContext from '../stores/StoreContext';
+import { useObserver } from 'mobx-react'; 
 
 function MapWithMarker(props) {
     const [ selectedPlace, setSelectedPlace ] = useState(null);
-    const [ isLoading, setLoading ] = useState(true);
+    //const [ isLoading, setLoading ] = useState(true);
     
     const [ clickedPosition, setClicked ] = useState(null);
 
-    const { placesData } = usePlaces();
+    const store = useContext(StoreContext);
 
-    useEffect(() => {
-        placesData.status === 'OK' && setLoading(false);
-    }, [placesData]);
+    //const { placesData } = usePlaces();
+
 
     clickedPosition && console.log(clickedPosition);
     
-    return (
+    return useObserver(() => (
         <GoogleMap
             defaultZoom={15}
             defaultCenter={props.center}
@@ -48,7 +49,7 @@ function MapWithMarker(props) {
                 }}
             />
 
-            {restaurantData.map(restaurant => (
+            {store.shopData.map(restaurant => (
                 <Marker 
                     key={restaurant.id}
                     position={{
@@ -59,7 +60,8 @@ function MapWithMarker(props) {
                 />
             ))}
 
-            {!isLoading &&
+            {/*
+                !isLoading &&
                 placesData.results.map(restaurant => (
                 <Marker 
                     key={restaurant.id}
@@ -73,7 +75,8 @@ function MapWithMarker(props) {
                         name: restaurant.name,
                         address: restaurant.vicinity }) }}
                 />
-            ))}
+            ))
+            */}
 
             {selectedPlace && (
                 <InfoWindow
@@ -90,7 +93,7 @@ function MapWithMarker(props) {
                 </InfoWindow>
             )}
         </GoogleMap>        
-    );
+    ));
 }
 
 export default MapWithMarker;

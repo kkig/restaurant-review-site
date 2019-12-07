@@ -6,16 +6,21 @@ import Navbar from './components/Navbar';
 import RestaurantMap from './components/RestaurantMap';
 import StoreListContainer from './components/StoreListContainer';
 
+import StoreProvider from './stores/RestourantStores';
 
-function App() {
+//import { usePlaces } from './APIs/usePlaces';
+
+const App = () => {
 
   return (
     <div className="App">
-      <Navbar />
-      <RestaurantMap />
-      <StoreListContainer />
+      <StoreProvider>
+        <Navbar />
+        <RestaurantMap />
+        <StoreListContainer />
+      </StoreProvider>
     </div>
   );
-}
+};
 
 export default App;

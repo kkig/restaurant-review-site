@@ -2,24 +2,34 @@ import { useState, useEffect } from 'react';
 import { usePosition } from './usePosition';
 
 import GOOGLE_MAP_API_KEY from './GoogleMapKey';
+//import StoreContext from '../stores/StoreContext';
+
+class shopData {
+    constructor(id, name, type, address, lat, long, dataSrc) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.address = address;
+        this.lat = lat;
+        this.long = long;
+        this.dataSrc = dataSrc;
+    }
+}
 
 export const usePlaces = () => {
-    const { latitude, longitude, isLocationReady } = usePosition();
+    const { latitude, longitude } = usePosition();
     const [ placesData, setPlaces ] = useState({});
-    //const [ isPlaceFetching, setPlaceFetch ] = useState(true);
+    const [ formatChanged, setFormat ] = useState(false);
+    //const [ isPlaceRequested, setPlaceRequested ] = useState(false);
 
-    //const [ isLocationReady, setLocationReady ] = useState(false);
-    //const [ isPlacesFetched, setPlacesFetch ] = useState(false);
-    /*
+    //const store = useContext(StoreContext);
+
     useEffect(() => {
-        typeof latitude == 'number' && typeof longitude == 'number' && setLocationReady(true);
-    }, [latitude, longitude]);
-    */
-
-   useEffect(() => {
-        if(!isLocationReady) {
+        if(!latitude || !longitude) {
             return;
         } 
+        
+        //const geo = navigator.geolocation;
 
         const fetchData = () => {
             const endpoint = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
@@ -27,18 +37,88 @@ export const usePlaces = () => {
         
             fetch(proxy + endpoint)
                 .then(res => res.json())
-                .then(data => setPlaces(data))
+                .then(data => {
+                    setPlaces(data)
+                    //console.log(placesData);
+                    /*
+                    const newData = formatData(data.results);
+                    setPlaces(newData);
+                    console.log(placesData);
+                    placesData.map(restaurant => store.addNewShop(restaurant));
+                    
+                    //store.addNewShop(placesData);
+                    console.log(store.shopData);
+                    */
+                    
+                })
                 .catch(error => console.log(error));
-
-            console.log(endpoint)
-            //setPlaceFetch(false);
+            console.log('Place fetched');
         }
-
         fetchData();
-        
-        //console.log(placesSummany);
-        //latitude && longitude && alert(`lat: ${latitude}, lng: ${longitude}`);
-    }, [isLocationReady, latitude, longitude]);
+        /*
+        const watcher = geo.watchPosition(fetchData, console.log('Geolocation error'));
 
-    return {placesData};
+        return () => geo.clearWatch(watcher);
+        */
+
+    }, [latitude, longitude]);
+    
+    const formatData = data => {
+        let newArray = [];
+        data.map(restaurant => newArray.push(new shopData(
+            restaurant.place_id, 
+            restaurant.name, 
+            restaurant.types[0], 
+            restaurant.vicinity, 
+            restaurant.geometry.location.lat,
+            restaurant.geometry.location.lng,
+            'GOOGLE',
+        )));
+
+        setPlaces(newArray);
+        setFormat(true);
+        
+        //console.log(placesData);
+    };
+
+    /*
+    if(placesData.results && !isPlaceRequested) {
+        formatData(placesData.results);
+        setPlaceRequested(true);
+    } else {
+        return;
+    }
+    */
+
+    useEffect(() => {
+
+        if(placesData.results) {
+            formatData(placesData.results);
+            //console.log(placesData);
+        } else {
+            if(placesData.length > 0) {
+                /*
+                placesData.map(restaurant => store.addNewShop(restaurant));
+                store.countData > 0 && console.log(store.shopData);
+                */
+                //console.log(placesData);
+                console.log(formatChanged);
+            };
+        }
+    }, [placesData])
+
+    
+    /*
+    if(placesData.results) {
+        formatData(placesData.results);
+        console.log(placesData.results);
+        //store.shopData = [...store.shopData, ...placesData.results];
+        //store.countData > 0 && console.log(store.shopData);
+        //store.addNewShop(placesData);
+        //console.log(store.countData);
+    }
+    */
+    
+    
+    return { placesData, formatChanged };
 }
