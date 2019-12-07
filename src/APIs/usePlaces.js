@@ -5,13 +5,14 @@ import GOOGLE_MAP_API_KEY from './GoogleMapKey';
 //import StoreContext from '../stores/StoreContext';
 
 class shopData {
-    constructor(id, name, type, address, lat, long, dataSrc) {
+    constructor(id, name, type, address, lat, long, avgRating, dataSrc) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.address = address;
         this.lat = lat;
         this.long = long;
+        this.avgRating = avgRating;
         this.dataSrc = dataSrc;
     }
 }
@@ -72,6 +73,7 @@ export const usePlaces = () => {
             restaurant.vicinity, 
             restaurant.geometry.location.lat,
             restaurant.geometry.location.lng,
+            restaurant.rating,
             'GOOGLE',
         )));
 
@@ -102,7 +104,7 @@ export const usePlaces = () => {
                 store.countData > 0 && console.log(store.shopData);
                 */
                 //console.log(placesData);
-                console.log(formatChanged);
+                //console.log(formatChanged);
             };
         }
     }, [placesData])

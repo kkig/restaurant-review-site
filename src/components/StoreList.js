@@ -7,7 +7,7 @@ import StoreItem from './StoreItem';
 //import { usePlaces } from '../APIs/usePlaces';
 
 import StoreContext from '../stores/StoreContext';
-//import { useObserver } from 'mobx-react';
+import { useObserver } from 'mobx-react';
 
 /*
 const StoreHeader = () => {
@@ -53,20 +53,8 @@ const StoreNames = () => {
 */
 
 function StoreList(props) {
-  //const { placesData } = usePlaces();
-  //const [ isLoading, setLoading ] = useState(true);
-
   const store = useContext(StoreContext);
-  //placesData.length > 0 && console.log(placesData);
-
-  //console.log(`Store: ${store.shopData[0].name}`);
-
-  /*
-  useEffect(() => {
-    placesData.results && setLoading(false);
-  }, [placesData]);
-  */
-
+    
     const getAverageValue = reviewArray => {
       const ratingArray = reviewArray.map(review => review.stars);
       return ratingArray.reduce((a, b) => a + b, 0) / ratingArray.length;  
@@ -91,14 +79,15 @@ function StoreList(props) {
     */
     
     const btwMinMax = restaurant => {
-      const avgRate = restaurant.ratings ? getAverageValue(restaurant.ratings): null;
+      const avgRate = restaurant.dataSrc === 'json' ? getAverageValue(restaurant.ratings): restaurant.avgRating;
       return evalMinMax(avgRate);
     }    
 
-    return (
+    return useObserver(() => (
         <div className='lists-container'>
 
-          {store.shopData.filter(btwMinMax).map(restaurant => (
+          {store.countData > 0 && 
+            store.shopData.filter(btwMinMax).map(restaurant => (
             
             <StoreItem 
               key={restaurant.id}
@@ -108,7 +97,12 @@ function StoreList(props) {
               lat={restaurant.lat}
               lng={restaurant.long}
               value={restaurant.ratings}
-              avgValue={getAverageValue(restaurant.ratings)}
+              dataType={restaurant.dataSrc}
+              avgValue={
+                restaurant.dataSrc === 'json' ? 
+                getAverageValue(restaurant.ratings):
+                restaurant.avgRating
+              }
             />   
           ))}
           
@@ -134,7 +128,7 @@ function StoreList(props) {
           }
           
         </div>
-    );
+    ));
 }
 
 export default StoreList;

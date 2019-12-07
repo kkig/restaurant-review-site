@@ -34,7 +34,7 @@ function StoreItem(props) {
                 <ReviewCommentArea value={props.value}/>
             }
 
-            {isDetailView && props.placeId && <GoogleReviews placeId={props.placeId}/>}
+            {isDetailView && props.dataType === 'GOOGLE' && <GoogleReviews placeId={props.id}/>}
             <hr />
         </div>
     );
