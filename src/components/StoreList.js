@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 
 import './StoreLists.css';
@@ -52,6 +52,11 @@ const StoreNames = () => {
 
 function StoreList(props) {
   const store = useContext(StoreContext);
+  const [ storeData, setStoreData ] = useState(null);
+
+  useEffect(() => {
+    setStoreData(store.shopData);
+  }, [store.shopData]);
     
     const getAverageValue = reviewArray => {
       const ratingArray = reviewArray.map(review => review.stars);
@@ -88,8 +93,8 @@ function StoreList(props) {
     return useObserver(() => (
         <div className='lists-container'>
 
-          {store.countData > 0 && 
-            store.shopData.filter(btwMinMax).map(restaurant => (
+          {storeData && 
+            storeData.filter(btwMinMax).map(restaurant => (
             
             <StoreItem 
               key={restaurant.id}

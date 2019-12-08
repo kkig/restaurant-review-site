@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { useLocalStore } from 'mobx-react';
-//import { toJS } from 'mobx';
 
 import StoreContext from './StoreContext';
 import restaurantData from '../APIs/restaurantData.json';
 
 import { usePlaces } from '../APIs/usePlaces';
+import { usePosition } from '../APIs/usePosition';
 
 const StoreProvider = ({children}) => {
     const { placesData, formatChanged } = usePlaces();
+    const { latitude, longitude } = usePosition();
     const [ isPlaceStored, setPlaceStore ] = useState(false);
+    const [ isLocationReady, setLocation ] = useState(false);
 
     const store = useLocalStore(() => ({
         shopData: [],
+        userLocation: {},
         addNewShop: newShop => {
             store.shopData.push(newShop);
         },
@@ -25,9 +28,20 @@ const StoreProvider = ({children}) => {
                     shop.ratings.unshift(newComment))
                 )
             );
-            //console.log(updated);
+        },
+        addUserLocation: (lat, lng) => {
+            store.userLocation = { ...store.userLocation, lat: lat, lng: lng };
         }
     }));
+
+    const getUserLocation = () => {
+        store.addUserLocation(latitude, longitude);
+        console.log(store.userLocation);
+        setLocation(true);
+        console.log('Location stored');
+    };
+
+    latitude && longitude && !isLocationReady && getUserLocation();
 
     useState(() => {
         console.log(restaurantData)
@@ -40,25 +54,6 @@ const StoreProvider = ({children}) => {
         setPlaceStore(true);
         console.log(store.shopData);
     }
-    //formatChanged && placesData.map(shop => store.addNewShop(shop));
-    /*
-    useState(() => {
-        if(placesData.length > 0) { 
-            store.addNewShop(placesData);
-            console.log(store.shopData);
-        };            
-    }, [placesData]);
-    */
-    //placesData.length > 0 && console.log(placesData);
-
-    //store.shopData.map(shop => console.log(shop.dataSrc));
-    /*
-    if(placesData) { 
-        store.addNewShop(placesData);
-        console.log(store.shopData);
-    };
-    */
-    
 
     return (
         <StoreContext.Provider value={store}>{children}</StoreContext.Provider>

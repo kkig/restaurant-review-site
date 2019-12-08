@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export const usePosition = () => {
     const [ position, setPosition ] = useState({});
-    const [error, setError] = useState(null);
+    const [ error, setError] = useState(null);
     const [ isLocationReady, setLocationReady ] = useState(false);
     /*
     const [ placesSummany, setSummary ] = useState({});

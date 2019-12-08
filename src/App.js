@@ -7,6 +7,7 @@ import RestaurantMap from './components/RestaurantMap';
 import StoreListContainer from './components/StoreListContainer';
 
 import StoreProvider from './stores/RestourantStores';
+//import { useObserver } from 'mobx-react';
 
 //import { usePlaces } from './APIs/usePlaces';
 
