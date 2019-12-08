@@ -57,11 +57,6 @@ function ReviewCommentArea(props) {
                 />
             }
 
-            {
-                // User Input
-                //userReviewArray.length > 0 && userReviewArray.map(userReview => <ReviewComment key={userReview.commentId} ratings={userReview} />)
-            }
-
             {   
                 props.ratings.map(review => 
                     <ReviewComment key={review.commentId} ratings={review} />)

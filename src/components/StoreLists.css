@@ -76,6 +76,13 @@ hr {
     margin-bottom: 0;
 }
 
+.list-item > button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+}
+
 .review-score {
     color: var(--star-color);
     padding-right: .25rem;

@@ -20,12 +20,12 @@ const StoreProvider = ({children}) => {
             return store.shopData.length;
         },
         addNewComment: (id, newComment) => {
-            const updated = store.shopData.filter(shop => (
+            store.shopData.filter(shop => (
                 shop.id === id && (
                     shop.ratings.unshift(newComment))
                 )
             );
-            console.log(updated);
+            //console.log(updated);
         }
     }));
 

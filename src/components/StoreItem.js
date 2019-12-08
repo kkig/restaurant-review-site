@@ -9,6 +9,7 @@ import userReview from './UserReviewClass';
 
 import './StoreLists.css';
 import { CircularProgress } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 import StoreContext from '../stores/StoreContext';
 //import { useObserver } from 'mobx-react';
@@ -93,6 +94,15 @@ function StoreItem(props) {
 
             { isDetailView && props.ratings.length > 0 && 
                 <ReviewCommentArea id={props.id} ratings={props.ratings}/> 
+            }
+
+            { isDetailView && props.ratings.length > 0 && 
+                <Button 
+                    color="primary"
+                    onClick={() => setDetailView(!isDetailView)}
+                >
+                    Close
+                </Button>
             }
 
             <hr />
