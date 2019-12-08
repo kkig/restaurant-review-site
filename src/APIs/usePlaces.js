@@ -5,7 +5,7 @@ import GOOGLE_MAP_API_KEY from './GoogleMapKey';
 //import StoreContext from '../stores/StoreContext';
 
 class shopData {
-    constructor(id, name, type, address, lat, long, avgRating, dataSrc) {
+    constructor(id, name, type, address, lat, long, avgRating, ratings, dataSrc) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -13,6 +13,7 @@ class shopData {
         this.lat = lat;
         this.long = long;
         this.avgRating = avgRating;
+        this.ratings = ratings;
         this.dataSrc = dataSrc;
     }
 }
@@ -74,6 +75,7 @@ export const usePlaces = () => {
             restaurant.geometry.location.lat,
             restaurant.geometry.location.lng,
             restaurant.rating,
+            [],
             'GOOGLE',
         )));
 

@@ -4,8 +4,6 @@ import React, { useContext } from 'react';
 import './StoreLists.css';
 import StoreItem from './StoreItem';
 
-//import { usePlaces } from '../APIs/usePlaces';
-
 import StoreContext from '../stores/StoreContext';
 import { useObserver } from 'mobx-react';
 
@@ -79,8 +77,12 @@ function StoreList(props) {
     */
     
     const btwMinMax = restaurant => {
-      const avgRate = restaurant.dataSrc === 'json' ? getAverageValue(restaurant.ratings): restaurant.avgRating;
-      return evalMinMax(avgRate);
+
+      const avgRate = restaurant.ratings.length > 0 ? 
+        getAverageValue(restaurant.ratings) : 
+        restaurant.avgRating;
+
+        return evalMinMax(avgRate);
     }    
 
     return useObserver(() => (
@@ -91,41 +93,21 @@ function StoreList(props) {
             
             <StoreItem 
               key={restaurant.id}
+              id={restaurant.id}
               name={restaurant.name}
               type={restaurant.type}
               address={restaurant.address}
               lat={restaurant.lat}
               lng={restaurant.long}
-              value={restaurant.ratings}
+              ratings={restaurant.ratings}
               dataType={restaurant.dataSrc}
               avgValue={
-                restaurant.dataSrc === 'json' ? 
+                restaurant.ratings.length > 0 ? 
                 getAverageValue(restaurant.ratings):
                 restaurant.avgRating
               }
             />   
           ))}
-          
-          {/*
-            !isLoading && 
-            <div className="google-stores">
-              <h3>Restaurants from Google</h3>
-              {placesData.results.filter(dataBtwMinMax).map(restaurant => (
-
-              <StoreItem                                
-              key={restaurant.id}
-              name={restaurant.name} 
-              type={restaurant.types[0]}  // Only display first one
-              address={restaurant.vicinity}
-              lat={restaurant.geometry.location.lat}
-              lng={restaurant.geometry.location.lng}
-              avgValue={restaurant.rating}
-              placeId={restaurant.place_id}
-              />
-              ))}
-            </div>
-            */
-          }
           
         </div>
     ));

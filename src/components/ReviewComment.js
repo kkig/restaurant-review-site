@@ -6,7 +6,9 @@ function ReviewComment(props) {
 
     return (
         <li style={{marginTop: '.75em'}}>        
-            <div style={{ color: 'var(--star-color)' }}>{ratings.stars}<ReadOnlyRating value={ratings.stars}/></div>
+            <div style={{ color: 'var(--star-color)' }}>
+                {ratings.stars.toFixed(1)}
+                <ReadOnlyRating value={ratings.stars}/></div>
             <div>{ratings.comment}</div>
         </li>        
     );

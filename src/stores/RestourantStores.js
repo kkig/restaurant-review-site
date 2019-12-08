@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocalStore } from 'mobx-react';
+//import { toJS } from 'mobx';
 
 import StoreContext from './StoreContext';
 import restaurantData from '../APIs/restaurantData.json';
@@ -17,11 +18,21 @@ const StoreProvider = ({children}) => {
         },
         get countData() {
             return store.shopData.length;
+        },
+        addNewComment: (id, newComment) => {
+            const updated = store.shopData.filter(shop => (
+                shop.id === id && (
+                    shop.ratings.unshift(newComment))
+                )
+            );
+            console.log(updated);
         }
     }));
 
     useState(() => {
+        console.log(restaurantData)
         restaurantData.map(shop => store.addNewShop({...shop, dataSrc: 'json'}));
+        console.log(store.shopData);
     }, []);
 
     if(formatChanged && !isPlaceStored) {

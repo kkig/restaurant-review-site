@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Button from '@material-ui/core/Button';
 
@@ -7,17 +7,25 @@ import './StoreLists.css';
 import userReview from './UserReviewClass';
 
 import ReviewInput from './ReviewInput';
+import StoreContext from '../stores/StoreContext';
+//import { useObserver } from 'mobx-react';
 
-const userReviewArray = [];
+//const userReviewArray = [];
 
 function ReviewCommentArea(props) {
     const [ isInputMode, setInputMode ] = useState(false);
     const [ textValue, setTextValue ] = useState('');
     const [ ratingValue, setRatingValue ] = useState(2.5);
 
+    const store = useContext(StoreContext);
+
     const createReview = (newRating, newValue) => {
-        const newReview = new userReview(userReviewArray.length + 1, newRating, newValue);
-        userReviewArray.push(newReview);
+        const newReview = new userReview(props.ratings.length + 1, newRating, newValue);
+        //userReviewArray.push(newReview);
+        
+        store.addNewComment(props.id, newReview);
+        //console.log(store.shopData.filter(shop => shop.id === props.id))
+        console.log(store.shopData);
         
         // Reset Form Values
         setTextValue('');
@@ -31,22 +39,33 @@ function ReviewCommentArea(props) {
             {   
                 // Input Field
                 !isInputMode ? 
-                <Button size="small" variant="outlined" onClick={() => setInputMode(!isInputMode)}>Add Review</Button> :
+
+                <Button size="small" variant="outlined" onClick={() => setInputMode(!isInputMode)}>
+                    Add Review
+                </Button> :
+
                 <ReviewInput 
+                    id={props.id}
                     ratingValue={ratingValue}
-                    handleRatingChange={(event, newValue) => setRatingValue(newValue)}
+                    handleRatingChange={(e, newValue) => setRatingValue(newValue)}
                     textValue={textValue}
                     handleTextChange={e => setTextValue(e.target.value)}
-                    handleClick={() => textValue && ratingValue && createReview(ratingValue, textValue)}
+                    handleClick={() => 
+                        textValue && ratingValue && 
+                        createReview(ratingValue, textValue)
+                    }
                 />
             }
 
             {
                 // User Input
-                userReviewArray.length > 0 && userReviewArray.map(userReview => <ReviewComment key={userReview.commentId} ratings={userReview} />)
+                //userReviewArray.length > 0 && userReviewArray.map(userReview => <ReviewComment key={userReview.commentId} ratings={userReview} />)
             }
 
-            {props.value.map(review => <ReviewComment key={review.commentId} ratings={review} />)}
+            {   
+                props.ratings.map(review => 
+                    <ReviewComment key={review.commentId} ratings={review} />)
+            }
 
         </ul>
     );
