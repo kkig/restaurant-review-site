@@ -93,7 +93,7 @@ function StoreList(props) {
     return useObserver(() => (
         <div className='lists-container'>
 
-          {storeData && 
+          {!storeData ? null : 
             storeData.filter(btwMinMax).map(restaurant => (
             
             <StoreItem 
