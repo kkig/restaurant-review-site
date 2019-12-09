@@ -10,7 +10,7 @@ import {
 import mapStyle from '../APIs/mapStyle.json';
 
 import StoreContext from '../stores/StoreContext';
-//import { useObserver } from 'mobx-react'; 
+import { useObserver } from 'mobx-react'; 
 
 function MapWithMarker(props) {
     const [ selectedPlace, setSelectedPlace ] = useState(null);
@@ -21,7 +21,7 @@ function MapWithMarker(props) {
 
     clickedPosition && console.log(clickedPosition);
     
-    return (
+    return useObserver(() => (
         <GoogleMap
             defaultZoom={15}
             defaultCenter={props.center}
@@ -48,7 +48,7 @@ function MapWithMarker(props) {
                 }}
             />
 
-            {store.shopData.map(restaurant => (
+            {store.storeData.map(restaurant => (
                 <Marker 
                     key={restaurant.id}
                     position={{
@@ -74,7 +74,7 @@ function MapWithMarker(props) {
                 </InfoWindow>
             )}
         </GoogleMap>        
-    );
+    ));
 }
 
 export default MapWithMarker;

@@ -60,7 +60,7 @@ function StoreItem(props) {
     const updataDetail = () => {
         console.log(commentArray);
         commentArray.map(shop => store.addNewComment(props.id, shop));
-        console.log(store.shopData);
+        console.log(store.storeData);
         setComments([]);
     }
 

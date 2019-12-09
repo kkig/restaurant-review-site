@@ -55,8 +55,8 @@ function StoreList(props) {
   const [ storeData, setStoreData ] = useState(null);
 
   useEffect(() => {
-    setStoreData(store.shopData);
-  }, [store.shopData]);
+    setStoreData(store.storeData);
+  }, [store.storeData]);
     
     const getAverageValue = reviewArray => {
       const ratingArray = reviewArray.map(review => review.stars);

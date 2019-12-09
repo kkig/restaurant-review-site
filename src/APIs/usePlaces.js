@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { usePosition } from './usePosition';
 
+import StoreContext from '../stores/StoreContext';
 import GOOGLE_MAP_API_KEY from './GoogleMapKey';
+
+
 //import StoreContext from '../stores/StoreContext';
 
-class shopData {
+class storeData {
     constructor(id, name, type, address, lat, long, avgRating, ratings, dataSrc) {
         this.id = id;
         this.name = name;
@@ -24,7 +27,7 @@ export const usePlaces = () => {
     const [ formatChanged, setFormat ] = useState(false);
     const [ isPlaceRequested, setPlaceRequested ] = useState(false);
 
-    //const store = useContext(StoreContext);
+    const store = useContext(StoreContext);
 
     const getPlacesData = () => {
         if(!latitude || !longitude) {
@@ -51,7 +54,7 @@ export const usePlaces = () => {
     
     const formatData = data => {
         let newArray = [];
-        data.map(restaurant => newArray.push(new shopData(
+        data.map(restaurant => newArray.push(new storeData(
             restaurant.place_id, 
             restaurant.name, 
             restaurant.types[0], 
@@ -68,11 +71,15 @@ export const usePlaces = () => {
 
     };
 
+    store && latitude && longitude && store.addUserLocation(latitude, longitude);
+
     useEffect(() => {
         if(placesData.results) {
             formatData(placesData.results);
         } 
     }, [placesData])
+
+    store && store.userLocation.lat && console.log(store.userLocation);
 
     latitude && longitude && !isPlaceRequested && getPlacesData();
     
