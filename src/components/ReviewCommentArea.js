@@ -24,8 +24,8 @@ function ReviewCommentArea(props) {
         //userReviewArray.push(newReview);
         
         store.addNewComment(props.id, newReview);
-        //console.log(store.storeData.filter(shop => shop.id === props.id))
-        console.log(store.storeData);
+        //console.log(store.ShopDataItem.filter(shop => shop.id === props.id))
+        console.log(store.ShopDataItem);
         
         // Reset Form Values
         setTextValue('');

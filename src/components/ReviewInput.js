@@ -26,6 +26,7 @@ function ReviewInput(props) {
             </div>
 
             <TextField 
+                required
                 ref={textInput}
                 className="review-input-area"
                 id="outlined-multiline-static"

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 //import StoreContext from '../stores/StoreContext';
 
 export const usePosition = () => {
-    const [ position, setPosition ] = useState({});
+    const [ position, setPosition ] = useState({}); // callback
     const [ error, setError] = useState(null);
     const [ isLocationReady, setLocationReady ] = useState(false);
 

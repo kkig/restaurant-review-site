@@ -1,37 +1,42 @@
-import React  from 'react';
+import React, { useContext }  from 'react';
 import {
     withGoogleMap,
     withScriptjs
 } from 'react-google-maps';
-import { usePosition } from '../APIs/usePosition';
+import { useObserver } from 'mobx-react'; 
+//import { usePosition } from '../APIs/usePosition';
 
 import MapWithMarker from '../APIs/Map';
 import CircularProgress from '../UIComponents/CircularIndeterminate';
 
 import GOOGLE_MAP_API_KEY from '../APIs/GoogleMapKey';
+import StoreContext from '../stores/StoreContext';
 
 import './RestaurantMap.css';
 
 const MapContainer = withScriptjs(withGoogleMap(MapWithMarker));
 
 function RestaurantMap() {
-    const {latitude, longitude, error} = usePosition();
+    //const {latitude, longitude, error} = usePosition();
 
-    return (
+    const store = useContext(StoreContext);
+
+    //store && store.userLocation.lat && store.userLocation.lat && console.log(`Store Lat: ${store.userLocation.lat}, ${store.userLocation.lng}`);
+
+    return useObserver(() => (
         <div className='map-section' >    
-            {!navigator.geolocation && alert(error)}          
 
-            {latitude && longitude ? 
+            {store.userLocation.lat && store.userLocation.lng ? 
             <MapContainer 
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`}
-                center={{ lat: latitude, lng: longitude }}
+                center={{ lat: store.userLocation.lat, lng: store.userLocation.lng }}
                 loadingElement={<div style={{ height: '100%' }} />}
                 containerElement={<div style={{ height: '100%', width: '100%' }} />}
                 mapElement={<div style={{ height: '100%', width: '100%' }} />}
             /> :
             <CircularProgress size={ '5rem' } style={{ justifyContent: 'center' }} />}
         </div>
-    );
+    ));
 
 }
 

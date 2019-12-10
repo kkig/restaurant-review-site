@@ -1,25 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import { usePosition } from './usePosition';
 
-import StoreContext from '../stores/StoreContext';
 import GOOGLE_MAP_API_KEY from './GoogleMapKey';
 
-
+import ShopDataItem from '../components/ShopDataItemClass';
+import StoreContext from '../stores/StoreContext';
 //import StoreContext from '../stores/StoreContext';
-
-class storeData {
-    constructor(id, name, type, address, lat, long, avgRating, ratings, dataSrc) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.address = address;
-        this.lat = lat;
-        this.long = long;
-        this.avgRating = avgRating;
-        this.ratings = ratings;
-        this.dataSrc = dataSrc;
-    }
-}
 
 export const usePlaces = () => {
     const { latitude, longitude } = usePosition();
@@ -54,7 +40,7 @@ export const usePlaces = () => {
     
     const formatData = data => {
         let newArray = [];
-        data.map(restaurant => newArray.push(new storeData(
+        data.map(restaurant => newArray.push(new ShopDataItem(
             restaurant.place_id, 
             restaurant.name, 
             restaurant.types[0], 
@@ -68,10 +54,9 @@ export const usePlaces = () => {
 
         setPlaces(newArray);
         setFormat(true);
+        console.log('Formated')
 
     };
-
-    store && latitude && longitude && store.addUserLocation(latitude, longitude);
 
     useEffect(() => {
         if(placesData.results) {
@@ -79,8 +64,9 @@ export const usePlaces = () => {
         } 
     }, [placesData])
 
-    store && store.userLocation.lat && console.log(store.userLocation);
-
+    store !== null && store.userLocation.lat !== null && console.log(store.userLocation);
+    //store && store.userLocation.lat && console.log(store.userLocation);
+    latitude && longitude && console.log('ready to fetch');
     latitude && longitude && !isPlaceRequested && getPlacesData();
     
     return { placesData, formatChanged };
