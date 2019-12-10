@@ -1,17 +1,19 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import './StoreLists.css';
 import StoreItem from './StoreItem';
 
 import StoreContext from '../stores/StoreContext';
 import { useObserver } from 'mobx-react';
+//import { usePlaces } from '../APIs/usePlaces';
 
 function StoreList(props) {
+  //const { placesData, formatChanged } = usePlaces();
+  //placesData.length > 0 && console.log(placesData);
+
   const store = useContext(StoreContext);
   //const [ ShopDataItem, setShopDataItem ] = useState(null);
 
-
-    
   const getAverageValue = reviewArray => {
     const ratingArray = reviewArray.map(review => review.stars);
     return ratingArray.reduce((a, b) => a + b, 0) / ratingArray.length;  
