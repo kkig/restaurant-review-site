@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Rating from '@material-ui/lab/Rating';
 
 function ReviewInput(props) {
-    const textInput = useRef(null);
 
     return (
         <form className="review-section">
@@ -19,15 +18,18 @@ function ReviewInput(props) {
                         size="small"
                         value={props.ratingValue}
                         onChange={props.handleRatingChange}
-                        onClick={() => textInput.current.focus()}
                     />
-                    <span className="review-score" style={{ padding: '0 .5rem'}}>{props.ratingValue}</span>
+                    <span 
+                        className="review-score" 
+                        style={{ padding: '0 .5rem'}}
+                    >
+                        {props.ratingValue}
+                    </span>
                 </label>
             </div>
 
             <TextField 
                 required
-                ref={textInput}
                 className="review-input-area"
                 id="outlined-multiline-static"
                 label="New Review"

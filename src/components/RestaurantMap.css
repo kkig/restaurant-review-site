@@ -18,8 +18,18 @@
     display: inline-block;
 }
 
+div .MuiCircularProgress-root {
+    display: flex;
+    justify-content: center;
+}
+
 .circularProgress {
     margin: auto;
+}
+
+div .inputSelect {
+    margin-top: .5em;
+    margin-bottom: .25em;
 }
 
 @media only screen and (min-width: 600px) {

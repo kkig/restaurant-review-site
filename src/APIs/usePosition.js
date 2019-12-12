@@ -1,18 +1,9 @@
 import { useState, useEffect } from 'react';
-//import GOOGLE_MAP_API_KEY from './GoogleMapKey';
-
-//import StoreContext from '../stores/StoreContext';
 
 export const usePosition = () => {
     const [ position, setPosition ] = useState({}); // callback
     const [ error, setError] = useState(null);
     const [ isLocationReady, setLocationReady ] = useState(false);
-
-    //const store = useContext(StoreContext);
-    /*
-    const [ placesSummany, setSummary ] = useState({});
-    const src = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.latitude},${position.longitude}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
-    */
     
     const onChange = ({coords}) => {
         setPosition({

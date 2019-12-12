@@ -32,3 +32,4 @@ Your website will be ready to use on `build` folder.
 * [React.js](https://reactjs.org/docs/create-a-new-react-app.html) - Javascript library.
 * [Material UI](https://material-ui.com/getting-started/installation/) - UI dependency for React.js.
 * [react-google-maps](https://tomchentw.github.io/react-google-maps) - Library for installing google map API to react.
+* [MobX] (https://mobx.js.org/README.html) - State management library.

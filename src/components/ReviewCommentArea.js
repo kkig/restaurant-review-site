@@ -4,16 +4,14 @@ import Button from '@material-ui/core/Button';
 
 import ReviewComment from './ReviewComment';
 import './StoreLists.css';
-import userReview from './UserReviewClass';
+import userReview from '../classes/UserReviewClass';
 
 import ReviewInput from './ReviewInput';
 import StoreContext from '../stores/StoreContext';
-//import { useObserver } from 'mobx-react';
-
-//const userReviewArray = [];
+import { useObserver } from 'mobx-react';
 
 function ReviewCommentArea(props) {
-    const [ isInputMode, setInputMode ] = useState(false);
+
     const [ textValue, setTextValue ] = useState('');
     const [ ratingValue, setRatingValue ] = useState(2.5);
 
@@ -21,26 +19,29 @@ function ReviewCommentArea(props) {
 
     const createReview = (newRating, newValue) => {
         const newReview = new userReview(props.ratings.length + 1, newRating, newValue);
-        //userReviewArray.push(newReview);
         
         store.addNewComment(props.id, newReview);
-        //console.log(store.ShopDataItem.filter(shop => shop.id === props.id))
         console.log(store.ShopDataItem);
         
         // Reset Form Values
         setTextValue('');
         setRatingValue(2.5);
-
     };
 
-    return (
+    return useObserver(() => (
         <ul className="reviews-list">
             <h4>Review:</h4>   
             {   
                 // Input Field
-                !isInputMode ? 
+                !props.isInputMode ? 
 
-                <Button size="small" variant="outlined" onClick={() => setInputMode(!isInputMode)}>
+                <Button 
+                    size="small" 
+                    variant="outlined" 
+                    onClick={() => {
+                        props.handleInputMode()
+                    }
+                    }>
                     Add Review
                 </Button> :
 
@@ -58,12 +59,14 @@ function ReviewCommentArea(props) {
             }
 
             {   
-                props.ratings.map(review => 
-                    <ReviewComment key={review.commentId} ratings={review} />)
+                props.ratings.length > 0 && 
+                props.ratings.map(
+                    review => <ReviewComment key={review.commentId} ratings={review} />
+                )
             }
 
         </ul>
-    );
+    ));
 }
 
 export default ReviewCommentArea;

@@ -23,7 +23,7 @@ const StoreProvider = ({children}) => {
     const store = useLocalStore(() => ({
         ShopDataItem: [],
         addNewShop: newShop => {
-            store.ShopDataItem.push(newShop);
+            store.ShopDataItem.unshift(newShop);
         },
         get countData() {
             return store.ShopDataItem.length;

@@ -1,55 +1,70 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
-import { 
-    GoogleMap, 
-    Circle,
-    Marker,
-    InfoWindow
-} from 'react-google-maps';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { GoogleMap, Circle, Marker, InfoWindow } from 'react-google-maps';
+import { useObserver } from 'mobx-react'; 
 
 import mapStyle from '../APIs/mapStyle.json';
 import GOOGLE_MAP_API_KEY from '../APIs/GoogleMapKey';
+import '../App.css';
 import '../components/RestaurantMap.css';
 
 import StoreContext from '../stores/StoreContext';
-//import ShopDataItem from '../components/ShopDataItemClass';
-import { useObserver } from 'mobx-react'; 
-//import { usePosition } from './usePosition';
+import ShopDataItem from '../classes/ShopDataItemClass';
+import DialogInput from '../components/DialogInput';
 
 function MapWithMarker(props) {
     const [ selectedPlace, setSelectedPlace ] = useState(null);
     const [ clickedPosition, setClicked ] = useState(null); 
     const [ clickedDetail, setClickedDetail ] = useState(null);
-    const [open, setOpen] = useState(false);
-
-    //const { latitude, longitude } = usePosition();
-
-    const [ clickedAddress, setClickedAddress ] = useState('');
-
+    const [ open, setOpen] = useState(false);
+    const [ isNewShopInput, setNewShopInput ] = useState(false);
+    
     const store = useContext(StoreContext);
 
-    clickedAddress == null && store.clickedLocation.address && setClickedAddress(store.clickedLocation.address);
-
+    // Dialog handlers
     const handleClickOpen = () => {
         setOpen(true);
-      };
+    };
     
     const handleClose = () => {
         setOpen(false);
         setClickedDetail(null);
+        setNewShopInput(false);
     };
 
+    const handleSubmit = () => {
+        store.addNewShop(clickedDetail);
+        handleClose();
+    };
+
+    const handleDialogRatingChange = (e, newValue) =>
+        setClickedDetail({
+        ...clickedDetail,
+        avgRating: parseFloat(newValue)
+    });
+
+    const handleDialogNameChange = (e, newValue) =>
+        setClickedDetail({
+            ...clickedDetail,
+            name: newValue
+    });
+
+    const handleDialogTypeChange = (e, newValue) =>
+        setClickedDetail({
+        ...clickedDetail,
+        type: newValue
+    })
+
+    const handleDialogAddressChange = (e, newValue) => 
+        setClickedDetail({
+        ...clickedDetail,
+        address: newValue
+    })
+
+    // Map Handler
     const handleMapClick = e => {
-        setClicked({...clickedPosition, 
+        setClicked({
+            ...clickedPosition, 
             lat: e.latLng.lat(), 
             lng: e.latLng.lng()}
         )
@@ -62,15 +77,23 @@ function MapWithMarker(props) {
 
         fetch(proxy + endpoint)
             .then(res => res.json())
-            .then(data => data.status ==='OK' ? 
+            .then(data => data.status === 'OK' ? 
                 setClickedDetail(
-                    {
-                    ...clickedDetail,
-                    id: data.results[0].place_id,
-                    lat: clickedPosition.lat,
-                    lng: clickedPosition.lng,
-                    address: data.results[0].formatted_address
-                    }
+                        
+                    new ShopDataItem(
+                        //id, name, type, address, lat, long, avgRating, ratings, dataSrc
+
+                        store.ShopDataItem.length + 1, //id
+                        '', //name
+                        'Restaurant',   //type
+                        data.results[0].formatted_address, //address
+                        clickedPosition.lat,    //lat
+                        clickedPosition.lng,    //long
+                        2.5,    //avgRating
+                        [], //ratings
+                        'userInput' //dataSrc
+                    )
+
                 ) : 
                 console.log('Error with Geocode API'));
             setClicked(null);
@@ -79,23 +102,14 @@ function MapWithMarker(props) {
     };
     
     clickedPosition && console.log(clickedPosition);
-    clickedPosition && fetchPositionInfo();
     clickedDetail && console.log(clickedDetail);
 
-    /*
-    useEffect(() => {
-        clickedDetail !== null && 
-        store.storeClickedLocation(
-            clickedDetail.id,   //id
-            clickedDetail.lat,    //lat
-            clickedDetail.lng,    //lng
-            clickedDetail.address,  //address
-        );
-        
-    }, [clickedDetail, store]);
+    // Get Geocode of Clicked position
+    clickedPosition && fetchPositionInfo();
 
-    */
-    store.userLocation.length > 0 && console.log(store.userLocation);
+    useEffect(() => {
+        clickedDetail && clickedDetail.address && open && setNewShopInput(true);
+    }, [clickedDetail, open]);
 
     return useObserver(() => (
         <div>
@@ -104,89 +118,66 @@ function MapWithMarker(props) {
                 defaultCenter={props.center}
                 defaultOptions={{
                     styles: mapStyle,
-                    disableDefaultUI: true,
+                    disableDefaultUI: true
                 }}
                 onClick={e => handleMapClick(e)}
-            >   
+            >
                 <Circle
                     center={props.center}
                     radius={30}
                     options={{
-                        strokeColor: "royalblue",
-                        strokeOpacity: 0.25,
-                        strokeWeight: 7,
-                        fillColor: "royalblue",
-                        fillOpacity: 1
+                    strokeColor: "royalblue",
+                    strokeOpacity: 0.25,
+                    strokeWeight: 7,
+                    fillColor: "royalblue",
+                    fillOpacity: 1
                     }}
                 />
 
                 {store.ShopDataItem.map(restaurant => (
-                    <Marker 
-                        key={restaurant.id}
-                        position={{
-                            lat: restaurant.lat,
-                            lng: restaurant.long
-                        }}
-                        onClick={() => { setSelectedPlace(restaurant) }}
+                    <Marker
+                    key={restaurant.id}
+                    position={{
+                        lat: restaurant.lat,
+                        lng: restaurant.long
+                    }}
+                    onClick={() => {
+                        setSelectedPlace(restaurant);
+                    }}
                     />
                 ))}
 
                 {selectedPlace && (
                     <InfoWindow
-                        onCloseClick={() => { setSelectedPlace(null) }} 
-                        position={{
-                            lat: selectedPlace.lat,
-                            lng: selectedPlace.long
-                        }}
-                    >   
-                        <div>
-                            <h2>{selectedPlace.name}</h2>
-                            <p>{selectedPlace.address}</p>
-                        </div>    
+                    onCloseClick={() => {
+                        setSelectedPlace(null);
+                    }}
+                    position={{
+                        lat: selectedPlace.lat,
+                        lng: selectedPlace.long
+                    }}
+                    >
+                    <div>
+                        <h2>{selectedPlace.name}</h2>
+                        <p>{selectedPlace.address}</p>
+                    </div>
                     </InfoWindow>
                 )}
 
-                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Add New restaurant?</DialogTitle>
+                <DialogInput 
+                    open={open}
+                    handleClose={handleClose}
+                    clickedDetail={clickedDetail}
+                    isNewShopInput={isNewShopInput}
+                    handleDialogNameChange={handleDialogNameChange}
+                    handleDialogTypeChange={handleDialogTypeChange}
+                    handleDialogAddressChange={handleDialogAddressChange}
+                    handleDialogRatingChange={handleDialogRatingChange}
+                    handleSubmit={handleSubmit}
+                />
 
-                    <DialogContent>
-                        {clickedDetail && clickedDetail.address ?
-                            <div>
-                            <DialogContentText>
-                                To subscribe to this website, please enter your email address here. We will send updates
-                                occasionally.
-                            </DialogContentText>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="name"
-                                label="Restaurant Name"
-                                defaultValue="Helloooo"
-                                fullWidth
-                            />
-                            <TextField
-                                margin="dense"
-                                id="name"
-                                label="Address"
-                                defaultValue={clickedDetail.address}
-                                onChange={e => setClickedAddress(e.target.value)}
-                                fullWidth
-                            />
-                        </div> : <CircularProgress className='circularProgress' />
-                        }
-                    </DialogContent>
-                            <DialogActions>
-                                <Button onClick={handleClose} color="primary">
-                                    Cancel
-                                </Button>
-                                <Button onClick={handleClose} color="primary">
-                                    Add
-                                </Button>
-                            </DialogActions>                    
-                </Dialog>
             </GoogleMap>
-
-        </div>        
+        </div>
     ));
 }
 

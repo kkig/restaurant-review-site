@@ -5,14 +5,10 @@ import StoreItem from './StoreItem';
 
 import StoreContext from '../stores/StoreContext';
 import { useObserver } from 'mobx-react';
-//import { usePlaces } from '../APIs/usePlaces';
 
 function StoreList(props) {
-  //const { placesData, formatChanged } = usePlaces();
-  //placesData.length > 0 && console.log(placesData);
 
   const store = useContext(StoreContext);
-  //const [ ShopDataItem, setShopDataItem ] = useState(null);
 
   const getAverageValue = reviewArray => {
     const ratingArray = reviewArray.map(review => review.stars);
@@ -58,7 +54,7 @@ function StoreList(props) {
               dataType={restaurant.dataSrc}
               avgValue={
                 restaurant.ratings.length > 0 ? 
-                getAverageValue(restaurant.ratings):
+                getAverageValue(restaurant.ratings) :
                 restaurant.avgRating
               }
             />   

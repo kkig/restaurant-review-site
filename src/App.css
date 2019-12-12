@@ -1,6 +1,12 @@
 body {
   height: 100vh;
   width: 100vw;
+
+  --basic-font: 'Roboto', sans-serif;
+}
+
+label {
+  font-family: var(--basic-font);
 }
 
 .App {
@@ -11,7 +17,7 @@ body {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: var(--navbar-height) auto;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--basic-font);
 }
 
 .navbar {

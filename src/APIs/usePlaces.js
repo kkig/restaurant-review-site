@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
-//import { usePosition } from './usePosition';
 
 import GOOGLE_MAP_API_KEY from './GoogleMapKey';
 
-import ShopDataItem from '../components/ShopDataItemClass';
-//import StoreContext from '../stores/StoreContext';
-//import StoreContext from '../stores/StoreContext';
+import ShopDataItem from '../classes/ShopDataItemClass';
 
 export const usePlaces = (latitude, longitude) => {
-    //const { latitude, longitude } = usePosition();
     const [ placesData, setPlaces ] = useState({});
     const [ formatChanged, setFormat ] = useState(false);
     const [ isPlaceRequested, setPlaceRequested ] = useState(false);
-
-    //const store = useContext(StoreContext);
 
     const getPlacesData = () => {
         if(isPlaceRequested || placesData.results) {
@@ -32,7 +26,7 @@ export const usePlaces = (latitude, longitude) => {
                 .catch(error => console.log(error));
             console.log('Place fetched');
         }
-        fetchData();
+        //fetchData();
         setPlaceRequested(true);
     };
 
@@ -61,13 +55,7 @@ export const usePlaces = (latitude, longitude) => {
         } 
     }, [placesData]);
 
-    //formatChanged && console.log(placesData);
-
-    //latitude && longitude && console.log('usePlace ready. Lat: ' + latitude)
-    //if(store != null && store.userLocation.lat !== undefined)  {console.log('ready to fetch')};
-    //latitude && longitude && !isPlaceRequested && getPlacesData();
     latitude !== undefined && longitude !== undefined && !isPlaceRequested && getPlacesData();
-    //!isPlaceRequested && getPlacesData();
     
     return { placesData, formatChanged };
 }
