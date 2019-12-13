@@ -67,13 +67,17 @@ hr {
 }
 
 .reviews-list {
-    list-style-type: none;
-    margin: 0;
     padding: var(--container-padding);
 }
 
 .reviews-list > h4 {
     margin-bottom: 0;
+}
+
+.reviews-list > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .list-item > button {

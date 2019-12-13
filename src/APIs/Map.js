@@ -35,6 +35,8 @@ function MapWithMarker(props) {
     const handleSubmit = () => {
         store.addNewShop(clickedDetail);
         handleClose();
+        console.log('New shop stored');
+        console.log(clickedDetail);
     };
 
     const handleDialogRatingChange = (e, newValue) =>
@@ -102,7 +104,7 @@ function MapWithMarker(props) {
     };
     
     clickedPosition && console.log(clickedPosition);
-    clickedDetail && console.log(clickedDetail);
+    //clickedDetail && console.log(clickedDetail);
 
     // Get Geocode of Clicked position
     clickedPosition && fetchPositionInfo();

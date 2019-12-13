@@ -18,14 +18,6 @@ function StoreItem(props) {
     const [ commentArray, setComments ] = useState([]);
     const [ isDetailFetched, setDetailFetch ] = useState(false);
 
-    const [ selectedInputID, setSelectedInputId ] = useState(null);
-
-    const handleInputMode = () => {
-        setSelectedInputId(props.id)
-    };
-
-    const [ isDetailView, setDetailView ] = useState(false);
-    
     const store = useContext(StoreContext);
 
     const detailRequest = () => {
@@ -55,13 +47,9 @@ function StoreItem(props) {
         }
         selectedStore.reviews && createCommentArray();
     }, [selectedStore]);
+    
 
-    useEffect(() => {
-        console.log(selectedInputID)
-        //props.id === selectedInputID ? setInputMode(true) : setInputMode(false)
-    }, [selectedInputID])
 
-    const handleClick = () => setDetailView(!isDetailView);
     const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
 
     const updataDetail = () => {
@@ -73,13 +61,11 @@ function StoreItem(props) {
 
     commentArray.length > 0 && updataDetail();
 
-    isDetailView && props.ratings.length === 0 && props.dataType === 'GOOGLE' && detailRequest();
-
-    //selectedInputID === props.id ? setInputMode(true) : setInputMode(false);
-
+    props.isDetailView && props.ratings.length === 0 && props.dataType === 'GOOGLE' && detailRequest();
+    
     return useObserver(() => (
         <div className='list-item'>
-            <div className='store-container' onClick={handleClick}>
+            <div className='store-container' onClick={props.handleClick}>
                 {/*
                 <div className='restaurant-image'>
                     <img src={source} alt="street view of restaurant"></img>
@@ -97,27 +83,27 @@ function StoreItem(props) {
                 </div>
             </div>
             
-            { isDetailView && props.ratings.length === 0 && props.dataType === 'GOOGLE' && 
+            { props.isDetailView && (
+                props.ratings.length === 0 && props.dataType === 'GOOGLE' ?
+
                 <div className="reviews-list">
                     <CircularProgress />
-                </div>
-            }
+                </div> :
 
-            { isDetailView && 
-              (props.ratings.length > 0 || props.dataType === 'userInput') && 
                 <ReviewCommentArea 
-                    id={props.id} 
-                    ratings={props.ratings}
-                    isInputMode={props.id === selectedInputID}
-                    selectedInputID={selectedInputID}
-                    handleInputMode={handleInputMode}
-                /> 
+                isInputMode={props.isInputMode}
+                id={props.id}
+                handleInputMode={props.handleInputMode}
+                ratings={props.ratings}
+                />
+
+                )                
             }
 
-            { isDetailView && props.ratings.length > 0 && 
+            { props.isDetailView && props.ratings.length > 0 && 
                 <Button 
                     color="primary"
-                    onClick={() => setDetailView(!isDetailView)}
+                    onClick={props.handleClick}
                 >
                     Close
                 </Button>

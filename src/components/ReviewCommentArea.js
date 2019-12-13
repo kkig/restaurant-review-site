@@ -23,49 +23,46 @@ function ReviewCommentArea(props) {
         store.addNewComment(props.id, newReview);
         console.log(store.ShopDataItem);
         
-        // Reset Form Values
         setTextValue('');
         setRatingValue(2.5);
     };
 
     return useObserver(() => (
-        <ul className="reviews-list">
-            <h4>Review:</h4>   
-            {   
-                // Input Field
-                !props.isInputMode ? 
+        <div className="reviews-list">
+                    <h4>Review:</h4> 
+                    {   
+                        props.isInputMode ?
 
-                <Button 
-                    size="small" 
-                    variant="outlined" 
-                    onClick={() => {
-                        props.handleInputMode()
+                        <ReviewInput 
+                            id={props.id} 
+                            ratingValue={ratingValue}
+                            handleRatingChange={(e, newValue) => setRatingValue(newValue)}
+                            textValue={textValue}
+                            handleTextChange={e => setTextValue(e.target.value)}
+                            handleClick={() => 
+                                textValue && ratingValue && 
+                                createReview(ratingValue, textValue)
+                            }
+                        /> :
+
+                        <Button 
+                            size="small" 
+                            variant="outlined" 
+                            onClick={() => props.handleInputMode() }
+                        >
+                            Add Review
+                        </Button>                
                     }
-                    }>
-                    Add Review
-                </Button> :
 
-                <ReviewInput 
-                    id={props.id}
-                    ratingValue={ratingValue}
-                    handleRatingChange={(e, newValue) => setRatingValue(newValue)}
-                    textValue={textValue}
-                    handleTextChange={e => setTextValue(e.target.value)}
-                    handleClick={() => 
-                        textValue && ratingValue && 
-                        createReview(ratingValue, textValue)
-                    }
-                />
-            }
-
-            {   
-                props.ratings.length > 0 && 
-                props.ratings.map(
-                    review => <ReviewComment key={review.commentId} ratings={review} />
-                )
-            }
-
-        </ul>
+                    <ul>
+                        {   
+                            props.ratings.length > 0 && 
+                            props.ratings.map(
+                                review => <ReviewComment key={review.commentId} ratings={review} />
+                            )
+                        }
+                    </ul>
+                </div>
     ));
 }
 

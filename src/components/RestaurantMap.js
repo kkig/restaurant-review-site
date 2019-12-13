@@ -4,7 +4,6 @@ import {
     withScriptjs
 } from 'react-google-maps';
 import { useObserver } from 'mobx-react'; 
-//import { usePosition } from '../APIs/usePosition';
 
 import MapWithMarker from '../APIs/Map';
 import CircularProgress from '../UIComponents/CircularIndeterminate';
@@ -17,11 +16,8 @@ import './RestaurantMap.css';
 const MapContainer = withScriptjs(withGoogleMap(MapWithMarker));
 
 function RestaurantMap() {
-    //const {latitude, longitude, error} = usePosition();
 
     const store = useContext(StoreContext);
-
-    //store && store.userLocation.lat && store.userLocation.lat && console.log(`Store Lat: ${store.userLocation.lat}, ${store.userLocation.lng}`);
 
     return useObserver(() => (
         <div className='map-section' >    

@@ -32,7 +32,9 @@ export const usePlaces = (latitude, longitude) => {
 
     const formatData = data => {
         let newArray = [];
-        data.map(restaurant => newArray.push(new ShopDataItem(
+        data.map(restaurant => newArray.push(
+            new ShopDataItem(
+
             restaurant.place_id, 
             restaurant.name, 
             restaurant.types[0], 
@@ -42,7 +44,8 @@ export const usePlaces = (latitude, longitude) => {
             restaurant.rating,
             [],
             'GOOGLE',
-        )));
+        )
+        ));
 
         setPlaces(newArray);
         setFormat(true);
