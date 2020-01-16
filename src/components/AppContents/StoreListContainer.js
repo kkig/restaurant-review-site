@@ -1,10 +1,16 @@
 import React from 'react';
+
+// Material UI
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
-import StoreList from './StoreListContainer/StoreList';
+// CSS
 import './StoreListContainer.css';
 
+// Store
+import StoreList from './StoreListContainer/StoreList';
+
+// Style for slider
 const ReviewSlider = withStyles({
   root: {
     color: 'var(--star-color)',
@@ -37,11 +43,12 @@ const ReviewSlider = withStyles({
   },
 })(Slider);
 
-function valuetext(value) {
+const valuetext = (value) => {
   return `${value} Stars`;
 }
 
-export default function SplitButton() {
+
+const StoreListContainer = () => {
   const [ value, setValue ] = React.useState([0, 5]);
 
   const handleChange = (e, newValue) => {
@@ -50,6 +57,7 @@ export default function SplitButton() {
 
   return (
     <div className="store-section">
+
       <div className="filter-slider-section">
         <span className="filter-label">Filter by rating</span>
         <ReviewSlider
@@ -64,6 +72,9 @@ export default function SplitButton() {
       </div>
       
       <StoreList minValue={value[0]} maxValue={value[1]} />
+
     </div>
   );
-}
+};
+
+export default StoreListContainer;

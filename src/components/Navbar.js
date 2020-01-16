@@ -6,7 +6,7 @@ import './Navbar.css';
 
 const Navbar = ({ isMobileView, isMapView, handleClick }) => {
     const showBtnText = 'Show List';
-    const hideBtnText = 'Hide List';
+    const hideBtnText = 'Show Map';
 
     const [ btnText, setBtnText ] = useState(showBtnText);
 

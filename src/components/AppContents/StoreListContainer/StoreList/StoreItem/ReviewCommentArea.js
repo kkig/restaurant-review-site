@@ -3,11 +3,11 @@ import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 
 import ReviewComment from './ReviewComment';
-import './StoreLists.css';
-import userReview from '../../../classes/UserReviewClass';
+import '../StoreItem.css';
+import userReview from '../../../../../classes/UserReviewClass';
 
 import ReviewInput from './ReviewInput';
-import StoreContext from '../../../stores/StoreContext';
+import StoreContext from '../../../../../stores/StoreContext';
 import { useObserver } from 'mobx-react';
 
 function ReviewCommentArea(props) {

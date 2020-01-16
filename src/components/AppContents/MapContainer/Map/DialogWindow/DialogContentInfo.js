@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Material UI
+import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,12 +11,14 @@ import Rating from '@material-ui/lab/Rating';
 
 import Loading from '../../../../../UIComponents/Loading';
 
-const DialogContent = props => {
+const DialogContentInfo = props => {
     return (
         <DialogContent>
-            {
-                props.clickedDetail && props.isNewShopInput ? 
-                <div>
+        {
+
+            props.clickedDetail ? 
+
+            <div>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -74,13 +77,14 @@ const DialogContent = props => {
                         </span>
                     </label>
 
-                </div>  :
+            </div>  :
 
-                <Loading />
+            <Loading />
+            
 
-            }
+        }
         </DialogContent>
     );
 };
 
-export default DialogContent;
+export default DialogContentInfo;

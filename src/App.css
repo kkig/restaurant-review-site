@@ -15,7 +15,7 @@ label {
 
   font-size: 14px;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+
   grid-template-rows: var(--navbar-height) auto;
   font-family: var(--basic-font);
 }

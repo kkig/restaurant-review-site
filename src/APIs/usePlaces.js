@@ -10,7 +10,7 @@ export const usePlaces = (latitude, longitude) => {
     const [ isPlaceRequested, setPlaceRequested ] = useState(false);
 
     const getPlacesData = () => {
-        if(isPlaceRequested || placesData.results) {
+        if(!!isPlaceRequested || placesData.results) {
             return;
         }
 

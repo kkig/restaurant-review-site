@@ -1,27 +1,34 @@
-import React, { useContext, useState } from 'react';
+ import React, { useContext, useState } from 'react';
 
-import './StoreLists.css';
-import StoreItem from './StoreItem';
+// Component
+import StoreItem from './StoreList/StoreItem';
 
+// CSS
+//import './StoreList.css';
+
+// Store
 import StoreContext from '../../../stores/StoreContext';
+
+// MobX
 import { useObserver } from 'mobx-react';
 
-function StoreList(props) {
+const StoreList = ({ minValue, maxValue }) => {
   const [ isInputMode, setInputMode ] = useState(false);
   const [ selectedShop, setSelectedShop ] = useState(null);
 
   const store = useContext(StoreContext);
 
-  const handleClick = (id) => {
+  // Handle close button click
+  const handleCloseClick = (id) => {
     selectedShop !== id ? setSelectedShop(id) : setSelectedShop(null);
     setInputMode(false);
-    console.log(id);
+
+    console.log(store.ShopDataItem)
   };
 
   const handleInputMode = () => {
     setInputMode(true);
-    console.log(props.id)
-};
+  };
 
   const getAverageValue = reviewArray => {
     const ratingArray = reviewArray.map(review => review.stars);
@@ -29,8 +36,8 @@ function StoreList(props) {
   }    
 
     const evalMinMax = rating => {
-      if(props.maxValue > rating) {
-        if(props.minValue < rating) {
+      if(maxValue >= rating) {
+        if(minValue <= rating) {
           return true;
         } else {
           return false;
@@ -40,6 +47,7 @@ function StoreList(props) {
       }
     }
 
+    // Return filtered value
     const btwMinMax = restaurant => {
 
       const avgRate = restaurant.ratings.length > 0 ? 
@@ -48,36 +56,42 @@ function StoreList(props) {
 
         return evalMinMax(avgRate);
     }    
-    
+
+    //store.countData === 0 && console.log(store.ShopDataItem)
 
     return useObserver(() => (
         <div className='lists-container'>
 
-          {!store.ShopDataItem ? null : 
-            store.ShopDataItem.filter(btwMinMax).map(restaurant => (
-            
-            <StoreItem 
-              key={restaurant.id}
-              id={restaurant.id}
-              name={restaurant.name}
-              type={restaurant.type}
-              address={restaurant.address}
-              lat={restaurant.lat}
-              lng={restaurant.long}
-              ratings={restaurant.ratings}
-              dataType={restaurant.dataSrc}
-              avgValue={
-                restaurant.ratings.length > 0 ? 
-                getAverageValue(restaurant.ratings) :
-                restaurant.avgRating
-              }
+          {
+            store.countData > 0 ? 
+              store.ShopDataItem.filter(btwMinMax).map(restaurant => (
+              
+              <StoreItem 
+                key={restaurant.id}
+                id={restaurant.id}
+                name={restaurant.name}
+                type={restaurant.type}
+                address={restaurant.address}
+                lat={restaurant.lat}
+                lng={restaurant.long}
+                ratings={restaurant.ratings}
+                dataType={restaurant.dataSrc}
+                avgValue={
+                  restaurant.ratings.length > 0 ? 
+                  getAverageValue(restaurant.ratings) :
+                  restaurant.avgRating
+                }
 
-              isDetailView={restaurant.id === selectedShop ? true : false}
-              handleClick={() => handleClick(restaurant.id)}
-              handleInputMode={handleInputMode}
-              isInputMode={isInputMode}
-            />   
-          ))}
+                isDetailView={restaurant.id === selectedShop ? true : false}
+                handleCloseClick={() => handleCloseClick(restaurant.id)}
+                handleInputMode={handleInputMode}
+                isInputMode={isInputMode}
+              />   
+            )) :
+
+            null
+
+          }
           
         </div>
     ));
