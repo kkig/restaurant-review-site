@@ -1,0 +1,11 @@
+.store-section {
+    grid-column: 1 / -1;
+    height: var(--content-height);
+}
+
+@media only screen and (min-width: 600px) {
+    .store-section {
+        grid-column: 5 / -1;
+        grid-row: 2 / -1;
+    }
+}

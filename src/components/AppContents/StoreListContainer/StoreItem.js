@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import ReadOnlyRating from '../UIComponents/ReadOnlyRating';
+import ReadOnlyRating from '../../../UIComponents/ReadOnlyRating';
 
 import ReviewCommentArea from './ReviewCommentArea';
-import GOOGLE_MAP_API_KEY from '../APIs/GoogleMapKey';
-import userReview from '../classes/UserReviewClass';
+import GOOGLE_MAP_API_KEY from '../../../APIs/GoogleMapKey';
+import userReview from '../../../classes/UserReviewClass';
 
 import './StoreLists.css';
 import { CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import StoreContext from '../stores/StoreContext';
+import StoreContext from '../../../stores/StoreContext';
 import { useObserver } from 'mobx-react';
 
 function StoreItem(props) {
@@ -49,8 +49,7 @@ function StoreItem(props) {
     }, [selectedStore]);
     
 
-
-    const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
+    //const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
 
     const updataDetail = () => {
         console.log(commentArray);

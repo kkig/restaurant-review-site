@@ -9,7 +9,7 @@ label {
   font-family: var(--basic-font);
 }
 
-.App {
+.app {
   --content-height: calc(100vh - var(--navbar-height));
   --navbar-height: 50px;
 
@@ -18,28 +18,4 @@ label {
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: var(--navbar-height) auto;
   font-family: var(--basic-font);
-}
-
-.navbar {
-  grid-column: 1 / -1;
-}
-
-.map-section {
-  grid-column: 1 / -1;
-}
-
-.store-section {
-  grid-column: 1 / -1;
-}
-
-@media only screen and (min-width: 769px) {
-  .map-section {
-    grid-column: 1/ 5;
-  }
-
-  .store-section {
-    grid-column: 5 / -1;
-    grid-row: 2 / -1;
-  }
-
 }

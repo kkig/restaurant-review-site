@@ -14,3 +14,8 @@ header {
 header > h2 {
     margin: .25em 0;
 }
+
+.navbar {
+    grid-column: 1 / -1;
+  }
+  

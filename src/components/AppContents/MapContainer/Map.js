@@ -3,14 +3,17 @@ import React, { useState, useContext, useEffect } from 'react';
 import { GoogleMap, Circle, Marker, InfoWindow } from 'react-google-maps';
 import { useObserver } from 'mobx-react'; 
 
-import mapStyle from '../APIs/mapStyle.json';
-import GOOGLE_MAP_API_KEY from '../APIs/GoogleMapKey';
-import '../App.css';
-import '../components/RestaurantMap.css';
+// Style for map
+import mapStyle from './mapStyle.json';
 
-import StoreContext from '../stores/StoreContext';
-import ShopDataItem from '../classes/ShopDataItemClass';
-import DialogInput from '../components/DialogInput';
+// Google Map API key
+import GOOGLE_MAP_API_KEY from '../../../APIs/GoogleMapKey';
+
+import './Map.css';
+
+import StoreContext from '../../../stores/StoreContext';
+import ShopDataItem from '../../../classes/ShopDataItemClass';
+import DialogWindow from './Map/DialogWindow';
 
 function MapWithMarker(props) {
     const [ selectedPlace, setSelectedPlace ] = useState(null);
@@ -79,11 +82,11 @@ function MapWithMarker(props) {
 
         fetch(proxy + endpoint)
             .then(res => res.json())
-            .then(data => data.status === 'OK' ? 
+            .then(
+                data => data.status === 'OK' ? 
                 setClickedDetail(
                         
                     new ShopDataItem(
-                        //id, name, type, address, lat, long, avgRating, ratings, dataSrc
 
                         store.ShopDataItem.length + 1, //id
                         '', //name
@@ -97,18 +100,20 @@ function MapWithMarker(props) {
                     )
 
                 ) : 
-                console.log('Error with Geocode API'));
+                console.log('Error with Geocode API'))
+
+            .catch(err => console.log(`Error with geocode: ${err}`));
+
+            // Reset data 
             setClicked(null);
 
         console.log('Geocode Fetched');
     };
-    
-    clickedPosition && console.log(clickedPosition);
-    //clickedDetail && console.log(clickedDetail);
 
     // Get Geocode of Clicked position
     clickedPosition && fetchPositionInfo();
 
+    // Enable dialog
     useEffect(() => {
         clickedDetail && clickedDetail.address && open && setNewShopInput(true);
     }, [clickedDetail, open]);
@@ -166,11 +171,12 @@ function MapWithMarker(props) {
                     </InfoWindow>
                 )}
 
-                <DialogInput 
+                <DialogWindow 
                     open={open}
                     handleClose={handleClose}
                     clickedDetail={clickedDetail}
                     isNewShopInput={isNewShopInput}
+                    
                     handleDialogNameChange={handleDialogNameChange}
                     handleDialogTypeChange={handleDialogTypeChange}
                     handleDialogAddressChange={handleDialogAddressChange}

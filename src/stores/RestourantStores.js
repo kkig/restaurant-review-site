@@ -7,15 +7,8 @@ import restaurantData from '../APIs/restaurantData.json';
 import { usePlaces } from '../APIs/usePlaces';
 import { usePosition } from '../APIs/usePosition';
 
-//import GOOGLE_MAP_API_KEY from '../APIs/GoogleMapKey';
 
-//import ShopDataItem from '../components/ShopDataItemClass';
-//import StoreContext from '../stores/StoreContext';
-
-
-const StoreProvider = ({children}) => {
-    //const { ...position } = usePosition();
-    //const { placesData, formatChanged } = usePlaces();
+const StoreProvider = ({ children }) => {
     const { latitude, longitude } = usePosition();
 
     const [ isPlaceStored, setPlaceStore ] = useState(false);
@@ -54,32 +47,27 @@ const StoreProvider = ({children}) => {
         } 
     }));
     
+    // Add json data to store
     useState(() => {
-        console.log(restaurantData)
         restaurantData.map(shop => store.addNewShop({...shop, dataSrc: 'json'}));
-        console.log(store.ShopDataItem);
     }, []);
 
-    useState(() => {
-        
-    }, [latitude, longitude]);
-
-    if(latitude !== undefined && longitude !== undefined) {
-        !store.userLocation.lat && !store.userLocation.lng && store.addUserLocation(latitude, longitude);
-    } 
+    // Add init user location
+    !!latitude && !!longitude && store.userLocation.length === 0 && store.addUserLocation(latitude, longitude);
 
 
     const { placesData, formatChanged } = usePlaces(store.userLocation.lat, store.userLocation.lng);
 
     if(formatChanged && !isPlaceStored) {
+        /*
         placesData.map(shop => store.addNewShop(shop));
         setPlaceStore(true);
         console.log(store.ShopDataItem);
+        */
     }
-    //console.log(placesData);
 
     return (
-        <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+        <StoreContext.Provider value={store}>{ children }</StoreContext.Provider>
     );
 }
 

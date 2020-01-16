@@ -4,17 +4,18 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    height: '100%',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
     '& > * + *': {
       marginLeft: theme.spacing(2),
     },
   },
 }));
 
-export default function CircularIndeterminate() {
+export default function CircularDeterminate() {
   const classes = useStyles();
   const [progress, setProgress] = React.useState(0);
 
@@ -32,7 +33,7 @@ export default function CircularIndeterminate() {
 
   return (
     <div className={classes.root}>
-      <CircularProgress variant="determinate" value={progress} color="secondary" />
+      <CircularProgress variant="determinate" value={progress} />
     </div>
   );
 }

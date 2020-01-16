@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import './StoreLists.css';
 import StoreItem from './StoreItem';
 
-import StoreContext from '../stores/StoreContext';
+import StoreContext from '../../../stores/StoreContext';
 import { useObserver } from 'mobx-react';
 
 function StoreList(props) {

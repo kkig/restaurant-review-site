@@ -26,7 +26,7 @@ export const usePlaces = (latitude, longitude) => {
                 .catch(error => console.log(error));
             console.log('Place fetched');
         }
-        //fetchData();
+        fetchData();
         setPlaceRequested(true);
     };
 

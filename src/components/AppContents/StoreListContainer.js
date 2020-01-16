@@ -2,7 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
-import StoreList from './StoreList';
+import StoreList from './StoreListContainer/StoreList';
+import './StoreListContainer.css';
 
 const ReviewSlider = withStyles({
   root: {
