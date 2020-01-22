@@ -8,7 +8,7 @@ import mapStyle from './mapStyle.json';
 
 import './Map.css';
 
-import StoreContext from '../../../stores/StoreContext';
+import StoreContext from '../../../../stores/StoreContext';
 //import ShopDataItem from '../../../classes/ShopDataItemClass';
 import DialogWindow from './Map/DialogWindow';
 

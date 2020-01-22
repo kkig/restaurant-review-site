@@ -1,11 +1,13 @@
 import React from 'react';
-import ReadOnlyRating from '../../../../../UIComponents/ReadOnlyRating';
+import ReadOnlyRating from '../../../../../../UIComponents/ReadOnlyRating';
+
+import './ReviewComment.css';
 
 function ReviewComment(props) {
     const ratings = props.ratings;
 
     return (
-        <li style={{marginTop: '.75em'}}>        
+        <li className="commentItem">        
             <div style={{ color: 'var(--star-color)' }}>
                 {ratings.stars.toFixed(1)}
                 <ReadOnlyRating value={ratings.stars}/></div>

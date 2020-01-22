@@ -10,13 +10,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentInfo from './DialogWindow/DialogContentInfo';
 
 // Google Map API key
-import GOOGLE_MAP_API_KEY from '../../../../APIs/GoogleMapKey';
+import GOOGLE_MAP_API_KEY from '../../../../../APIs/GoogleMapKey';
 
 // Class
-import ShopDataItem from '../../../../classes/ShopDataItemClass';
+import ShopDataItem from '../../../../../classes/ShopDataItemClass';
 
 // Store
-import StoreContext from '../../../../stores/StoreContext';
+import StoreContext from '../../../../../stores/StoreContext';
 
 const DialogWindow = ({ open, clickedPosition, handleClose }) => {
     const [ clickedDetail, setClickedDetail ] = useState(null);
@@ -24,11 +24,15 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
     const store = useContext(StoreContext);
 
     const handleSubmit = () => {
-        store.addNewShop(clickedDetail);
-        handleClose();
-        console.log('New shop stored');
-        console.log(clickedDetail);
-        setClickedDetail(null);
+        const addToStore = () => {
+            store.addNewShop(clickedDetail);
+            handleClose();
+            console.log('New shop stored');
+            setClickedDetail(null);
+        }
+
+        !!clickedDetail.name && !!clickedDetail.address && addToStore();
+
     };
 
     const handleDialogRatingChange = (e, newValue) =>
@@ -152,8 +156,6 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
                 handleDialogTypeChange={handleDialogTypeChange}
                 handleDialogAddressChange={handleDialogAddressChange}
                 handleDialogRatingChange={handleDialogRatingChange}
-                handleSubmit={handleSubmit}
-
             />}
 
             <DialogActions>

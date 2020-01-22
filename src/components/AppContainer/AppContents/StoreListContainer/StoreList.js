@@ -7,7 +7,7 @@ import StoreItem from './StoreList/StoreItem';
 //import './StoreList.css';
 
 // Store
-import StoreContext from '../../../stores/StoreContext';
+import StoreContext from '../../../../stores/StoreContext';
 
 // MobX
 import { useObserver } from 'mobx-react';
@@ -23,7 +23,6 @@ const StoreList = ({ minValue, maxValue }) => {
     selectedShop !== id ? setSelectedShop(id) : setSelectedShop(null);
     setInputMode(false);
 
-    console.log(store.ShopDataItem)
   };
 
   const handleInputMode = () => {

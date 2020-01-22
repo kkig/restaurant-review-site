@@ -5,7 +5,7 @@
     grid-column: 1 / -1;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 769px) {
     .map-section {
         grid-column: 1/ 5;
     }

@@ -3,10 +3,10 @@ import { withGoogleMap, withScriptjs } from 'react-google-maps';
 import { useObserver } from 'mobx-react'; 
 
 import Map from './MapContainer/Map';
-import CircularProgress from '../../UIComponents/Loading';
+import CircularProgress from '../../../UIComponents/Loading';
 
-import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
-import StoreContext from '../../stores/StoreContext';
+import GOOGLE_MAP_API_KEY from '../../../APIs/GoogleMapKey';
+import StoreContext from '../../../stores/StoreContext';
 
 import './MapContainer.css';
 

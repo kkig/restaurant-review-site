@@ -24,7 +24,7 @@
     margin-top: .25rem;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 769px) {
     .store-section {
         grid-column: 5 / -1;
         grid-row: 2 / -1;

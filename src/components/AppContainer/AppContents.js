@@ -8,12 +8,13 @@ import StoreListContainer from './AppContents/StoreListContainer';
 import './AppContents.css';
 
 // Store
-import StoreContext from '../stores/StoreContext';
-import restaurantData from '../APIs/restaurantData.json';
+import StoreContext from '../../stores/StoreContext';
+import restaurantData from '../../APIs/restaurantData.json';
 
 // Tools
-import { usePlaces } from '../APIs/usePlaces';
-import { usePosition } from '../APIs/usePosition';
+import { usePlaces } from '../../APIs/usePlaces';
+import { usePosition } from '../../APIs/usePosition';
+
 
 const AppContents = ({ isMobileView, isMapView }) => {
     const { latitude, longitude } = usePosition();
