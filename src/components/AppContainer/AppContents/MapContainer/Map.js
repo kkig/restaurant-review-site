@@ -6,9 +6,6 @@ import DialogWindow from './Map/DialogWindow';
 // CSS
 import './Map.css';
 
-// Store
-import StoreContext from '../../../../stores/StoreContext';
-
 // react-google-maps
 import { GoogleMap, Circle, Marker, InfoWindow } from 'react-google-maps';
 
@@ -17,6 +14,9 @@ import { useObserver } from 'mobx-react';
 
 // Style for map
 import mapStyle from './mapStyle.json';
+
+// Store
+import StoreContext from '../../../../stores/StoreContext';
 
 function MapWithMarker(props) {
     const [ clickedPosition, setClickedPosition ] = useState(null); 

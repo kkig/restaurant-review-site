@@ -21,7 +21,7 @@ const NoLocation = ({ handleDisagree }) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleDisagree} color="primary">
+                <Button onClick={handleDisagree} color="primary" autoFocus>
                     OK
                 </Button>
             </DialogActions>                        
