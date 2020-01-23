@@ -1,49 +1,70 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useContext, useState } from 'react';
+
+// Component
+import SelectLocation from './LocationDialog/LocationDialog/SelectLocation';
+import NoLocation from './LocationDialog/LocationDialog/NoLocation';
+
+// Material UI
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function LocationDialog() {
-  const [open, setOpen] = React.useState(false);
+// Store
+import StoreContext from '../stores/StoreContext';
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+// Tools
+import { usePlaces } from './LocationDialog/usePlaces';
+import { usePosition } from './LocationDialog/usePosition';
+
+const LocationDialog = ({ isLocationAvailable }) => {
+  const [ open, setOpen ] = useState(true);
+  const [ isPlaceStored, setPlaceStore ] = useState(false);
+
+  const store = useContext(StoreContext);
+
+  const { latitude, longitude } = usePosition();
+  const { placesData, formatChanged } = usePlaces(store.userLocation.lat, store.userLocation.lng);
+  
+  if(formatChanged && !isPlaceStored) {  
+      placesData.map(shop => store.addNewShop(shop));
+      setPlaceStore(true);
+  } 
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleAgree = () => {
+    // Add user location
+    !!latitude && !!longitude && store.userLocation.length === 0 && store.addUserLocation(latitude, longitude); 
+    handleClose();
+  };
+
+  const handleDisagree = () => {
+    store.userLocation.length === 0 && store.addUserLocation(48.2088475, 16.371284);
+    handleClose();
+  };
+
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleDisagree}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Disagree
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
+        {
+          !!isLocationAvailable ?
+          <SelectLocation 
+          handleDisagree={handleDisagree}
+          handleAgree={handleAgree}
+          /> :
+          <NoLocation 
+          handleDisagree={handleDisagree}
+          />
+        } 
+
       </Dialog>
     </div>
   );
-}
+};
+
+export default LocationDialog;

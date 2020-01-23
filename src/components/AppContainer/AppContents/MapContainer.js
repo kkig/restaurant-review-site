@@ -1,14 +1,25 @@
 import React, { useContext }  from 'react';
-import { withGoogleMap, withScriptjs } from 'react-google-maps';
-import { useObserver } from 'mobx-react'; 
 
+// Components
 import Map from './MapContainer/Map';
+
+// Material UI
 import CircularProgress from '../../../UIComponents/Loading';
 
+// CSS
+import './MapContainer.css';
+
+// API key
 import GOOGLE_MAP_API_KEY from '../../../APIs/GoogleMapKey';
+
+// Store
 import StoreContext from '../../../stores/StoreContext';
 
-import './MapContainer.css';
+// react-google-maps
+import { withGoogleMap, withScriptjs } from 'react-google-maps';
+
+// MobX
+import { useObserver } from 'mobx-react'; 
 
 const MapContent = withScriptjs(withGoogleMap(Map));
 

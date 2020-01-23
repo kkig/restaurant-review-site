@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import GOOGLE_MAP_API_KEY from './GoogleMapKey';
+import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
 
-import ShopDataItem from '../classes/ShopDataItemClass';
+import ShopDataItem from '../../classes/ShopDataItemClass';
 
 export const usePlaces = (latitude, longitude) => {
     const [ placesData, setPlaces ] = useState({});

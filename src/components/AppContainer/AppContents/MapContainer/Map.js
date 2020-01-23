@@ -1,16 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
 
+// Component
+import DialogWindow from './Map/DialogWindow';
+
+// CSS
+import './Map.css';
+
+// Store
+import StoreContext from '../../../../stores/StoreContext';
+
+// react-google-maps
 import { GoogleMap, Circle, Marker, InfoWindow } from 'react-google-maps';
+
+// MobX
 import { useObserver } from 'mobx-react'; 
 
 // Style for map
 import mapStyle from './mapStyle.json';
-
-import './Map.css';
-
-import StoreContext from '../../../../stores/StoreContext';
-//import ShopDataItem from '../../../classes/ShopDataItemClass';
-import DialogWindow from './Map/DialogWindow';
 
 function MapWithMarker(props) {
     const [ clickedPosition, setClickedPosition ] = useState(null); 
@@ -50,7 +56,7 @@ function MapWithMarker(props) {
         <div>
             <GoogleMap
                 defaultZoom={15}
-                defaultCenter={props.center}
+                defaultCenter={props.center} //{lat: 48.2088475, lng: 16.371284}
                 defaultOptions={{
                     styles: mapStyle,
                     disableDefaultUI: true

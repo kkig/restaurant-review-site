@@ -3,9 +3,6 @@
 // Component
 import StoreItem from './StoreList/StoreItem';
 
-// CSS
-//import './StoreList.css';
-
 // Store
 import StoreContext from '../../../../stores/StoreContext';
 

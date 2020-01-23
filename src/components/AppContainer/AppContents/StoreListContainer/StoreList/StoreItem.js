@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import ReviewCommentArea from './StoreItem/ReviewCommentArea';
 
 // CSS
-//import '../StoreLists.css';
 import './StoreItem.css';
 
 // API key for google map
