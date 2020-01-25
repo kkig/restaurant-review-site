@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Rating from '@material-ui/lab/Rating';
 
+// CSS
+import './ReviewInput.css';
+
 function ReviewInput(props) {
 
     return (
@@ -45,6 +48,7 @@ function ReviewInput(props) {
                 variant="contained" 
                 color="primary" 
                 onClick={props.handleClick}
+                className="review-save-btn"
             >
                 Save
             </Button>

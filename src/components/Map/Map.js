@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 // Component
-import DialogWindow from './Map/DialogWindow';
+import DialogWindow from './DialogWindow';
 
 // CSS
 import './Map.css';
@@ -16,7 +16,7 @@ import { useObserver } from 'mobx-react';
 import mapStyle from './mapStyle.json';
 
 // Store
-import StoreContext from '../../../../stores/StoreContext';
+import StoreContext from '../../stores/StoreContext';
 
 function MapWithMarker(props) {
     const [ clickedPosition, setClickedPosition ] = useState(null); 

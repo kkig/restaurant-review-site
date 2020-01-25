@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 // Material UI
-import ReadOnlyRating from '../../../../../UIComponents/ReadOnlyRating';
-import Loading from '../../../../../UIComponents/Loading';
+import ReadOnlyRating from '../../UIComponents/ReadOnlyRating';
+import Loading from '../../UIComponents/Loading';
 import Button from '@material-ui/core/Button';
 
 // Component
-import ReviewCommentArea from './StoreItem/ReviewCommentArea';
+import ReviewCommentArea from './ReviewCommentArea';
 
 // CSS
 import './StoreItem.css';
 
 // API key for google map
-import GOOGLE_MAP_API_KEY from '../../../../../APIs/GoogleMapKey';
+import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
 
 // Class
-import userReview from '../../../../../classes/UserReviewClass';
+import userReview from '../../classes/UserReviewClass';
 
 // Store
-import StoreContext from '../../../../../stores/StoreContext';
+import StoreContext from '../../stores/StoreContext';
 
 // MobX
 import { useObserver } from 'mobx-react';
@@ -38,6 +38,7 @@ const StoreItem = props => {
 
         const endpoint = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${props.id}&fields=name,rating,reviews&key=${GOOGLE_MAP_API_KEY}`;
         const proxy = `https://cors-anywhere.herokuapp.com/`;
+        
         fetch(proxy + endpoint)
             .then(res => res.json())
             .then(data => data.status === 'OK' && setSelected(data.result))
@@ -60,7 +61,7 @@ const StoreItem = props => {
     }, [selectedStore]);
     
 
-    //const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
+    const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
 
     const updataDetail = () => {
         commentArray.map(shop => store.addNewComment(props.id, shop));
@@ -74,12 +75,11 @@ const StoreItem = props => {
     return useObserver(() => (
         <div className='list-item'>
             <div className='store-container' onClick={props.handleCloseClick}>
-                {/*
+                
                 <div className='restaurant-image'>
                     <img src={source} alt="street view of restaurant"></img>
                 </div>
-                */
-                }
+                
                 <div className='restaunrant-info'>
                     <h3>{props.name}</h3>
                     <ul>
@@ -106,7 +106,6 @@ const StoreItem = props => {
                 handleInputMode={props.handleInputMode}
                 ratings={props.ratings}
                 />
-
                 )                
             }
 

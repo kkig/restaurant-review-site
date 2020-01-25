@@ -1,10 +1,10 @@
  import React, { useContext, useState } from 'react';
 
 // Component
-import StoreItem from './StoreList/StoreItem';
+import StoreItem from './StoreItem';
 
 // Store
-import StoreContext from '../../../../stores/StoreContext';
+import StoreContext from '../../stores/StoreContext';
 
 // MobX
 import { useObserver } from 'mobx-react';

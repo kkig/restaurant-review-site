@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // CSS
-import './NoLocation.css';
+import './NoLocationContent.css';
 
 const NoLocation = ({ handleDisagree }) => {
     return (

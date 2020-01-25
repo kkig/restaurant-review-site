@@ -35,20 +35,6 @@ hr {
     text-transform: capitalize;
 }
 
-.reviews-list {
-    padding: var(--container-padding);
-}
-
-.reviews-list > h4 {
-    margin-bottom: 0;
-}
-
-.reviews-list > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
 .list-item > button {
     display: flex;
     justify-content: center;
@@ -80,22 +66,4 @@ hr {
 
 .filter-slider-section > div {
     display: flex;
-}
-
-
-/* Review Input */
-.review-section {
-    padding: .5rem 0;
-}
-
-.rating-input {
-    padding-left: .5rem;
-}
-
-.review-input-area {
-    width: 100%;
-}
-
-.MuiButton-containedPrimary:hover {
-    color: #ffffff;
 }

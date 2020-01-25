@@ -1,18 +1,18 @@
 import React, { useContext, useState } from 'react';
 
 // Component
-import SelectLocation from './LocationDialog/LocationDialog/SelectLocation';
-import NoLocation from './LocationDialog/LocationDialog/NoLocation';
+import SelectLocation from './SelectLocation';
+import NoLocation from './NoLocationContent';
 
 // Material UI
 import Dialog from '@material-ui/core/Dialog';
 
 // Store
-import StoreContext from '../stores/StoreContext';
+import StoreContext from '../../stores/StoreContext';
 
 // Tools
-import { usePlaces } from './LocationDialog/usePlaces';
-import { usePosition } from './LocationDialog/usePosition';
+import { usePlaces } from './usePlaces';
+import { usePosition } from './usePosition';
 
 const LocationDialog = ({ isLocationAvailable }) => {
   const [ open, setOpen ] = useState(true);

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import AppContainer from './components/AppContainer';
+import AppContainer from './AppContainer';
 
 // CSS
 import './App.css';

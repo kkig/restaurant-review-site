@@ -7,16 +7,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Component
-import DialogContentInfo from './DialogWindow/DialogContentInfo';
+import DialogContentInfo from './DialogContentInfo';
 
 // Google Map API key
-import GOOGLE_MAP_API_KEY from '../../../../../APIs/GoogleMapKey';
+import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
 
 // Class
-import ShopDataItem from '../../../../../classes/ShopDataItemClass';
+import ShopDataItem from '../../classes/ShopDataItemClass';
 
 // Store
-import StoreContext from '../../../../../stores/StoreContext';
+import StoreContext from '../../stores/StoreContext';
 
 const DialogWindow = ({ open, clickedPosition, handleClose }) => {
     const [ clickedDetail, setClickedDetail ] = useState(null);

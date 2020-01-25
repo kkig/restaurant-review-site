@@ -8,7 +8,7 @@ import Slider from '@material-ui/core/Slider';
 import './StoreListContainer.css';
 
 // Store
-import StoreList from './StoreListContainer/StoreList';
+import StoreList from './StoreList';
 
 // Style for slider
 const ReviewSlider = withStyles({

@@ -1,19 +1,19 @@
 import React, { useContext }  from 'react';
 
 // Components
-import Map from './MapContainer/Map';
+import Map from './Map';
 
 // Material UI
-import CircularProgress from '../../../UIComponents/Loading';
+import CircularProgress from '../../UIComponents/Loading';
 
 // CSS
 import './MapContainer.css';
 
 // API key
-import GOOGLE_MAP_API_KEY from '../../../APIs/GoogleMapKey';
+import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
 
 // Store
-import StoreContext from '../../../stores/StoreContext';
+import StoreContext from '../../stores/StoreContext';
 
 // react-google-maps
 import { withGoogleMap, withScriptjs } from 'react-google-maps';

@@ -8,8 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Rating from '@material-ui/lab/Rating';
-
-import Loading from '../../../../../../UIComponents/Loading';
+import Loading from '../../UIComponents/Loading';
 
 const DialogContentInfo = ({ 
         clickedDetail, 

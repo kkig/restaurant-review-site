@@ -1,17 +1,23 @@
 import React, { useState, useContext } from 'react';
 
+// Component
 import Button from '@material-ui/core/Button';
-
 import ReviewComment from './ReviewComment';
-import '../StoreItem.css';
-import userReview from '../../../../../../classes/UserReviewClass';
-
 import ReviewInput from './ReviewInput';
-import StoreContext from '../../../../../../stores/StoreContext';
+
+// CSS
+import './ReviewCommentArea.css';
+
+// Class
+import userReview from '../../classes/UserReviewClass';
+
+// Store
+import StoreContext from '../../stores/StoreContext';
+
+// MobX
 import { useObserver } from 'mobx-react';
 
 function ReviewCommentArea(props) {
-
     const [ textValue, setTextValue ] = useState('');
     const [ ratingValue, setRatingValue ] = useState(2.5);
 
@@ -21,15 +27,13 @@ function ReviewCommentArea(props) {
         const newReview = new userReview(props.ratings.length + 1, newRating, newValue);
         
         store.addNewComment(props.id, newReview);
-        console.log(store.ShopDataItem);
         
         setTextValue('');
         setRatingValue(2.5);
     };
 
     return useObserver(() => (
-        <div className="reviews-list">
-                    <h4>Review:</h4> 
+        <div className="reviews-list"> 
                     {   
                         props.isInputMode ?
 
@@ -48,11 +52,14 @@ function ReviewCommentArea(props) {
                         <Button 
                             size="small" 
                             variant="outlined" 
+                            className="add-new-comment-btn"
                             onClick={() => props.handleInputMode() }
                         >
                             Add Review
                         </Button>                
                     }
+
+                    <h4>Review:</h4>
 
                     <ul>
                         {   

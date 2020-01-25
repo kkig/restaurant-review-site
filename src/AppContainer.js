@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 // Components
-import Navbar from './AppContainer/Navbar';
-import AppContents from './AppContainer/AppContents'
-import LocationDialog from './LocationDialog';
+import Navbar from './components/Navbar/Navbar';
+import AppContents from './AppContents'
+import LocationDialog from './components/LocationDialog/LocationDialog';
 
 const AppContainer = () => {
     const [ windowValue, setValue ] = useState(window.innerWidth);

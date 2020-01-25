@@ -1,15 +1,15 @@
 import React, { useEffect, useContext } from 'react';
 
 // Components
-import MapContainer from './AppContents/MapContainer';
-import StoreListContainer from './AppContents/StoreListContainer';
+import MapContainer from './components/Map/MapContainer';
+import StoreListContainer from './components/StoreList/StoreListContainer';
 
 // CSS
 import './AppContents.css';
 
 // Store
-import StoreContext from '../../stores/StoreContext';
-import restaurantData from '../../APIs/restaurantData.json';
+import StoreContext from './stores/StoreContext';
+import restaurantData from './APIs/restaurantData.json';
 
 
 const AppContents = ({ isMobileView, isMapView }) => {

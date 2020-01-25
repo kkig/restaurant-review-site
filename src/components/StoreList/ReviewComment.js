@@ -1,5 +1,5 @@
 import React from 'react';
-import ReadOnlyRating from '../../../../../../UIComponents/ReadOnlyRating';
+import ReadOnlyRating from '../../UIComponents/ReadOnlyRating';
 
 import './ReviewComment.css';
 
