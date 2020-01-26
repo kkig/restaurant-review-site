@@ -11,9 +11,6 @@ import ReviewCommentArea from './ReviewCommentArea';
 // CSS
 import './StoreItem.css';
 
-// API key for google map
-import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
-
 // Class
 import userReview from '../../classes/UserReviewClass';
 
@@ -27,9 +24,10 @@ const StoreItem = props => {
     const [ selectedStore, setSelected ] = useState([]);
     const [ commentArray, setComments ] = useState([]);
     const [ isDetailFetched, setDetailFetch ] = useState(false);
-    //console.log(props)
 
     const store = useContext(StoreContext);
+
+    const GOOGLE_MAP_API_KEY = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_GOOGLE_KEY : process.env.REACT_APP_DEV_GOOGLE_KEY;
 
     const detailRequest = () => {
         if(!props.id || props.ratings.length > 0 || isDetailFetched) {
@@ -38,7 +36,7 @@ const StoreItem = props => {
 
         const endpoint = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${props.id}&fields=name,rating,reviews&key=${GOOGLE_MAP_API_KEY}`;
         const proxy = `https://cors-anywhere.herokuapp.com/`;
-        
+
         fetch(proxy + endpoint)
             .then(res => res.json())
             .then(data => data.status === 'OK' && setSelected(data.result))

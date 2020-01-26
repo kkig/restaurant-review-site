@@ -10,7 +10,7 @@ import './App.css';
 import StoreProvider from './stores/RestourantStores';
 
 const App = () => {
-
+  
   return (
     <div className="app">
       <StoreProvider>

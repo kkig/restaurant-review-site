@@ -9,9 +9,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // Component
 import DialogContentInfo from './DialogContentInfo';
 
-// Google Map API key
-import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
-
 // Class
 import ShopDataItem from '../../classes/ShopDataItemClass';
 
@@ -22,6 +19,8 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
     const [ clickedDetail, setClickedDetail ] = useState(null);
 
     const store = useContext(StoreContext);
+
+    const GOOGLE_MAP_API_KEY = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_GOOGLE_KEY : process.env.REACT_APP_DEV_GOOGLE_KEY;
 
     const handleSubmit = () => {
         const addToStore = () => {
@@ -131,7 +130,7 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
         };
 
         !!clickedPosition && !clickedDetail && fetchPositionInfo();
-    }, [clickedPosition, clickedDetail, store.ShopDataItem.length]);
+    }, [clickedPosition, clickedDetail, store.ShopDataItem.length, GOOGLE_MAP_API_KEY]);
 
     // Reset clickedDetail value if clickedPosition is null
     useEffect(() => {

@@ -1,5 +1,6 @@
 import React, { useContext }  from 'react';
 
+
 // Components
 import Map from './Map';
 
@@ -8,9 +9,6 @@ import CircularProgress from '../../UIComponents/Loading';
 
 // CSS
 import './MapContainer.css';
-
-// API key
-import GOOGLE_MAP_API_KEY from '../../APIs/GoogleMapKey';
 
 // Store
 import StoreContext from '../../stores/StoreContext';
@@ -23,9 +21,12 @@ import { useObserver } from 'mobx-react';
 
 const MapContent = withScriptjs(withGoogleMap(Map));
 
+
 function MapContainer() {
     const store = useContext(StoreContext);
-    const apiKey = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
+    const GOOGLE_API_KEY = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_GOOGLE_KEY : process.env.REACT_APP_DEV_GOOGLE_KEY;
+
+    const endpoint = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`;
 
     return useObserver(() => (
         <div className='map-section' >    
@@ -33,7 +34,7 @@ function MapContainer() {
             {   
                 !!store.userLocation.lat && !!store.userLocation.lng ? 
                     <MapContent 
-                        googleMapURL={apiKey}
+                        googleMapURL={endpoint}
                         center={{ lat: store.userLocation.lat, lng: store.userLocation.lng }}
                         loadingElement={<div style={{ height: '100%' }} />}
                         containerElement={<div style={{ height: '100%', width: '100%' }} />}
