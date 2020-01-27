@@ -10,12 +10,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const SelectLocation = ({ handleDisagree, handleAgree }) => {
     return (
         <div>
-            <DialogTitle id="alert-dialog-title">{"Share your location?"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Use your location?"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Gastro Review use location to display map and restaurants. 
-                    <span style={{display: 'block', fontWeight: 'bold'}}>If you don't want to share location, we will use default location: Vienna.</span>
-                    <span style={{display: 'block'}}>Would you like to share your location?</span>
+                    Gastro Review need location to display map and restaurants. 
+                    <span style={{display: 'block', fontWeight: 'bold'}}>If you don't want to use your current location, we will use default location: Vienna.</span>
+                    <span style={{display: 'block'}}>Would you like to use your location?</span>
                 </DialogContentText>
             </DialogContent>
 

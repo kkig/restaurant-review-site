@@ -8,10 +8,11 @@ Restaurant review site. Application will display the users current location, dis
 
 Please get [API Key](https://developers.google.com/maps/gmp-get-started).
 
-Create `GoogleMapKey.js` file inside `APIs` folder. 
+Create `.env.local` file in root. 
 
-Inside `GoogleMapKey.js`, please write:
-`export default 'Your API Here';`
+Inside `.env.local`, please add your Google API keys:
+`REACT_APP_DEV_GOOGLE_KEY = 'YOUR_DEVELOPMENT_API_KEY'`
+`REACT_APP_DEV_GOOGLE_KEY = 'YOUR_PRODUCTION_API_KEY'`
 
 ## Installing
 
@@ -32,4 +33,4 @@ Your website will be ready to use on `build` folder.
 * [React.js](https://reactjs.org/docs/create-a-new-react-app.html) - Javascript library.
 * [Material UI](https://material-ui.com/getting-started/installation/) - UI dependency for React.js.
 * [react-google-maps](https://tomchentw.github.io/react-google-maps) - Library for installing google map API to react.
-* [MobX] (https://mobx.js.org/README.html) - State management library.
+* [MobX](https://mobx.js.org/README.html) - State management library.

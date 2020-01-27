@@ -13,10 +13,10 @@ import './NoLocationContent.css';
 const NoLocation = ({ handleDisagree }) => {
     return (
         <div>
-            <DialogTitle id="alert-dialog-title">{"Location data not found."}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Location not found."}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Location service is not available. Please check browser setting. 
+                    Your location information is not available. Please check browser setting. 
                     <span className="dialog-default-city">Map will display default location: Vienna</span>
                 </DialogContentText>
             </DialogContent>
