@@ -13,18 +13,17 @@ const SelectLocation = ({ handleDisagree, handleAgree }) => {
             <DialogTitle id="alert-dialog-title">{"Use your location?"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Gastro Review need location to display map and restaurants. 
-                    <span style={{display: 'block', fontWeight: 'bold'}}>If you don't want to use your current location, we will use default location: Vienna.</span>
-                    <span style={{display: 'block'}}>Would you like to use your location?</span>
+                    Would you like to use your location to display map and restaurants?
+                    <span style={{display: 'block', fontWeight: 'bold'}}>If denied, we will use default location: Vienna</span>
                 </DialogContentText>
             </DialogContent>
 
             <DialogActions>
                 <Button onClick={handleDisagree} color="primary">
-                    Disagree
+                    Deny
                 </Button>
                 <Button onClick={handleAgree} color="primary" autoFocus>
-                    Agree
+                    OK
                 </Button>
             </DialogActions>            
         </div>

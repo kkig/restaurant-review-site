@@ -85,7 +85,7 @@ const StoreList = ({ minValue, maxValue }) => {
               />   
             )) :
 
-            null
+            <p>No restaurant to display.</p>
 
           }
           
