@@ -20,7 +20,9 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
 
     const store = useContext(StoreContext);
 
-    const GOOGLE_MAP_API_KEY = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_GOOGLE_KEY : process.env.REACT_APP_DEV_GOOGLE_KEY;
+    const GOOGLE_MAP_API_KEY = process.env.NODE_ENV === 'production' ? 
+        process.env.REACT_APP_PROD_GOOGLE_KEY : 
+        process.env.REACT_APP_DEV_GOOGLE_KEY;
 
     const handleSubmit = () => {
         const addToStore = () => {
@@ -58,42 +60,6 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
         address: newValue
     })
 
-    /*
-    const fetchPositionInfo = () => {
-        const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${clickedPosition.lat},${clickedPosition.lng}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
-        const proxy = `https://cors-anywhere.herokuapp.com/`;
-
-        fetch(proxy + endpoint)
-            .then(res => res.json())
-            .then(
-                data => data.status === 'OK' ? 
-                setClickedDetail(
-                        
-                    new ShopDataItem(
-
-                        store.ShopDataItem.length + 1, //id
-                        '', //name
-                        'Restaurant',   //type
-                        data.results[0].formatted_address, //address
-                        clickedPosition.lat,    //lat
-                        clickedPosition.lng,    //long
-                        2.5,    //avgRating
-                        [], //ratings
-                        'userInput' //dataSrc
-                    )
-
-                ) : 
-                console.log('Error with Geocode API'))
-
-            .catch(err => console.log(`Error with geocode: ${err}`));
-
-            // Reset data 
-            //setClickedPosition(null);
-
-        console.log('Geocode Fetched');
-    };
-    */
-
     useEffect(() => {
         const fetchPositionInfo = () => {
             const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${clickedPosition.lat},${clickedPosition.lng}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
@@ -122,9 +88,6 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
                     console.log('Error with Geocode API'))
     
                 .catch(err => console.log(`Error with geocode: ${err}`));
-    
-                // Reset data 
-                //setClickedPosition(null);
     
             console.log('Geocode Fetched');
         };

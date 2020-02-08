@@ -24,7 +24,12 @@ const MapContent = withScriptjs(withGoogleMap(Map));
 
 function MapContainer() {
     const store = useContext(StoreContext);
-    const GOOGLE_API_KEY = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_GOOGLE_KEY : process.env.REACT_APP_DEV_GOOGLE_KEY;
+
+    // Google API Key
+    const GOOGLE_API_KEY = process.env.NODE_ENV === 'production' ? 
+        process.env.REACT_APP_PROD_GOOGLE_KEY : 
+        process.env.REACT_APP_DEV_GOOGLE_KEY;
+
 
     const endpoint = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`;
 

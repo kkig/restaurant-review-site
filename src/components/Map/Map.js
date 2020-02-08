@@ -22,7 +22,6 @@ function MapWithMarker(props) {
     const [ clickedPosition, setClickedPosition ] = useState(null); 
     const [ selectedPlace, setSelectedPlace ] = useState(null);
     
-    //const [ clickedDetail, setClickedDetail ] = useState(null);
     const [ open, setOpen] = useState(false);
     
     const store = useContext(StoreContext);
@@ -44,9 +43,6 @@ function MapWithMarker(props) {
         //handleClickOpen();
     };
 
-
-    // Get Geocode of Clicked position
-    //clickedPosition && fetchPositionInfo();
 
     useEffect(() => {
         !open && setClickedPosition(null);
@@ -109,17 +105,6 @@ function MapWithMarker(props) {
                     open={open}
                     handleClose={handleClose}
                     clickedPosition={clickedPosition}
-                    /*
-                    handleSubmit={handleSubmit}
-
-                    clickedDetail={clickedDetail}
-                    
-                    handleDialogNameChange={handleDialogNameChange}
-                    handleDialogTypeChange={handleDialogTypeChange}
-                    handleDialogAddressChange={handleDialogAddressChange}
-                    handleDialogRatingChange={handleDialogRatingChange}
-                    */
-                    
                 />
 
             </GoogleMap>
