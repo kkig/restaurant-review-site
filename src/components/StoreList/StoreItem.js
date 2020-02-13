@@ -61,12 +61,12 @@ const StoreItem = props => {
 
     const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
 
-    const updataDetail = () => {
+    const updateDetail = () => {
         commentArray.map(shop => store.addNewComment(props.id, shop));
         setComments([]);
     }
 
-    commentArray.length > 0 && updataDetail();
+    commentArray.length > 0 && updateDetail();
 
     props.isDetailView && props.ratings.length === 0 && props.dataType === 'GOOGLE' && detailRequest();
     
