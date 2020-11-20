@@ -16,7 +16,6 @@ const StoreProvider = ({ children }) => {
       store.ShopDataItem.filter(
         (shop) => shop.id === id && shop.ratings.unshift(newComment)
       );
-      //console.log(updated);
     },
     userLocation: [],
     addUserLocation: (lat, lng) => {

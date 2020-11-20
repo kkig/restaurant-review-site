@@ -1,36 +1,88 @@
-# Restaurant review site
+# GASTRO REVIEW :fork_and_knife:
 
-Restaurant review site. Application will display the users current location, display list of restaurants close to the location.
+![Top Page](https://github.com/kkig/restaurant-review-site/blob/master/images/gastro_top.png?raw=true)
 
-## Requirement
+This is the application which displays the list of restaurants based on user location or default city (Vienna) using Google APIs. User can see the reviews of each restaurant, add a new review, or add a new restaurant.
 
-* [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)
+## Getting Started
 
-Please get [API Key](https://developers.google.com/maps/gmp-get-started).
+### Prerequisites
 
-Create `.env.local` file in root. 
+Here are the list of things required for this app.
 
-Inside `.env.local`, please add your Google API keys:
-`REACT_APP_DEV_GOOGLE_KEY = 'YOUR_DEVELOPMENT_API_KEY'`
-`REACT_APP_DEV_GOOGLE_KEY = 'YOUR_PRODUCTION_API_KEY'`
+- yarn
+  Please install the dependencies using yarn.
 
-## Installing
+```
+yarn install
+```
 
-Please install followings on your computer.
+- Google Maps API key
+  This application requires a Google Maps API key to fetch data.
 
-* React.js - [Documentation for how to install](https://reactjs.org/docs/create-a-new-react-app.html)
-* Create React App
-* Package manager (npm or Yarn)
+  Please get an API key [here](https://developers.google.com/maps/gmp-get-started).
 
-## Deployment
+### Installation
 
-* `npm build` or `yarn build`
+1, Get a [Google API Keys](https://developers.google.com/maps/gmp-get-started).
+2, Clone the repo
 
-Your website will be ready to use on `build` folder.
+```
+git clone https://github.com/kkig/restaurant-review-site.git
+```
 
-## Dependencies
+3, Install packages
 
-* [React.js](https://reactjs.org/docs/create-a-new-react-app.html) - Javascript library.
-* [Material UI](https://material-ui.com/getting-started/installation/) - UI dependency for React.js.
-* [react-google-maps](https://tomchentw.github.io/react-google-maps) - Library for installing google map API to react.
-* [MobX](https://mobx.js.org/README.html) - State management library.
+```
+yarn install
+```
+
+4, Create `.env.local` file in the root, and enter your API keys.
+
+```
+REACT_APP_DEV_GOOGLE_KEY = 'YOUR_DEVELOPMENT_API_KEY'
+REACT_APP_DEV_GOOGLE_KEY = 'YOUR_PRODUCTION_API_KEY'
+```
+
+## Features
+
+- Select User Location or Default Location
+  The users can choose to share location or use the default location.
+
+  Please check `LocationDialog.js` inside `src/components/LocationDialog` to change default location.
+
+  ```
+  // Default location is Vienna
+  const defLocation = {
+    lat: 48.2088475,
+    lng: 16.371284,
+  };
+  ```
+
+![Filter Review](https://github.com/kkig/restaurant-review-site/blob/master/images/gastro_filter.png?raw=true)
+
+- Filter Reviews by Rating
+  The search results can be filtered by rating using slider.
+
+![New Review](https://github.com/kkig/restaurant-review-site/blob/master/images/gastro_addReview.png?raw=true)
+
+- Add Review
+  The users can add new review with the comment.
+
+![Add New Restaurant](https://github.com/kkig/restaurant-review-site/blob/master/images/gastro_addNew.png?raw=true)
+
+- Add New Restaurant
+  When the user click map, a dialog will appear to add a new restaurant.
+
+### Option
+
+- Styling Google Map
+  Please edit `mapStyle.json` file inside `src/components/Map` to edit Map style.
+  Map style example can be found [here](https://mapstyle.withgoogle.com/).
+
+## Acknowledgements
+
+- [React.js](https://reactjs.org/docs/create-a-new-react-app.html)
+- [MobX](https://mobx.js.org/README.html)
+- [Material UI](https://material-ui.com/getting-started/installation/)
+- [react-google-maps](https://tomchentw.github.io/react-google-maps)

@@ -1,115 +1,111 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 
 // Component
-import DialogWindow from './DialogWindow';
+import DialogWindow from "./DialogWindow";
 
 // CSS
-import './Map.css';
+import "./Map.css";
 
 // react-google-maps
-import { GoogleMap, Circle, Marker, InfoWindow } from 'react-google-maps';
+import { GoogleMap, Circle, Marker, InfoWindow } from "react-google-maps";
 
 // MobX
-import { useObserver } from 'mobx-react'; 
+import { useObserver } from "mobx-react";
 
 // Style for map
-import mapStyle from './mapStyle.json';
+import mapStyle from "./mapStyle.json";
 
 // Store
-import StoreContext from '../../stores/StoreContext';
+import StoreContext from "../../stores/StoreContext";
 
 function MapWithMarker(props) {
-    const [ clickedPosition, setClickedPosition ] = useState(null); 
-    const [ selectedPlace, setSelectedPlace ] = useState(null);
-    
-    const [ open, setOpen] = useState(false);
-    
-    const store = useContext(StoreContext);
-    
-    const handleClose = () => {
-        setOpen(false);
-        //setClickedDetail(null);
-        setClickedPosition(null);
-    };
+  const [clickedPosition, setClickedPosition] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
-    // Map Handler
-    const handleMapClick = e => {
-        setClickedPosition({
-            ...clickedPosition, 
-            lat: e.latLng.lat(), 
-            lng: e.latLng.lng()}
-        );
-        setOpen(true);
-        //handleClickOpen();
-    };
+  const [open, setOpen] = useState(false);
 
+  const store = useContext(StoreContext);
 
-    useEffect(() => {
-        !open && setClickedPosition(null);
-    }, [open]);
+  const handleClose = () => {
+    setOpen(false);
+    setClickedPosition(null);
+  };
 
-    return useObserver(() => (
-        <div>
-            <GoogleMap
-                defaultZoom={15}
-                defaultCenter={props.center} //{lat: 48.2088475, lng: 16.371284}
-                defaultOptions={{
-                    styles: mapStyle,
-                    disableDefaultUI: true
-                }}
-                onClick={e => handleMapClick(e)}
-            >
-                <Circle
-                    center={props.center}
-                    radius={30}
-                    options={{
-                    strokeColor: "royalblue",
-                    strokeOpacity: 0.25,
-                    strokeWeight: 7,
-                    fillColor: "royalblue",
-                    fillOpacity: 1
-                    }}
-                />
+  // Map Handler
+  const handleMapClick = (e) => {
+    setClickedPosition({
+      ...clickedPosition,
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng(),
+    });
+    setOpen(true);
+  };
 
-                {store.ShopDataItem.map(restaurant => (
-                    <Marker
-                    key={restaurant.id}
-                    position={{
-                        lat: restaurant.lat,
-                        lng: restaurant.long
-                    }}
-                    onClick={() => {
-                        setSelectedPlace(restaurant);
-                    }}
-                    />
-                ))}
+  useEffect(() => {
+    !open && setClickedPosition(null);
+  }, [open]);
 
-                {selectedPlace && (
-                    <InfoWindow
-                    onCloseClick={() => {
-                        setSelectedPlace(null);
-                    }}
-                    position={{
-                        lat: selectedPlace.lat,
-                        lng: selectedPlace.long
-                    }}
-                    >
-                    <div>
-                        <h2>{selectedPlace.name}</h2>
-                        <p>{selectedPlace.address}</p>
-                    </div>
-                    </InfoWindow>
-                )}
+  return useObserver(() => (
+    <div>
+      <GoogleMap
+        defaultZoom={15}
+        defaultCenter={props.center}
+        defaultOptions={{
+          styles: mapStyle,
+          disableDefaultUI: true,
+        }}
+        onClick={(e) => handleMapClick(e)}
+      >
+        <Circle
+          center={props.center}
+          radius={30}
+          options={{
+            strokeColor: "royalblue",
+            strokeOpacity: 0.25,
+            strokeWeight: 7,
+            fillColor: "royalblue",
+            fillOpacity: 1,
+          }}
+        />
 
-                <DialogWindow 
-                    open={open}
-                    handleClose={handleClose}
-                    clickedPosition={clickedPosition}
-                />
+        {store.ShopDataItem.map((restaurant) => (
+          <Marker
+            key={restaurant.id}
+            position={{
+              lat: restaurant.lat,
+              lng: restaurant.long,
+            }}
+            onClick={() => {
+              setSelectedPlace(restaurant);
+            }}
+          />
+        ))}
 
-            </GoogleMap>
-        </div>
-    ));
+        {selectedPlace && (
+          <InfoWindow
+            onCloseClick={() => {
+              setSelectedPlace(null);
+            }}
+            position={{
+              lat: selectedPlace.lat,
+              lng: selectedPlace.long,
+            }}
+          >
+            <div>
+              <h2>{selectedPlace.name}</h2>
+              <p>{selectedPlace.address}</p>
+            </div>
+          </InfoWindow>
+        )}
+
+        <DialogWindow
+          open={open}
+          handleClose={handleClose}
+          clickedPosition={clickedPosition}
+        />
+      </GoogleMap>
+    </div>
+  ));
 }
 
 export default MapWithMarker;
