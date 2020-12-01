@@ -1,69 +1,82 @@
 hr {
-    border: dashed .5px gainsboro;
-    margin: 0;
+  border: dashed 0.5px gainsboro;
+  margin: 0;
 }
 
 .store-container {
-    padding: var(--container-padding);
-    display: flex;
+  padding: var(--container-padding);
+  display: flex;
 }
 
 .store-container:hover {
-    background-color: aliceblue;
-    opacity: .7;
-    cursor: pointer;
+  background-color: aliceblue;
+  opacity: 0.7;
+  cursor: pointer;
 }
 
 .restaunrant-info > h3 {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .restaunrant-info > ul {
-    margin-bottom: 0;
-    list-style-type: none;
-    padding: 0;
-    margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0;
 }
 
 .restaurant-image {
-    padding-right: 1em;
-    margin: auto 0;
+  padding-right: 1em;
+  margin: auto 0;
 }
 
 .restaurant-type {
-    color: grey;
-    text-transform: capitalize;
+  color: grey;
+  text-transform: capitalize;
+}
+
+button {
+  font-size: 0.75rem;
+  padding: 0.75em 1.5em;
+  letter-spacing: 0.15rem;
+  border: 2px solid var(--basic-button-color);
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+button:hover {
+  color: #333333;
+  background-color: transparent;
 }
 
 .list-item > button {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
 }
 
 .review-score {
-    color: var(--star-color);
-    padding-right: .25rem;
+  color: var(--star-color);
+  padding-right: 0.25rem;
 }
 
 .MuiRating-readOnly {
-    z-index: -1;
+  z-index: -1;
 }
 
 .MuiRating-root {
-    vertical-align: text-bottom;
+  vertical-align: text-bottom;
 }
 
-
 .filter-slider-section {
-    display: flex;
-    justify-content: center;
-    padding: 10px var(--container-padding-v);
-    border-bottom: .25px solid lightgrey;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 10px var(--container-padding-v);
+  border-bottom: 0.25px solid lightgrey;
+  align-items: center;
 }
 
 .filter-slider-section > div {
-    display: flex;
+  display: flex;
 }

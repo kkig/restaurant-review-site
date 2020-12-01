@@ -16,7 +16,6 @@ const ReviewSlider = withStyles({
     color: 'var(--star-color)',
     height: 8,
     marginRight: '1rem',
-
   },
   thumb: {
     height: 24,
@@ -45,34 +44,31 @@ const ReviewSlider = withStyles({
 
 const valuetext = (value) => {
   return `${value} Stars`;
-}
-
+};
 
 const StoreListContainer = () => {
-  const [ value, setValue ] = React.useState([0, 5]);
+  const [value, setValue] = React.useState([0, 5]);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div className="store-section">
-
-      <div className="filter-slider-section">
-        <span className="filter-label">Filter by rating</span>
+    <div className='store-section'>
+      <div className='filter-slider-section'>
+        <span className='filter-label'>Filter by rating</span>
         <ReviewSlider
-            value={value}
-            onChange={handleChange}
-            aria-labelledby="pretto range-slider"
-            getAriaValueText={valuetext}
-            valueLabelDisplay="off"
-            min={0}
-            max={5}
+          value={value}
+          onChange={handleChange}
+          aria-labelledby='pretto range-slider'
+          getAriaValueText={valuetext}
+          valueLabelDisplay='off'
+          min={0}
+          max={5}
         />
       </div>
-      
-      <StoreList minValue={value[0]} maxValue={value[1]} />
 
+      {/* <StoreList minValue={value[0]} maxValue={value[1]} /> */}
     </div>
   );
 };
