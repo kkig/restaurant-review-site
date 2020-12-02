@@ -1,7 +1,7 @@
-import React from "react";
-import { useLocalStore } from "mobx-react";
+import React from 'react';
+import { useLocalStore } from 'mobx-react';
 
-import StoreContext from "./StoreContext";
+import StoreContext from './StoreContext';
 
 const StoreProvider = ({ children }) => {
   const store = useLocalStore(() => ({

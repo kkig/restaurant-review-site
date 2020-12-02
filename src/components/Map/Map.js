@@ -1,111 +1,120 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 
 // Component
-import DialogWindow from "./DialogWindow";
+import DialogWindow from './DialogWindow';
 
 // CSS
-import "./Map.css";
+import './Map.css';
 
 // react-google-maps
-import { GoogleMap, Circle, Marker, InfoWindow } from "react-google-maps";
+import {
+  GoogleMap,
+  Circle,
+  Marker,
+  InfoWindow,
+  withGoogleMap,
+  withScriptjs,
+} from 'react-google-maps';
 
 // MobX
-import { useObserver } from "mobx-react";
+import { useObserver } from 'mobx-react';
 
 // Style for map
-import mapStyle from "./mapStyle.json";
+import mapStyle from './mapStyle.json';
 
 // Store
-import StoreContext from "../../stores/StoreContext";
+import StoreContext from '../../stores/StoreContext';
 
-function MapWithMarker(props) {
-  const [clickedPosition, setClickedPosition] = useState(null);
-  const [selectedPlace, setSelectedPlace] = useState(null);
+const Map = withScriptjs(
+  withGoogleMap((props) => {
+    const [clickedPosition, setClickedPosition] = useState(null);
+    const [selectedPlace, setSelectedPlace] = useState(null);
 
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  const store = useContext(StoreContext);
+    const store = useContext(StoreContext);
 
-  const handleClose = () => {
-    setOpen(false);
-    setClickedPosition(null);
-  };
+    const handleClose = () => {
+      setOpen(false);
+      setClickedPosition(null);
+    };
 
-  // Map Handler
-  const handleMapClick = (e) => {
-    setClickedPosition({
-      ...clickedPosition,
-      lat: e.latLng.lat(),
-      lng: e.latLng.lng(),
-    });
-    setOpen(true);
-  };
+    // Map Handler
+    const handleMapClick = (e) => {
+      setClickedPosition({
+        ...clickedPosition,
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+      });
+      setOpen(true);
+    };
 
-  useEffect(() => {
-    !open && setClickedPosition(null);
-  }, [open]);
+    useEffect(() => {
+      !open && setClickedPosition(null);
+    }, [open]);
 
-  return useObserver(() => (
-    <div>
-      <GoogleMap
-        defaultZoom={15}
-        defaultCenter={props.center}
-        defaultOptions={{
-          styles: mapStyle,
-          disableDefaultUI: true,
-        }}
-        onClick={(e) => handleMapClick(e)}
-      >
-        <Circle
-          center={props.center}
-          radius={30}
-          options={{
-            strokeColor: "royalblue",
-            strokeOpacity: 0.25,
-            strokeWeight: 7,
-            fillColor: "royalblue",
-            fillOpacity: 1,
+    return useObserver(() => (
+      <div>
+        <GoogleMap
+          defaultZoom={15}
+          defaultCenter={props.center}
+          defaultOptions={{
+            styles: mapStyle,
+            disableDefaultUI: true,
           }}
-        />
-
-        {store.ShopDataItem.map((restaurant) => (
-          <Marker
-            key={restaurant.id}
-            position={{
-              lat: restaurant.lat,
-              lng: restaurant.long,
-            }}
-            onClick={() => {
-              setSelectedPlace(restaurant);
+          onClick={(e) => handleMapClick(e)}
+        >
+          <Circle
+            center={props.center}
+            radius={30}
+            options={{
+              strokeColor: 'royalblue',
+              strokeOpacity: 0.25,
+              strokeWeight: 7,
+              fillColor: 'royalblue',
+              fillOpacity: 1,
             }}
           />
-        ))}
 
-        {selectedPlace && (
-          <InfoWindow
-            onCloseClick={() => {
-              setSelectedPlace(null);
-            }}
-            position={{
-              lat: selectedPlace.lat,
-              lng: selectedPlace.long,
-            }}
-          >
-            <div>
-              <h2>{selectedPlace.name}</h2>
-              <p>{selectedPlace.address}</p>
-            </div>
-          </InfoWindow>
-        )}
+          {store.ShopDataItem.map((restaurant) => (
+            <Marker
+              key={restaurant.id}
+              position={{
+                lat: restaurant.lat,
+                lng: restaurant.long,
+              }}
+              onClick={() => {
+                setSelectedPlace(restaurant);
+              }}
+            />
+          ))}
 
-        <DialogWindow
-          open={open}
-          handleClose={handleClose}
-          clickedPosition={clickedPosition}
-        />
-      </GoogleMap>
-    </div>
-  ));
-}
+          {selectedPlace && (
+            <InfoWindow
+              onCloseClick={() => {
+                setSelectedPlace(null);
+              }}
+              position={{
+                lat: selectedPlace.lat,
+                lng: selectedPlace.long,
+              }}
+            >
+              <div>
+                <h2>{selectedPlace.name}</h2>
+                <p>{selectedPlace.address}</p>
+              </div>
+            </InfoWindow>
+          )}
 
-export default MapWithMarker;
+          <DialogWindow
+            open={open}
+            handleClose={handleClose}
+            clickedPosition={clickedPosition}
+          />
+        </GoogleMap>
+      </div>
+    ));
+  })
+);
+
+export default Map;

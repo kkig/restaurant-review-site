@@ -4,10 +4,10 @@
 
 .app {
   --content-height: calc(100vh - var(--navbar-height));
-  --navbar-height: 50px;
+  /* --navbar-height: 50px; */
 
-  font-size: 14px;
-  display: grid;
+  /* font-size: 14px;
+  display: grid; */
   /* 
   grid-template-rows: var(--navbar-height) auto; */
 }
