@@ -23,7 +23,7 @@ import { useObserver } from 'mobx-react';
 import mapStyle from './mapStyle.json';
 
 // Store
-import StoreContext from '../../stores/StoreContext';
+import AppContext from '../../shared/contexts/AppContext';
 
 const Map = withScriptjs(
   withGoogleMap((props) => {
@@ -32,7 +32,7 @@ const Map = withScriptjs(
 
     const [open, setOpen] = useState(false);
 
-    const store = useContext(StoreContext);
+    const store = useContext(AppContext);
 
     const handleClose = () => {
       setOpen(false);

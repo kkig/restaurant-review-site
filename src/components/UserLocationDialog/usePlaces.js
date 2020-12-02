@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 // Class
-import ShopDataItem from "../../classes/ShopDataItemClass";
+import ShopDataItem from '../../shared/classes/ShopDataItemClass';
 
 export const usePlaces = (latitude, longitude) => {
   const [placesData, setPlaces] = useState({});
@@ -15,7 +15,7 @@ export const usePlaces = (latitude, longitude) => {
 
     const fetchData = () => {
       const GOOGLE_MAP_API_KEY =
-        process.env.NODE_ENV === "production"
+        process.env.NODE_ENV === 'production'
           ? process.env.REACT_APP_PROD_GOOGLE_KEY
           : process.env.REACT_APP_DEV_GOOGLE_KEY;
       const endpoint = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
@@ -45,7 +45,7 @@ export const usePlaces = (latitude, longitude) => {
           restaurant.geometry.location.lng,
           restaurant.rating,
           [],
-          "GOOGLE"
+          'GOOGLE'
         )
       )
     );

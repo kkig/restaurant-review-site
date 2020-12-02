@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react';
-// import Grid from '@material-ui/core/Grid';
+import React, { useState } from 'react';
 
-import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { styled } from '@material-ui/core/styles';
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Header from './shared/layout/Header';
+import Main from './shared/layout/Main';
+import UserLocationDialog from './components/UserLocationDialog';
+import { usePosition } from './shared/hooks/usePosition';
 
-// Components
-import Header from './layout/Header';
-import Main from './layout/Main';
-import LocationDialog from './components/LocationDialog/LocationDialog';
-
-// CSS
 import './App.css';
-
-// Store
-import StoreProvider from './stores/StoreProvider';
 
 const useStyles = makeStyles({
   root: {
@@ -38,72 +29,53 @@ const useStyles = makeStyles({
   },
 });
 
-const AppWrapper = styled(Box)({
-  width: '100%',
-  minHeight: '100vh',
+// const AppWrapper = styled(Box)({
+//   width: '100%',
+//   minHeight: '100vh',
 
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gridTemplateRows: '50px 1fr',
-});
+//   display: 'grid',
+//   gridTemplateColumns: '1fr',
+//   gridTemplateRows: '50px 1fr',
+// });
 
 const App = () => {
   const [isMapView, setMapView] = useState(true);
 
-  // const [isDialogReady, setDialogReady] = useState(false);
-  // const [isLocationAvailable, setLocationAvailable] = useState(null);
+  const { latitude, longitude, isSuccess } = usePosition();
+  const [userLocation, setUserLocation] = useState(null);
 
-  // const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const classes = useStyles();
 
   const handleClick = () => {
     setMapView((isMapView) => !isMapView);
   };
-  /*
-    // Set LocationAvailable after user selected location access 
-    !!navigator.geolocation && navigator.geolocation.getCurrentPosition(
-      () => setLocationAvailable(true), 
-      () => setLocationAvailable(false)
-    );
-    */
-  // useEffect(() => {
-  //   // Set LocationAvailable after user selected location access
-  //   navigator.geolocation
-  //     ? navigator.geolocation.getCurrentPosition(
-  //         () => setLocationAvailable(true),
-  //         () => setLocationAvailable(false)
-  //       )
-  //     : setLocationAvailable(false);
-  // }, []);
 
-  // Displau dialog when user selected location access
-  // useEffect(() => {
-  //   isLocationAvailable != null && setDialogReady(true);
-  // }, [isLocationAvailable]);
+  if (!userLocation && isSuccess) {
+    setUserLocation({ lat: latitude, lng: longitude });
+    console.log(`Fetched: ${latitude}`);
+  }
 
   return (
-    <StoreProvider>
-      <div className={classes.root}>
-        <Header
-          className={classes.header}
-          handleClick={handleClick}
-          isMapView={isMapView}
-        />
-        <Main className={classes.main} isMapView={isMapView} />
+    <div className={classes.root}>
+      <Header
+        className={classes.header}
+        handleClick={handleClick}
+        isMapView={isMapView}
+      />
+      <Main className={classes.main} isMapView={isMapView} />
 
-        {/* {!!isDialogReady && <LocationDialog isLocationAvailable={isLocationAvailable} />} */}
-      </div>
-    </StoreProvider>
+      {isSuccess != null && <UserLocationDialog userLocation={userLocation} />}
+    </div>
   );
   // return (
-  //   <storeProvider>
+  //   <ContextProvider>
   //     <AppWrapper>
   //       <Header handleClick={handleClick} isMapView={isMapView} />
   //       <Main isMapView={isMapView} />
 
-  //       {/* {!!isDialogReady && <LocationDialog isLocationAvailable={isLocationAvailable} />} */}
+  //       {/* {!!isLocationReady && <LocationDialog isLocationAvailable={isLocationAvailable} />} */}
   //     </AppWrapper>
-  //   </storeProvider>
+  //   </ContextProvider>
   // );
 };
 

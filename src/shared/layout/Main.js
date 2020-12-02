@@ -8,12 +8,12 @@ import { styled } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Components
-import MapContainer from '../components/Map/MapContainer';
-import StoreListContainer from '../components/StoreList/StoreListContainer';
+import MapContainer from '../../components/Map/MapContainer';
+import StoreListContainer from '../../components/StoreList/StoreListContainer';
 
 // Store
-import StoreContext from '../stores/StoreContext';
-import restaurantData from '../APIs/restaurantData.json';
+import AppContext from '../contexts/AppContext';
+import restaurantData from '../data/restaurantData.json';
 
 // const useStyles = makeStyles({
 //   root: {
@@ -52,7 +52,7 @@ const ListSection = styled(Box)({
 });
 
 const Main = ({ isMapView }) => {
-  const store = useContext(StoreContext);
+  const store = useContext(AppContext);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   // const classes = useStyles();

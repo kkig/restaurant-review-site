@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReadOnlyRating from '../../UIComponents/ReadOnlyRating';
+import ReadOnlyRating from '../../shared/elements/ReadOnlyRating';
 import { styled } from '@material-ui/core/styles';
 import { ListItem } from '@material-ui/core';
 

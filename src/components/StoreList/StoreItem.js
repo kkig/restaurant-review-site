@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 // Material UI
-import ReadOnlyRating from '../../UIComponents/ReadOnlyRating';
-import Loading from '../../UIComponents/Loading';
+import ReadOnlyRating from '../../shared/elements/ReadOnlyRating';
+import Loading from '../../shared/elements/Loading';
 import Button from '@material-ui/core/Button';
 
 // Component
@@ -12,10 +12,10 @@ import ReviewCommentArea from './ReviewCommentArea';
 import './StoreItem.css';
 
 // Class
-import userReview from '../../classes/UserReviewClass';
+import userReview from '../../shared/classes/UserReviewClass';
 
 // Store
-import StoreContext from '../../stores/StoreContext';
+import AppContext from '../../shared/contexts/AppContext';
 
 // MobX
 import { useObserver } from 'mobx-react';
@@ -25,7 +25,7 @@ const StoreItem = (props) => {
   const [commentArray, setComments] = useState([]);
   const [isDetailFetched, setDetailFetch] = useState(false);
 
-  const store = useContext(StoreContext);
+  const store = useContext(AppContext);
 
   const GOOGLE_MAP_API_KEY =
     process.env.NODE_ENV === 'production'

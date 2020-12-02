@@ -5,6 +5,9 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+// Store
+import ContextProvider from './shared/contexts/ContextProvider';
+
 import App from './App';
 
 const myTheme = createMuiTheme({
@@ -41,8 +44,10 @@ const myTheme = createMuiTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={myTheme}>
-    <CssBaseline />
-    <App />
+    <ContextProvider>
+      <CssBaseline />
+      <App />
+    </ContextProvider>
   </ThemeProvider>,
   document.getElementById('root')
 );

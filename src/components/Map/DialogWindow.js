@@ -10,15 +10,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentInfo from './DialogContentInfo';
 
 // Class
-import ShopDataItem from '../../classes/ShopDataItemClass';
+import ShopDataItem from '../../shared/classes/ShopDataItemClass';
 
 // Store
-import StoreContext from '../../stores/StoreContext';
+import AppContext from '../../shared/contexts/AppContext';
 
 const DialogWindow = ({ open, clickedPosition, handleClose }) => {
   const [clickedDetail, setClickedDetail] = useState(null);
 
-  const store = useContext(StoreContext);
+  const store = useContext(AppContext);
 
   const GOOGLE_MAP_API_KEY =
     process.env.NODE_ENV === 'production'

@@ -41,7 +41,7 @@ REACT_APP_DEV_GOOGLE_KEY = 'YOUR_PRODUCTION_API_KEY'
 
   The users can choose to share location or use the default location.
 
-  Please check `LocationDialog.js` inside `src/components/LocationDialog` to change default location.
+  Please check `index.js` inside `src/components/UserLocationDialog` to change default location.
 
   ```
   // Default location is Vienna

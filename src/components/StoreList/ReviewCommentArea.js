@@ -9,68 +9,67 @@ import ReviewInput from './ReviewInput';
 import './ReviewCommentArea.css';
 
 // Class
-import userReview from '../../classes/UserReviewClass';
+import userReview from '../../shared/classes/UserReviewClass';
 
 // Store
-import StoreContext from '../../stores/StoreContext';
+import AppContext from '../../shared/contexts/AppContext';
 
 // MobX
 import { useObserver } from 'mobx-react';
 
 function ReviewCommentArea(props) {
-    const [ textValue, setTextValue ] = useState('');
-    const [ ratingValue, setRatingValue ] = useState(2.5);
+  const [textValue, setTextValue] = useState('');
+  const [ratingValue, setRatingValue] = useState(2.5);
 
-    const store = useContext(StoreContext);
+  const store = useContext(AppContext);
 
-    const createReview = (newRating, newValue) => {
-        const newReview = new userReview(props.ratings.length + 1, newRating, newValue);
-        
-        store.addNewComment(props.id, newReview);
-        
-        setTextValue('');
-        setRatingValue(2.5);
-    };
+  const createReview = (newRating, newValue) => {
+    const newReview = new userReview(
+      props.ratings.length + 1,
+      newRating,
+      newValue
+    );
 
-    return useObserver(() => (
-        <div className="reviews-list"> 
-                    {   
-                        props.isInputMode ?
+    store.addNewComment(props.id, newReview);
 
-                        <ReviewInput 
-                            id={props.id} 
-                            ratingValue={ratingValue}
-                            handleRatingChange={(e, newValue) => setRatingValue(newValue)}
-                            textValue={textValue}
-                            handleTextChange={e => setTextValue(e.target.value)}
-                            handleClick={() => 
-                                textValue && ratingValue && 
-                                createReview(ratingValue, textValue)
-                            }
-                        /> :
+    setTextValue('');
+    setRatingValue(2.5);
+  };
 
-                        <Button 
-                            size="small" 
-                            variant="outlined" 
-                            className="add-new-comment-btn"
-                            onClick={() => props.handleInputMode() }
-                        >
-                            Add Review
-                        </Button>                
-                    }
+  return useObserver(() => (
+    <div className='reviews-list'>
+      {props.isInputMode ? (
+        <ReviewInput
+          id={props.id}
+          ratingValue={ratingValue}
+          handleRatingChange={(e, newValue) => setRatingValue(newValue)}
+          textValue={textValue}
+          handleTextChange={(e) => setTextValue(e.target.value)}
+          handleClick={() =>
+            textValue && ratingValue && createReview(ratingValue, textValue)
+          }
+        />
+      ) : (
+        <Button
+          size='small'
+          variant='outlined'
+          className='add-new-comment-btn'
+          onClick={() => props.handleInputMode()}
+        >
+          Add Review
+        </Button>
+      )}
 
-                    <h4>Review:</h4>
+      <h4>Review:</h4>
 
-                    <ul>
-                        {   
-                            props.ratings.length > 0 && 
-                            props.ratings.map(
-                                review => <ReviewComment key={review.commentId} ratings={review} />
-                            )
-                        }
-                    </ul>
-                </div>
-    ));
+      <ul>
+        {props.ratings.length > 0 &&
+          props.ratings.map((review) => (
+            <ReviewComment key={review.commentId} ratings={review} />
+          ))}
+      </ul>
+    </div>
+  ));
 }
 
 export default ReviewCommentArea;

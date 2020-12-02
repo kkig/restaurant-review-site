@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocalStore } from 'mobx-react';
 
-import StoreContext from './StoreContext';
+import AppContext from './AppContext';
 
-const StoreProvider = ({ children }) => {
+const ContextProvider = ({ children }) => {
   const store = useLocalStore(() => ({
     ShopDataItem: [],
     addNewShop: (newShop) => {
@@ -20,13 +20,15 @@ const StoreProvider = ({ children }) => {
     userLocation: [],
     addUserLocation: (lat, lng) => {
       store.userLocation = { ...store.userLocation, lat: lat, lng: lng };
+      console.log('Location stored');
     },
+    // get usePosition() {
+    //   return store.userLocation.length;
+    // },
     clickedLocation: [],
   }));
 
-  return (
-    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
-  );
+  return <AppContext.Provider value={store}>{children}</AppContext.Provider>;
 };
 
-export default StoreProvider;
+export default ContextProvider;
