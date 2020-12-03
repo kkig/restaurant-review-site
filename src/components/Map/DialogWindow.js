@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-// Material UI
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 
 // Component
 import DialogContentInfo from './DialogContentInfo';
@@ -17,7 +16,6 @@ import AppContext from '../../shared/contexts/AppContext';
 
 const DialogWindow = ({ open, clickedPosition, handleClose }) => {
   const [clickedDetail, setClickedDetail] = useState(null);
-
   const store = useContext(AppContext);
 
   const GOOGLE_MAP_API_KEY =
@@ -33,7 +31,7 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
       setClickedDetail(null);
     };
 
-    !!clickedDetail.name && !!clickedDetail.address && addToStore();
+    clickedDetail.name && clickedDetail.address && addToStore();
   };
 
   const handleDialogRatingChange = (e, newValue) =>
@@ -60,41 +58,35 @@ const DialogWindow = ({ open, clickedPosition, handleClose }) => {
       address: newValue,
     });
 
-  useEffect(() => {
-    const fetchPositionInfo = () => {
-      const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${clickedPosition.lat},${clickedPosition.lng}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
-      const proxy = `https://cors-anywhere.herokuapp.com/`;
+  const fetchPositionInfo = () => {
+    const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${clickedPosition.lat},${clickedPosition.lng}&radius=1500&type=restaurant&key=${GOOGLE_MAP_API_KEY}`;
+    const proxy = `https://cors-anywhere.herokuapp.com/`;
 
-      fetch(proxy + endpoint)
-        .then((res) => res.json())
-        .then((data) =>
-          data.status === 'OK'
-            ? setClickedDetail(
-                new ShopDataItem(
-                  store.ShopDataItem.length + 1, //id
-                  '', //name
-                  'Restaurant', //type
-                  data.results[0].formatted_address, //address
-                  clickedPosition.lat, //lat
-                  clickedPosition.lng, //long
-                  2.5, //avgRating
-                  [], //ratings
-                  'userInput' //dataSrc
-                )
-              )
-            : console.log('Error with Geocode API')
-        )
+    fetch(proxy + endpoint)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'OK') {
+          setClickedDetail(
+            new ShopDataItem(
+              store.ShopDataItem.length + 1, //id
+              '', //name
+              'Restaurant', //type
+              data.results[0].formatted_address, //address
+              clickedPosition.lat, //lat
+              clickedPosition.lng, //long
+              2.5, //avgRating
+              [], //ratings
+              'userInput' //dataSrc
+            )
+          );
+        } else {
+          console.log('Error with Geocode API');
+        }
+      })
+      .catch((err) => console.log(`Error with geocode: ${err}`));
+  };
 
-        .catch((err) => console.log(`Error with geocode: ${err}`));
-    };
-
-    !!clickedPosition && !clickedDetail && fetchPositionInfo();
-  }, [
-    clickedPosition,
-    clickedDetail,
-    store.ShopDataItem.length,
-    GOOGLE_MAP_API_KEY,
-  ]);
+  clickedPosition && !clickedDetail && fetchPositionInfo();
 
   // Reset clickedDetail value if clickedPosition is null
   useEffect(() => {

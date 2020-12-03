@@ -75,8 +75,8 @@ const Map = withScriptjs(
       !open && setClickedPosition(null);
     }, [open]);
 
-    return useObserver(() => (
-      <div>
+    return (
+      <>
         <GoogleMap
           defaultZoom={15}
           defaultCenter={props.center}
@@ -134,8 +134,8 @@ const Map = withScriptjs(
             clickedPosition={clickedPosition}
           />
         </GoogleMap>
-      </div>
-    ));
+      </>
+    );
   })
 );
 

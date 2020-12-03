@@ -8,7 +8,7 @@ import { styled } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Components
-import MapContainer from '../../components/Map/MapContainer';
+import Map from '../../components/Map';
 import StoreListContainer from '../../components/StoreList/StoreListContainer';
 
 // Store
@@ -72,7 +72,7 @@ const Main = ({ isMapView }) => {
       <MainContainer component='main'>
         {isMapView ? (
           <MapSection>
-            <MapContainer />
+            <Map />
           </MapSection>
         ) : (
           <ListSection>
@@ -87,7 +87,7 @@ const Main = ({ isMapView }) => {
   return (
     <MainContainer component='main'>
       <MapSection>
-        <MapContainer />
+        <Map />
       </MapSection>
 
       <ListSection>
