@@ -4,7 +4,7 @@ export const usePosition = () => {
   const [position, setPosition] = useState({}); // callback
   const [error, setError] = useState(null);
   const [isSuccess, setSuccess] = useState(null);
-  const [isLocationReady, setLocationReady] = useState(false);
+  // const [isLocationReady, setLocationReady] = useState(false);
   const [isLocationFetched, setLocationFetched] = useState(false);
 
   const onChange = ({ coords }) => {
