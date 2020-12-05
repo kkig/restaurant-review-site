@@ -15,6 +15,9 @@ const myTheme = createMuiTheme({
     primary: {
       main: '#FF6347',
     },
+    text: {
+      primary: '#333333',
+    },
   },
   typography: {
     fontFamily: ['Roboto', 'sans-serif'].join(','),

@@ -8,8 +8,8 @@ import { styled } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Components
-import Map from '../../components/Map';
-import StoreListContainer from '../../components/StoreList/StoreListContainer';
+import Map from '../../components/MapSection';
+import RestaurantList from '../../components/ListSection';
 
 // Store
 import AppContext from '../contexts/AppContext';
@@ -48,6 +48,7 @@ const MapSection = styled(Box)({
 });
 
 const ListSection = styled(Box)({
+  height: '100%',
   flexGrow: 1,
 });
 
@@ -76,7 +77,7 @@ const Main = ({ isMapView }) => {
           </MapSection>
         ) : (
           <ListSection>
-            <StoreListContainer />
+            <RestaurantList />
           </ListSection>
         )}
       </MainContainer>
@@ -91,7 +92,7 @@ const Main = ({ isMapView }) => {
       </MapSection>
 
       <ListSection>
-        <StoreListContainer />
+        <RestaurantList />
       </ListSection>
     </MainContainer>
   );

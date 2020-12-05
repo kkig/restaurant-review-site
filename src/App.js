@@ -7,25 +7,32 @@ import Main from './shared/layout/Main';
 import UserLocationDialog from './components/UserLocationDialog';
 import { usePosition } from './shared/hooks/usePosition';
 
-import './App.css';
+// import './App.css';
 
 const useStyles = makeStyles({
   root: {
+    '--navbar-height': '50px',
+    '--content-height': 'calc(100vh - var(--navbar-height))',
+
     width: '100%',
-    minHeight: '100vh',
+    height: '100vh',
     fontSize: 14,
 
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: '50px 1fr',
+    // display: 'grid',
+    // gridTemplateColumns: '1fr',
+    // gridTemplateRows: 'var(--navbar-height) 1fr',
   },
   header: {
-    gridColumn: '1 / -1',
-    gridRow: '1 / 2',
+    width: '100%',
+    height: 'var(--navbar-height)',
+    // gridColumn: '1 / -1',
+    // gridRow: '1 / 2',
   },
   main: {
-    gridColumn: '1 / -1',
-    gridRow: '2 / -1',
+    width: '100%',
+    height: 'var(--content-height)',
+    // gridColumn: '1 / -1',
+    // gridRow: '2 / -1',
   },
 });
 
@@ -57,14 +64,15 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Header
-        className={classes.header}
-        handleClick={handleClick}
-        isMapView={isMapView}
-      />
-      <Main className={classes.main} isMapView={isMapView} />
+      <div className={classes.header}>
+        <Header handleClick={handleClick} isMapView={isMapView} />
+      </div>
 
-      {isSuccess != null && <UserLocationDialog userLocation={userLocation} />}
+      <div className={classes.main}>
+        <Main isMapView={isMapView} />
+      </div>
+
+      {/* {isSuccess != null && <UserLocationDialog userLocation={userLocation} />} */}
     </div>
   );
   // return (
