@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Slider from '@material-ui/core/Slider';
 import Box from '@material-ui/core/Box';
 import { withStyles, styled } from '@material-ui/core/styles';
 
-// Store
-import RestaurantListContent from './RestaurantList';
+// Component
+import RestaurantList from './RestaurantList';
 
 const ListContainer = styled(Box)({
   '--star-color': '#ffb400',
@@ -29,6 +29,10 @@ const SliderWrapper = styled(Box)({
   marginTop: '.25em',
   borderBottom: '0.25px solid var(--line-color)',
   alignItems: 'center',
+
+  span: {
+    backgroundColor: 'blue',
+  },
 });
 
 const SliderLabel = styled(Box)({
@@ -68,8 +72,8 @@ const ReviewSlider = withStyles({
   },
 })(Slider);
 
-const RestaurantList = () => {
-  const [value, setValue] = React.useState([0, 5]);
+const ListSection = () => {
+  const [value, setValue] = useState([0, 5]);
 
   const valuetext = (value) => `${value} Stars`;
 
@@ -92,9 +96,9 @@ const RestaurantList = () => {
         />
       </SliderWrapper>
 
-      <RestaurantListContent minValue={value[0]} maxValue={value[1]} />
+      <RestaurantList minValue={value[0]} maxValue={value[1]} />
     </ListContainer>
   );
 };
 
-export default RestaurantList;
+export default ListSection;

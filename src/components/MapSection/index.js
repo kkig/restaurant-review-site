@@ -15,8 +15,8 @@ import AppContext from '../../shared/contexts/AppContext';
 // react-google-maps
 // import { withGoogleMap, withScriptjs } from 'react-google-maps';
 
-// MobX
-import { useObserver } from 'mobx-react';
+// // MobX
+// import { useObserver } from 'mobx-react';
 
 // // CSS
 // import './Map.css';

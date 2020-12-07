@@ -4,10 +4,27 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Rating from '@material-ui/lab/Rating';
 
-// CSS
-// import './ReviewInput.css';
+const ReviewInput = ({
+  ratingValue,
+  textValue,
+  isInputMode,
+  handleInputMode,
+  handleRatingChange,
+  handleTextChange,
+  handleClick,
+}) => {
+  if (!isInputMode)
+    return (
+      <Button
+        size='small'
+        variant='outlined'
+        fullWidth={true}
+        onClick={() => handleInputMode()}
+      >
+        Add Review
+      </Button>
+    );
 
-function ReviewInput(props) {
   return (
     <form className='review-section'>
       <div>
@@ -18,11 +35,11 @@ function ReviewInput(props) {
             name='review-star-input'
             precision={0.5}
             size='small'
-            value={props.ratingValue}
-            onChange={props.handleRatingChange}
+            value={ratingValue}
+            onChange={handleRatingChange}
           />
           <span className='review-score' style={{ padding: '0 .5rem' }}>
-            {props.ratingValue}
+            {ratingValue}
           </span>
         </label>
       </div>
@@ -37,8 +54,8 @@ function ReviewInput(props) {
         placeholder='Add comment here.'
         margin='normal'
         variant='outlined'
-        value={props.textValue}
-        onChange={props.handleTextChange}
+        value={textValue}
+        onChange={handleTextChange}
         multiline
       />
 
@@ -47,13 +64,13 @@ function ReviewInput(props) {
         color='primary'
         size='medium'
         fullWidth={true}
-        onClick={props.handleClick}
+        onClick={handleClick}
         className='review-save-btn'
       >
         Save
       </Button>
     </form>
   );
-}
+};
 
 export default ReviewInput;

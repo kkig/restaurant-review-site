@@ -40,6 +40,9 @@ const myTheme = createMuiTheme({
           '-webkit-font-smoothing': 'antialiased',
           '-moz-osx-font-smoothing': 'grayscale',
         },
+        '.MuiRating-root': {
+          verticalAlign: 'text-bottom',
+        },
       },
     },
   },

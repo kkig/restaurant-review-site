@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 // Material UI
 import List from '@material-ui/core/List';
@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Component
 import ReviewComment from './ReviewComment';
+import ReviewInput from './ReviewInput';
 
 // Class
 import userReview from '../../shared/classes/UserReviewClass';
@@ -21,15 +22,26 @@ import userReview from '../../shared/classes/UserReviewClass';
 import AppContext from '../../shared/contexts/AppContext';
 
 // MobX
-import { useObserver } from 'mobx-react';
+// import { useObserver } from 'mobx-react';
+
+const GOOGLE_MAP_API_KEY =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_GOOGLE_KEY
+    : process.env.REACT_APP_DEV_GOOGLE_KEY;
 
 const useStyles = makeStyles((theme) => ({
   infoWrapper: {
     padding: 'var(--container-padding)',
+    display: 'flex',
 
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
+  },
+  infoImage: {
+    paddingRight: '.75em',
+    display: 'flex',
+    alignItems: 'center',
   },
 
   infoItem: {
@@ -52,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
   loadingWrapper: {
     padding: '.25rem 0',
   },
+
+  commentInputWrapper: {
+    padding: '1rem 0',
+  },
+
   commentWrapper: {
     padding: '0 var(--container-padding-x)',
   },
@@ -61,142 +78,108 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StoreItem = (props) => {
-  const [selectedStore, setSelected] = useState([]);
-  const [commentArray, setComments] = useState([]);
-  const [isDetailFetched, setDetailFetch] = useState(false);
-  const [isInputMode, setInputMode] = useState(false);
-
-  // const [selectedShop, setSelectedShop] = useState(null);
+const RestaurantListItem = ({
+  restaurant,
+  isCommentLoading,
+  avgValue,
+  isDetailView,
+  handleCloseClick,
+}) => {
+  const [isInputMode, setInputMode] = React.useState(false);
+  const [textValue, setTextValue] = useState('');
+  const [ratingValue, setRatingValue] = useState(2.5);
 
   const store = useContext(AppContext);
-
   const classes = useStyles();
 
-  const GOOGLE_MAP_API_KEY =
-    process.env.NODE_ENV === 'production'
-      ? process.env.REACT_APP_PROD_GOOGLE_KEY
-      : process.env.REACT_APP_DEV_GOOGLE_KEY;
+  const createReview = (newRating, newValue) => {
+    const newReview = new userReview(
+      restaurant.ratings.length + 1,
+      newRating,
+      newValue
+    );
 
-  // Handle close button click
-  // const handleCloseClick = (id) => {
-  //   selectedShop !== id ? setSelectedShop(id) : setSelectedShop(null);
-  //   setInputMode(false);
-  // };
+    store.addNewComment(restaurant.id, newReview);
+
+    setTextValue('');
+    setRatingValue(2.5);
+  };
 
   const handleInputMode = () => {
     setInputMode(true);
   };
 
-  const detailRequest = () => {
-    if (!props.id || props.ratings.length > 0 || isDetailFetched) {
-      return;
-    }
+  const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${restaurant.lat},${restaurant.long}&key=${GOOGLE_MAP_API_KEY}`;
 
-    const endpoint = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${props.id}&fields=name,rating,reviews&key=${GOOGLE_MAP_API_KEY}`;
-    const proxy = `https://cors-anywhere.herokuapp.com/`;
-
-    fetch(proxy + endpoint)
-      .then((res) => res.json())
-      .then((data) => data.status === 'OK' && setSelected(data.result))
-      .catch((error) => console.log(error));
-
-    console.log('detail fetched');
-    setDetailFetch(true);
-  };
-
-  useEffect(() => {
-    const createCommentArray = () => {
-      let count = 0;
-      const newArray = selectedStore.reviews.map((review) => {
-        count++;
-        return new userReview(count, review.rating, review.text);
-      });
-      setComments(newArray);
-    };
-    selectedStore.reviews && createCommentArray();
-  }, [selectedStore]);
-
-  const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${props.lat},${props.lng}&key=${GOOGLE_MAP_API_KEY}`;
-
-  const updateDetail = () => {
-    commentArray.map((shop) => store.addNewComment(props.id, shop));
-    setComments([]);
-  };
-
-  commentArray.length > 0 && updateDetail();
-
-  props.isDetailView &&
-    props.ratings.length === 0 &&
-    props.dataType === 'GOOGLE' &&
-    detailRequest();
-
-  return useObserver(() => (
+  return (
     <>
-      <div className={classes.infoWrapper} onClick={props.handleCloseClick}>
-        {/* <div className='restaurant-image'>
-                    <img src={source} alt="street view of restaurant"></img>
-                </div> */}
+      <div className={classes.infoWrapper} onClick={handleCloseClick}>
+        {/* <div className={classes.infoImage}>
+          <img src={source} alt='street view of restaurant'></img>
+        </div> */}
 
         <List disablePadding={true}>
           <ListItem className={classes.infoItem}>
             <Typography variant='h6' className={classes.infoName}>
-              {props.name}
+              {restaurant.name}
             </Typography>
           </ListItem>
           <ListItem className={classes.infoItem}>
-            <span className={classes.infoTextLight}>{props.type}</span>
+            <span className={classes.infoTextLight}>{restaurant.type}</span>
           </ListItem>
-          <ListItem className={classes.infoItem}>{props.address}</ListItem>
+          <ListItem className={classes.infoItem}>{restaurant.address}</ListItem>
           <ListItem className={classes.infoItem}>
             <span className={classes.startsContainer}>
-              {props.avgValue.toFixed(2)}
+              {avgValue.toFixed(2)}
             </span>
-            <ReadOnlyRating value={props.avgValue} />
+            <ReadOnlyRating value={avgValue} />
           </ListItem>
         </List>
-
-        {/* <div className='restaunrant-info'>
-          <h3>{props.name}</h3>
-          <ul>
-            <li className='restaurant-type'>{props.type}</li>
-            <li>{props.address}</li>
-            <li>
-              <span className='review-score'>{props.avgValue.toFixed(2)}</span>
-              <ReadOnlyRating value={props.avgValue} />
-            </li>
-          </ul>
-        </div> */}
       </div>
 
-      {props.isDetailView && (
+      {isDetailView && (
         <>
           <div className={classes.commentWrapper}>
-            {props.ratings.length === 0 ? (
+            {isCommentLoading ? (
               <div className={classes.loadingWrapper}>
                 <Loading />
               </div>
             ) : (
-              <ReviewComment
-                isInputMode={props.isInputMode}
-                id={props.id}
-                handleInputMode={props.handleInputMode}
-                ratings={props.ratings}
-              />
+              <>
+                <div className={classes.commentInputWrapper}>
+                  <ReviewInput
+                    id={restaurant.id}
+                    ratingValue={ratingValue}
+                    isInputMode={isInputMode}
+                    handleRatingChange={(e, newValue) =>
+                      setRatingValue(newValue)
+                    }
+                    handleInputMode={handleInputMode}
+                    textValue={textValue}
+                    handleTextChange={(e) => setTextValue(e.target.value)}
+                    handleClick={() =>
+                      textValue &&
+                      ratingValue &&
+                      createReview(ratingValue, textValue)
+                    }
+                  />
+                </div>
+                <ReviewComment ratings={restaurant.ratings} />
+              </>
             )}
           </div>
 
           <Button
             className={classes.btnCloseDetail}
             color='primary'
-            onClick={props.handleCloseClick}
+            onClick={handleCloseClick}
           >
             Close
           </Button>
         </>
       )}
     </>
-  ));
+  );
 };
 
-export default StoreItem;
+export default RestaurantListItem;

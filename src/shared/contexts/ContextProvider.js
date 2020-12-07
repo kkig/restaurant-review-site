@@ -51,20 +51,25 @@ const ContextProvider = ({ children }) => {
     ShopDataItem: [],
     addNewShop: (newShop) => {
       store.ShopDataItem.unshift(newShop);
+      store.isShopLoading = false;
     },
+    isShopLoading: true,
     get countData() {
       return store.ShopDataItem.length;
     },
+
     addNewComment: (id, newComment) => {
-      store.ShopDataItem.filter(
+      store.ShopDataItem.find(
         (shop) => shop.id === id && shop.ratings.unshift(newComment)
       );
+      store.isCommentLoading = false;
     },
+    isCommentLoading: false,
+
     userLocation: [],
-    isUserLocation: false,
     addUserLocation: (lat, lng) => {
       store.userLocation = { ...store.userLocation, lat: lat, lng: lng };
-      store.isUserLocation = true;
+      store.isShopLoading = true;
 
       const getPlacesData = async () => {
         const data = await fetchGooglePlaces(lat, lng);

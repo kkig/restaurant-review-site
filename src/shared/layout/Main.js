@@ -1,8 +1,6 @@
-import React, { useEffect, useContext } from 'react';
-// import Grid from '@material-ui/core/Grid';
+import React, { useContext } from 'react';
 
 import Box from '@material-ui/core/Box';
-// import { makeStyles } from '@material-ui/core/styles';
 import { styled } from '@material-ui/core/styles';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -14,28 +12,6 @@ import RestaurantList from '../../components/ListSection';
 // Store
 import AppContext from '../contexts/AppContext';
 import restaurantData from '../data/restaurantData.json';
-
-// const useStyles = makeStyles({
-//   root: {
-//     // display: 'grid',
-//     // gridTemplateColumns: 'repeat(6, 1fr)',
-//     // gridColumn: '1 / -1',
-//     height: '100%',
-
-//     display: 'flex',
-//     // justifyContent: 'space-between',
-//   },
-//   // wrapper: {
-//   //   flexGrow: 1,
-//   // },
-//   // map: {
-//   //   flexGrow: 1,
-//   //   minWidth: '70%',
-//   // },
-//   // list: {
-//   //   flexGrow: 1,
-//   // },
-// });
 
 const MainContainer = styled(Box)({
   display: 'flex',
@@ -56,44 +32,27 @@ const Main = ({ isMapView }) => {
   const store = useContext(AppContext);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  // const classes = useStyles();
-
   // Add json data to store
-  useEffect(() => {
-    !!store &&
-      store.countData === 0 &&
-      restaurantData.map((shop) =>
-        store.addNewShop({ ...shop, dataSrc: 'json' })
-      );
-  }, [store]);
+  // if ((store.isShopLoading = false)) {
+  //   store.isShopLoading = true;
+  //   restaurantData.map((shop) =>
+  //     store.addNewShop({ ...shop, dataSrc: 'json' })
+  //   );
+  // }
 
-  // Mobile layout
-  if (isMobile) {
-    return (
-      <MainContainer component='main'>
-        {isMapView ? (
-          <MapSection>
-            <Map />
-          </MapSection>
-        ) : (
-          <ListSection>
-            <RestaurantList />
-          </ListSection>
-        )}
-      </MainContainer>
-    );
-  }
-
-  // Desktop Layout
   return (
     <MainContainer component='main'>
-      <MapSection>
-        <Map />
-      </MapSection>
+      {(!isMobile || (isMobile && isMapView)) && (
+        <MapSection>
+          <Map />
+        </MapSection>
+      )}
 
-      <ListSection>
-        <RestaurantList />
-      </ListSection>
+      {(!isMobile || (isMobile && !isMapView)) && (
+        <ListSection>
+          <RestaurantList />
+        </ListSection>
+      )}
     </MainContainer>
   );
 };
