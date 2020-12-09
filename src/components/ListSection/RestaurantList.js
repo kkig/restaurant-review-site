@@ -22,7 +22,6 @@ const GOOGLE_MAP_API_KEY =
 
 const RestaurantList = ({ minValue, maxValue }) => {
   const [selectedShop, setSelectedShop] = useState(null);
-  const listItemRef = useRef(null);
 
   const store = useContext(AppContext);
 
@@ -116,7 +115,6 @@ const RestaurantList = ({ minValue, maxValue }) => {
           <div key={restaurant.id}>
             <ListItem
               restaurant={restaurant}
-              isCommentLoading={store.isCommentLoading}
               avgValue={reviewAvg(restaurant)}
               isDetailView={restaurant.id === selectedShop ? true : false}
               handleCloseClick={() => handleItemClick(restaurant.id)}

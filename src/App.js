@@ -53,7 +53,7 @@ const App = () => {
         <Main isMapView={isMapView} />
       </div>
 
-      {/* {<UserLocationDialog userLocation={userLocation} />} */}
+      {isSuccess != null && <UserLocationDialog userLocation={userLocation} />}
     </div>
   );
 };

@@ -81,7 +81,6 @@ const InfoContainer = styled(Box)(({ theme }) => ({
 
 const RestaurantListItem = ({
   restaurant,
-  isCommentLoading,
   avgValue,
   isDetailView,
   handleCloseClick,
@@ -89,8 +88,6 @@ const RestaurantListItem = ({
   const [isInputMode, setInputMode] = React.useState(false);
   const [textValue, setTextValue] = useState('');
   const [ratingValue, setRatingValue] = useState(2.5);
-
-  const listItemRef = useRef(null);
 
   const store = useContext(AppContext);
 
@@ -127,9 +124,9 @@ const RestaurantListItem = ({
   return useObserver(() => (
     <>
       <InfoContainer onClick={handleCloseClick}>
-        {/* <div className='info-image'>
+        <div className='info-image'>
           <img src={source} alt='street view of restaurant'></img>
-        </div> */}
+        </div>
 
         <InfoList disablePadding={true}>
           <ListItem>
@@ -158,7 +155,7 @@ const RestaurantListItem = ({
       {isDetailView && (
         <>
           <CommentContainer>
-            {!isCommentLoading ? (
+            {!store.isCommentLoading ? (
               <>
                 <div className='new-comment-section'>
                   <ReviewInput

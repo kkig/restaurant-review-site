@@ -39,11 +39,6 @@ const CommentList = styled(List)({
 });
 
 const ReviewComment = ({ ratings }) => {
-  React.useEffect(() => {
-    ratings.length > 0 && console.log(ratings);
-  }, [ratings]);
-
-  // ratings.length > 0 && console.log(ratings);
   return (
     <>
       <ReviewHeading variant='h5'>Review:</ReviewHeading>
