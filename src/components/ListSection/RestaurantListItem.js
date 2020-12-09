@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -17,20 +17,13 @@ import { useObserver } from 'mobx-react';
 // Component
 import ReviewComment from './ReviewComment';
 import ReviewInput from './ReviewInput';
+import RestaurantImage from './RestaurantImage';
 
 // Class
 import userReview from '../../shared/classes/UserReviewClass';
 
 // Store
 import AppContext from '../../shared/contexts/AppContext';
-
-// MobX
-// import { useObserver } from 'mobx-react';
-
-const GOOGLE_MAP_API_KEY =
-  process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_PROD_GOOGLE_KEY
-    : process.env.REACT_APP_DEV_GOOGLE_KEY;
 
 const InfoList = styled(List)(({ theme }) => ({
   '& li': {
@@ -62,12 +55,6 @@ const CommentContainer = styled(Box)({
   '& .new-comment-section': {
     padding: '1rem 0',
   },
-
-  '& .info-image': {
-    paddingRight: '.75em',
-    display: 'flex',
-    alignItems: 'center',
-  },
 });
 
 const InfoContainer = styled(Box)(({ theme }) => ({
@@ -81,6 +68,7 @@ const InfoContainer = styled(Box)(({ theme }) => ({
 
 const RestaurantListItem = ({
   restaurant,
+  isCommentLoading,
   avgValue,
   isDetailView,
   handleCloseClick,
@@ -119,14 +107,10 @@ const RestaurantListItem = ({
     createReview(ratingValue, textValue);
   };
 
-  const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${restaurant.lat},${restaurant.long}&key=${GOOGLE_MAP_API_KEY}`;
-
   return useObserver(() => (
     <>
       <InfoContainer onClick={handleCloseClick}>
-        <div className='info-image'>
-          <img src={source} alt='street view of restaurant'></img>
-        </div>
+        <RestaurantImage lat={restaurant.lat} lng={restaurant.long} />
 
         <InfoList disablePadding={true}>
           <ListItem>
@@ -155,7 +139,7 @@ const RestaurantListItem = ({
       {isDetailView && (
         <>
           <CommentContainer>
-            {!store.isCommentLoading ? (
+            {!isCommentLoading ? (
               <>
                 <div className='new-comment-section'>
                   <ReviewInput

@@ -115,6 +115,7 @@ const RestaurantList = ({ minValue, maxValue }) => {
           <div key={restaurant.id}>
             <ListItem
               restaurant={restaurant}
+              isCommentLoading={store.isCommentLoading}
               avgValue={reviewAvg(restaurant)}
               isDetailView={restaurant.id === selectedShop ? true : false}
               handleCloseClick={() => handleItemClick(restaurant.id)}

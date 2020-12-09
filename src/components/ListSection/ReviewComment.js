@@ -6,9 +6,6 @@ import ReadOnlyRating from '../../shared/elements/ReadOnlyRating';
 import Typography from '@material-ui/core/Typography';
 import { styled } from '@material-ui/core/styles';
 
-// MobX
-// import { useObserver } from 'mobx-react';
-
 const ReviewHeading = styled(Typography)({
   fontSize: '1rem',
   marginBottom: '.75rem',

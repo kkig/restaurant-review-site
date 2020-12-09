@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box';
 import { styled } from '@material-ui/core/styles';
 
 // Components
-// import Map from './Map';
 import DialogWindow from './DialogWindow';
 
 // Material UI
@@ -12,14 +11,8 @@ import LoadingIcon from '../../shared/elements/Loading';
 // Store
 import AppContext from '../../shared/contexts/AppContext';
 
-// react-google-maps
-// import { withGoogleMap, withScriptjs } from 'react-google-maps';
-
 // MobX
 import { useObserver } from 'mobx-react';
-
-// // CSS
-// import './Map.css';
 
 // react-google-maps
 import {
@@ -142,9 +135,6 @@ const Map = withScriptjs(
 function MapContainer() {
   const store = useContext(AppContext);
 
-  // if (!store.userLocation.lat || !store.userLocation.lng)
-  //   return <LoadingIcon />;
-
   return useObserver(() => (
     <>
       {!store.userLocation.lat || !store.userLocation.lng ? (
@@ -166,23 +156,6 @@ function MapContainer() {
       )}
     </>
   ));
-
-  //   return useObserver(() => (
-  //     <div className='map-section'>
-  //       {!!store.userLocation.lat && !!store.userLocation.lng ? (
-  //         <Map
-  //           googleMapURL={endpoint}
-  //           center={{ lat: store.userLocation.lat, lng: store.userLocation.lng }}
-  //           loadingElement={<div style={{ height: '100%' }} />}
-  //           containerElement={<div style={{ height: '100%', width: '100%' }} />}
-  //           mapElement={<div style={{ height: '100%', width: '100%' }} />}
-  //           className='map-content'
-  //         />
-  //       ) : (
-  //         <CircularProgress />
-  //       )}
-  //     </div>
-  //   ));
 }
 
 export default MapContainer;

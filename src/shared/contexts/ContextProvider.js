@@ -66,9 +66,14 @@ const ContextProvider = ({ children }) => {
     },
     isCommentLoading: false,
 
-    userLocation: [],
+    userLocation: [null],
     addUserLocation: (lat, lng) => {
-      store.userLocation = { ...store.userLocation, lat: lat, lng: lng };
+      if (store.userLocation === null) {
+        return;
+      } else {
+        store.userLocation = { ...store.userLocation, lat: lat, lng: lng };
+      }
+
       store.isShopLoading = true;
 
       const getPlacesData = async () => {
