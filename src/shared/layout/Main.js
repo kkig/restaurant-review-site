@@ -33,12 +33,12 @@ const Main = ({ isMapView }) => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   // Add json data to store
-  // if ((store.isShopLoading = false)) {
-  //   store.isShopLoading = true;
-  //   restaurantData.map((shop) =>
-  //     store.addNewShop({ ...shop, dataSrc: 'json' })
-  //   );
-  // }
+  if (store.countData === 0) {
+    store.isShopLoading = true;
+    restaurantData.map((shop) =>
+      store.addNewShop({ ...shop, dataSrc: 'json' })
+    );
+  }
 
   return (
     <MainContainer component='main'>

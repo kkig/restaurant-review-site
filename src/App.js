@@ -53,7 +53,7 @@ const App = () => {
         <Main isMapView={isMapView} />
       </div>
 
-      {<UserLocationDialog userLocation={userLocation} />}
+      {/* {<UserLocationDialog userLocation={userLocation} />} */}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 
 import Divider from '@material-ui/core/Divider';
 
@@ -22,6 +22,7 @@ const GOOGLE_MAP_API_KEY =
 
 const RestaurantList = ({ minValue, maxValue }) => {
   const [selectedShop, setSelectedShop] = useState(null);
+  const listItemRef = useRef(null);
 
   const store = useContext(AppContext);
 

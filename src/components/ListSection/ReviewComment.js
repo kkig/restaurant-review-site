@@ -4,51 +4,51 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ReadOnlyRating from '../../shared/elements/ReadOnlyRating';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@material-ui/core/styles';
 
-// // MobX
+// MobX
 // import { useObserver } from 'mobx-react';
 
-const useStyles = makeStyles({
-  reviewTitle: {
-    fontSize: '1rem',
-    marginBottom: '.75rem',
-    fontWeight: 500,
-  },
+const ReviewHeading = styled(Typography)({
+  fontSize: '1rem',
+  marginBottom: '.75rem',
+  fontWeight: 500,
+});
 
-  commentList: {
+const CommentList = styled(List)({
+  padding: 0,
+
+  '& li': {
     padding: 0,
+    margin: '1rem 0',
 
-    '& li': {
-      padding: 0,
-      margin: '1rem 0',
+    '&:first-child': {
+      marginTop: 0,
+    },
 
-      '&:first-child': {
-        marginTop: 0,
-      },
+    '& div.cmt-item-container': {
+      display: 'flex',
+      flexDirection: 'column',
+    },
 
-      '& div.cmt-item-container': {
-        display: 'flex',
-        flexDirection: 'column',
-      },
-
-      '& .rating-text': {
-        color: 'var(--star-color)',
-        paddingRight: '.25rem',
-      },
+    '& .rating-text': {
+      color: 'var(--star-color)',
+      paddingRight: '.25rem',
     },
   },
 });
 
 const ReviewComment = ({ ratings }) => {
-  const classes = useStyles();
+  React.useEffect(() => {
+    ratings.length > 0 && console.log(ratings);
+  }, [ratings]);
 
+  // ratings.length > 0 && console.log(ratings);
   return (
     <>
-      <Typography className={classes.reviewTitle} variant='h5'>
-        Review:
-      </Typography>
-      <List className={classes.commentList}>
+      <ReviewHeading variant='h5'>Review:</ReviewHeading>
+
+      <CommentList>
         {ratings.map((review) => (
           <ListItem key={review.commentId}>
             <div className='cmt-item-container'>
@@ -61,7 +61,7 @@ const ReviewComment = ({ ratings }) => {
             </div>
           </ListItem>
         ))}
-      </List>
+      </CommentList>
     </>
   );
 };

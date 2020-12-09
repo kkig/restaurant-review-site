@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 
 // Material UI
+import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ReadOnlyRating from '../../shared/elements/ReadOnlyRating';
@@ -9,7 +10,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Loading from '../../shared/elements/Loading';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@material-ui/core/styles';
+
+import { useObserver } from 'mobx-react';
 
 // Component
 import ReviewComment from './ReviewComment';
@@ -29,52 +32,50 @@ const GOOGLE_MAP_API_KEY =
     ? process.env.REACT_APP_PROD_GOOGLE_KEY
     : process.env.REACT_APP_DEV_GOOGLE_KEY;
 
-const useStyles = makeStyles((theme) => ({
-  infoWrapper: {
-    padding: 'var(--container-padding)',
-    display: 'flex',
-
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-  infoImage: {
-    paddingRight: '.75em',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  infoItem: {
+const InfoList = styled(List)(({ theme }) => ({
+  '& li': {
     padding: 0,
     alignItems: 'normal',
   },
 
-  infoName: {
+  '& .info-name': {
     fontSize: '1rem',
   },
-  infoTextLight: {
+
+  '& .text-light': {
     color: theme.palette.text.secondary,
   },
 
-  startsContainer: {
+  '& .rating-text': {
     color: 'var(--star-color)',
     paddingRight: '.25rem',
   },
+}));
 
-  loadingWrapper: {
+const CommentContainer = styled(Box)({
+  padding: '0 var(--container-padding-x)',
+
+  '& .loading-icon': {
     padding: '.25rem 0',
   },
 
-  commentInputWrapper: {
+  '& .new-comment-section': {
     padding: '1rem 0',
   },
 
-  commentWrapper: {
-    padding: '0 var(--container-padding-x)',
+  '& .info-image': {
+    paddingRight: '.75em',
+    display: 'flex',
+    alignItems: 'center',
   },
+});
 
-  btnCloseDetail: {
-    width: '100%',
+const InfoContainer = styled(Box)(({ theme }) => ({
+  padding: 'var(--container-padding)',
+  display: 'flex',
+
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover,
   },
 }));
 
@@ -89,8 +90,9 @@ const RestaurantListItem = ({
   const [textValue, setTextValue] = useState('');
   const [ratingValue, setRatingValue] = useState(2.5);
 
+  const listItemRef = useRef(null);
+
   const store = useContext(AppContext);
-  const classes = useStyles();
 
   const createReview = (newRating, newValue) => {
     const newReview = new userReview(
@@ -109,77 +111,82 @@ const RestaurantListItem = ({
     setInputMode(true);
   };
 
+  const handleTextChange = (e) => setTextValue(e.target.value);
+
+  const handleRatingChange = (e, newValue) => setRatingValue(newValue);
+
+  const handleClick = () => {
+    if (!textValue) {
+      return;
+    }
+    createReview(ratingValue, textValue);
+  };
+
   const source = `https://maps.googleapis.com/maps/api/streetview?size=130x90&location=${restaurant.lat},${restaurant.long}&key=${GOOGLE_MAP_API_KEY}`;
 
-  return (
+  return useObserver(() => (
     <>
-      <div className={classes.infoWrapper} onClick={handleCloseClick}>
-        {/* <div className={classes.infoImage}>
+      <InfoContainer onClick={handleCloseClick}>
+        {/* <div className='info-image'>
           <img src={source} alt='street view of restaurant'></img>
         </div> */}
 
-        <List disablePadding={true}>
-          <ListItem className={classes.infoItem}>
-            <Typography variant='h6' className={classes.infoName}>
+        <InfoList disablePadding={true}>
+          <ListItem>
+            <Typography className='info-name' variant='h6'>
               {restaurant.name}
             </Typography>
           </ListItem>
-          <ListItem className={classes.infoItem}>
-            <span className={classes.infoTextLight}>{restaurant.type}</span>
+
+          <ListItem>
+            <Typography className='text-light' variant='body2'>
+              {restaurant.type}
+            </Typography>
           </ListItem>
-          <ListItem className={classes.infoItem}>{restaurant.address}</ListItem>
-          <ListItem className={classes.infoItem}>
-            <span className={classes.startsContainer}>
+
+          <ListItem>{restaurant.address}</ListItem>
+
+          <ListItem>
+            <Typography className='rating-text' variant='body2'>
               {avgValue.toFixed(2)}
-            </span>
+            </Typography>
             <ReadOnlyRating value={avgValue} />
           </ListItem>
-        </List>
-      </div>
+        </InfoList>
+      </InfoContainer>
 
       {isDetailView && (
         <>
-          <div className={classes.commentWrapper}>
-            {isCommentLoading ? (
-              <div className={classes.loadingWrapper}>
-                <Loading />
-              </div>
-            ) : (
+          <CommentContainer>
+            {!isCommentLoading ? (
               <>
-                <div className={classes.commentInputWrapper}>
+                <div className='new-comment-section'>
                   <ReviewInput
-                    id={restaurant.id}
-                    ratingValue={ratingValue}
                     isInputMode={isInputMode}
-                    handleRatingChange={(e, newValue) =>
-                      setRatingValue(newValue)
-                    }
                     handleInputMode={handleInputMode}
+                    ratingValue={ratingValue}
                     textValue={textValue}
-                    handleTextChange={(e) => setTextValue(e.target.value)}
-                    handleClick={() =>
-                      textValue &&
-                      ratingValue &&
-                      createReview(ratingValue, textValue)
-                    }
+                    handleRatingChange={handleRatingChange}
+                    handleTextChange={handleTextChange}
+                    handleClick={handleClick}
                   />
                 </div>
                 <ReviewComment ratings={restaurant.ratings} />
               </>
+            ) : (
+              <div className='loading-icon'>
+                <Loading />
+              </div>
             )}
-          </div>
+          </CommentContainer>
 
-          <Button
-            className={classes.btnCloseDetail}
-            color='primary'
-            onClick={handleCloseClick}
-          >
+          <Button fullWidth={true} color='primary' onClick={handleCloseClick}>
             Close
           </Button>
         </>
       )}
     </>
-  );
+  ));
 };
 
 export default RestaurantListItem;

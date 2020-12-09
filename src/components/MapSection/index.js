@@ -15,8 +15,8 @@ import AppContext from '../../shared/contexts/AppContext';
 // react-google-maps
 // import { withGoogleMap, withScriptjs } from 'react-google-maps';
 
-// // MobX
-// import { useObserver } from 'mobx-react';
+// MobX
+import { useObserver } from 'mobx-react';
 
 // // CSS
 // import './Map.css';
@@ -142,21 +142,30 @@ const Map = withScriptjs(
 function MapContainer() {
   const store = useContext(AppContext);
 
-  if (!store.userLocation.lat || !store.userLocation.lng)
-    return <LoadingIcon />;
+  // if (!store.userLocation.lat || !store.userLocation.lng)
+  //   return <LoadingIcon />;
 
-  return (
-    <MapWrapper>
-      <Map
-        googleMapURL={endpoint}
-        center={{ lat: store.userLocation.lat, lng: store.userLocation.lng }}
-        loadingElement={<div style={{ height: '100%' }} />}
-        containerElement={<div style={{ height: '100%', width: '100%' }} />}
-        mapElement={<div style={{ height: '100%', width: '100%' }} />}
-        className='map-content'
-      />
-    </MapWrapper>
-  );
+  return useObserver(() => (
+    <>
+      {!store.userLocation.lat || !store.userLocation.lng ? (
+        <LoadingIcon />
+      ) : (
+        <MapWrapper>
+          <Map
+            googleMapURL={endpoint}
+            center={{
+              lat: store.userLocation.lat,
+              lng: store.userLocation.lng,
+            }}
+            loadingElement={<div style={{ height: '100%' }} />}
+            containerElement={<div style={{ height: '100%', width: '100%' }} />}
+            mapElement={<div style={{ height: '100%', width: '100%' }} />}
+            className='map-content'
+          />
+        </MapWrapper>
+      )}
+    </>
+  ));
 
   //   return useObserver(() => (
   //     <div className='map-section'>

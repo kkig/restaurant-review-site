@@ -29,10 +29,6 @@ const SliderWrapper = styled(Box)({
   marginTop: '.25em',
   borderBottom: '0.25px solid var(--line-color)',
   alignItems: 'center',
-
-  span: {
-    backgroundColor: 'blue',
-  },
 });
 
 const SliderLabel = styled(Box)({
