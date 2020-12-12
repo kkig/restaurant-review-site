@@ -17,7 +17,7 @@ import { useObserver } from 'mobx-react';
 // Component
 import ReviewComment from './ReviewComment';
 import ReviewInput from './ReviewInput';
-import RestaurantImage from './RestaurantImage';
+// import RestaurantImage from './RestaurantImage';
 
 // Class
 import userReview from '../../shared/classes/UserReviewClass';
@@ -110,7 +110,7 @@ const RestaurantListItem = ({
   return useObserver(() => (
     <>
       <InfoContainer onClick={handleCloseClick}>
-        <RestaurantImage lat={restaurant.lat} lng={restaurant.long} />
+        {/* <RestaurantImage lat={restaurant.lat} lng={restaurant.long} /> */}
 
         <InfoList disablePadding={true}>
           <ListItem>

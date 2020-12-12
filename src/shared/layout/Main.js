@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import Box from '@material-ui/core/Box';
 import { styled } from '@material-ui/core/styles';
@@ -10,8 +10,8 @@ import Map from '../../components/MapSection';
 import RestaurantList from '../../components/ListSection';
 
 // Store
-import AppContext from '../contexts/AppContext';
-import restaurantData from '../data/restaurantData.json';
+// import AppContext from '../contexts/AppContext';
+// import restaurantData from '../data/restaurantData.json';
 
 const MainContainer = styled(Box)({
   display: 'flex',
@@ -29,7 +29,7 @@ const ListSection = styled(Box)({
 });
 
 const Main = ({ isMapView }) => {
-  const store = useContext(AppContext);
+  // const store = useContext(AppContext);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   // Add json data to store

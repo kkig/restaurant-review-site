@@ -49,22 +49,28 @@ const fetchGooglePlaces = async (latitude, longitude) => {
 const ContextProvider = ({ children }) => {
   const store = useLocalStore(() => ({
     ShopDataItem: [],
+    isShopLoading: true,
+    updateShopLoading: (boolean) => {
+      store.isShopLoading = boolean;
+    },
     addNewShop: (newShop) => {
       store.ShopDataItem.unshift(newShop);
-      store.isShopLoading = false;
+      store.updateShopLoading(false);
     },
-    isShopLoading: true,
     get countData() {
       return store.ShopDataItem.length;
     },
 
+    isCommentLoading: false,
+    updateCmtLoad: (boolean) => {
+      store.isCommentLoading = boolean;
+    },
     addNewComment: (id, newComment) => {
       store.ShopDataItem.find(
         (shop) => shop.id === id && shop.ratings.unshift(newComment)
       );
       store.isCommentLoading = false;
     },
-    isCommentLoading: false,
 
     userLocation: [null],
     addUserLocation: (lat, lng) => {
@@ -74,7 +80,7 @@ const ContextProvider = ({ children }) => {
         store.userLocation = { ...store.userLocation, lat: lat, lng: lng };
       }
 
-      store.isShopLoading = true;
+      store.updateShopLoading(true);
 
       const getPlacesData = async () => {
         const data = await fetchGooglePlaces(lat, lng);

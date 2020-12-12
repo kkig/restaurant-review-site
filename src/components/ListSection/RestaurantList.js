@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Divider from '@material-ui/core/Divider';
 
@@ -73,7 +73,7 @@ const RestaurantList = ({ minValue, maxValue }) => {
         if (data.status === 'OK') {
           const newComments = createCommentArray(data.result);
           newComments.map((shop) => store.addNewComment(restaurantId, shop));
-          store.isCommentLoading = false;
+          store.updateCmtLoad(false);
         } else {
           console.log('Errror requesting comments');
         }
@@ -94,7 +94,7 @@ const RestaurantList = ({ minValue, maxValue }) => {
       selectedData.ratings.length === 0 &&
       selectedData.dataSrc === 'GOOGLE'
     ) {
-      store.isCommentLoading = true;
+      store.updateCmtLoad(true);
       detailRequest(selectedData.id);
     }
   };
